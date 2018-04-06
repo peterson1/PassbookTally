@@ -1,0 +1,101 @@
+﻿using CommonTools.Lib11.EventHandlerTools;
+using CommonTools.Lib45.FileSystemTools;
+using LiteDB;
+using System;
+using System.IO;
+using System.Threading.Tasks;
+
+namespace CommonTools.Lib45.LiteDbTools
+{
+    public abstract class SharedLiteDB
+    {
+        public event EventHandler DbChanged = delegate { };
+        private MemoryStream      _mem;
+        private FileSystemWatcher _watchr;
+        private bool              _isDelaying;
+
+
+        public SharedLiteDB(string dbFilePath, string currentUser)
+        {
+            DbPath = dbFilePath;
+            InitializeCommons(currentUser);
+
+            if (!File.Exists(DbPath))
+                Metadata.CreateInitialRecord();
+
+            InitializeFileWatcher();
+        }
+
+        public SharedLiteDB(MemoryStream memoryStream, string currentUser)
+        {
+            InitializeCommons(currentUser);
+            _mem = memoryStream;
+        }
+
+
+        public string                DbPath       { get; }
+        public string                CurrentUser  { get; private set; }
+        internal MetadataCollection  Metadata     { get; private set; }
+
+
+        protected abstract void InitializeCollections();
+
+
+        public LiteDatabase OpenRead()
+        {
+            //if (_mem == null && !File.Exists(DbPath))
+            //{
+            //    var db = Connect(LiteDB.FileMode.Shared);
+            //    Metadata.Add("v", "0.1");
+            //    db.Dispose();
+            //}
+            return Connect(LiteDB.FileMode.ReadOnly);
+        }
+
+
+        public LiteDatabase OpenWrite()
+            => Connect(LiteDB.FileMode.Shared);
+
+
+        private LiteDatabase Connect(LiteDB.FileMode fileMode)
+            => _mem != null
+              ? new LiteDatabase(_mem)
+              : new LiteDatabase(new ConnectionString
+              {
+                  Filename = DbPath,
+                  Journal = false,
+                  Mode = fileMode,
+                  LimitSize = long.MaxValue
+              });
+
+
+        private void InitializeFileWatcher()
+        {
+            var abs = DbPath.MakeAbsolute();
+            var dir = Path.GetDirectoryName(abs);
+            var nme = Path.GetFileName(abs);
+
+            _watchr = new FileSystemWatcher(dir, nme);
+            _watchr.NotifyFilter = NotifyFilters.LastWrite;
+            _watchr.Changed += async (s, e) =>
+            {
+                if (!_isDelaying)
+                {
+                    _isDelaying = true;
+                    await Task.Delay(1000);
+                    DbChanged.Raise();
+                    _isDelaying = false;
+                }
+            };
+            _watchr.EnableRaisingEvents = true;
+        }
+
+
+        private void InitializeCommons(string currentUser)
+        {
+            CurrentUser = currentUser;
+            Metadata = new MetadataCollection(this);
+            InitializeCollections();
+        }
+    }
+}

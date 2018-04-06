@@ -1,4 +1,4 @@
-﻿using CommonTools.Lib.ns11.ExceptionTools;
+﻿using CommonTools.Lib11.ExceptionTools;
 using System;
 
 namespace PassbookTally.DomainLib.DTOs
