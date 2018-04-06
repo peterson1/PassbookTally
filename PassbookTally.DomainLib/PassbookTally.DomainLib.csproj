@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard1.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="CommonTools.Lib.ns11">
+      <HintPath>..\..\FreshCopy\CommonTools.Lib.ns11\bin\Release\netstandard1.1\CommonTools.Lib.ns11.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>
