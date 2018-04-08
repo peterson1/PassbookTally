@@ -33,9 +33,9 @@ namespace CommonTools.Lib45.LiteDbTools
         }
 
 
-        public string                DbPath       { get; }
-        public string                CurrentUser  { get; private set; }
-        internal MetadataCollection  Metadata     { get; private set; }
+        public string              DbPath       { get; }
+        public string              CurrentUser  { get; private set; }
+        public MetadataCollection  Metadata     { get; private set; }
 
 
         protected abstract void InitializeCollections();

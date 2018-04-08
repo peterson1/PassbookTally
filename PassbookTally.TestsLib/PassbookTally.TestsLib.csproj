@@ -77,6 +77,14 @@
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CommonTools.Lib11\CommonTools.Lib11.csproj">
+      <Project>{c3905e68-d169-42c8-8448-e489a135f38a}</Project>
+      <Name>CommonTools.Lib11</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CommonTools.Lib45\CommonTools.Lib45.csproj">
+      <Project>{500c8b5f-bfce-422d-be66-5d06a7dc7a49}</Project>
+      <Name>CommonTools.Lib45</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PassbookTally.DatabaseLib\PassbookTally.DatabaseLib.csproj">
       <Project>{ebb0c645-715e-4e80-a555-d25379899eb8}</Project>
       <Name>PassbookTally.DatabaseLib</Name>

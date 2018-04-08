@@ -11,15 +11,15 @@ namespace PassbookTally.DomainLib.ReportRows
         }
 
         public SoaRowDTO  DTO             { get; }
-        public decimal    RunningBalance  { get; set; }
 
         public string    Subject          => DTO.Subject;
         public string    Description      => DTO.Description;
-        public DateTime  TransactionDate  => DateTime.MinValue.AddDays(DTO.DateOffset);
+        public DateTime  TransactionDate  => DTO.GetDate();
         public string    TransactionRef   => DTO.TransactionRef;
         public bool      IsDeposit        => DTO.Amount >= 0;
         public bool      IsWithdrawal     => DTO.Amount < 0;
         public decimal?  Deposit          => IsDeposit ? DTO.Amount : (decimal?)null;
         public decimal?  Withdrawal       => IsWithdrawal ? Math.Abs(DTO.Amount) : (decimal?)null;
+        public decimal   RunningBalance   => DTO.RunningBalance;
     }
 }

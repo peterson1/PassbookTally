@@ -30,6 +30,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="LiteDB, Version=4.1.2.0, Culture=neutral, PublicKeyToken=4ee40123013c9f27, processorArchitecture=MSIL">
+      <HintPath>..\packages\LiteDB.4.1.2\lib\net40\LiteDB.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -41,7 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="PassbookDB.cs" />
-    <Compile Include="Persistors\SoaRowsRepo1.cs" />
+    <Compile Include="Repositories\SoaRowsRepo1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -49,10 +55,17 @@
       <Project>{c3905e68-d169-42c8-8448-e489a135f38a}</Project>
       <Name>CommonTools.Lib11</Name>
     </ProjectReference>
+    <ProjectReference Include="..\CommonTools.Lib45\CommonTools.Lib45.csproj">
+      <Project>{500C8B5F-BFCE-422D-BE66-5D06A7DC7A49}</Project>
+      <Name>CommonTools.Lib45</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PassbookTally.DomainLib\PassbookTally.DomainLib.csproj">
       <Project>{5bc4823a-95bc-4502-8c17-be0aa505f596}</Project>
       <Name>PassbookTally.DomainLib</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

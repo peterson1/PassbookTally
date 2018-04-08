@@ -1,9 +1,11 @@
-﻿using CommonTools.Lib11.ExceptionTools;
+﻿using CommonTools.Lib11.DataStructures;
+using CommonTools.Lib11.ExceptionTools;
+using PassbookTally.DomainLib.ReportRows;
 using System;
 
 namespace PassbookTally.DomainLib.DTOs
 {
-    public class SoaRowDTO
+    public class SoaRowDTO : IDocumentDTO
     {
         public int       Id               { get; set; }
         public string    Author           { get; set; }
@@ -14,12 +16,9 @@ namespace PassbookTally.DomainLib.DTOs
         public int       DateOffset       { get; set; } //todo: index this
         public string    TransactionRef   { get; set; }
         public decimal   Amount           { get; set; }
+        public decimal   RunningBalance   { get; set; }//??
         public string    DocRefType       { get; set; }
         public int       DocRefId         { get; set; }
-
-
-        private static int GetOffset(DateTime date)
-            => (date - DateTime.MinValue).Days;
 
 
         public static SoaRowDTO Deposit(DateTime transactionDate, 
@@ -39,7 +38,7 @@ namespace PassbookTally.DomainLib.DTOs
             if (amount <= 0) throw Fault.BadArg($"{txnType} Amount", amount);
             return new SoaRowDTO
             {
-                DateOffset  = GetOffset(transactionDate),
+                DateOffset  = transactionDate.SoaRowOffset(),
                 Subject     = subject,
                 Description = description,
                 Amount      = amount * multiplier

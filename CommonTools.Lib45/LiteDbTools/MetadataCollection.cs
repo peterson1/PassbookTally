@@ -9,7 +9,7 @@ namespace CommonTools.Lib45.LiteDbTools
         }
 
 
-        internal override void Validate(DbMetadata model, SharedLiteDB db)
+        public override void Validate(DbMetadata model, SharedLiteDB db)
         {
         }
 
@@ -38,7 +38,7 @@ namespace CommonTools.Lib45.LiteDbTools
             => Insert(new DbMetadata("version", "0.01"));
 
 
-        internal void AddIfNone(string key, string value)
+        public void AddIfNone(string key, string value)
         {
             if (!HasName(key))
                 AddPair(key, value);
