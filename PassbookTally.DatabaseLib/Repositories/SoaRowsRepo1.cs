@@ -4,11 +4,10 @@ using PassbookTally.DomainLib.DTOs;
 using PassbookTally.DomainLib.Exceptions;
 using PassbookTally.DomainLib.ReportRows;
 using System;
-using System.Collections.Generic;
 
 namespace PassbookTally.DatabaseLib.Repositories
 {
-    public class SoaRowsRepo1 : NamedCollectionBase<SoaRowDTO>
+    public partial class SoaRowsRepo1 : NamedCollectionBase<SoaRowDTO>
     {
         private const string DATE_FMT = "yyyy-MM-dd";
 
@@ -42,30 +41,13 @@ namespace PassbookTally.DatabaseLib.Repositories
         }
 
 
-        public void SetBaseBalance(DateTime date, decimal openingBalance)
+        private SoaRowDTO GetBaseBalanceDTO() => new SoaRowDTO
         {
-            _db.Metadata[GetBaseDateKey   ()] = date.ToString(DATE_FMT);
-            _db.Metadata[GetBaseBalanceKey()] = openingBalance.ToString();
-            SetBaseValues();
-        }
+            Subject        = "Base Balance",
+            DateOffset     = BaseDate.SoaRowOffset(),
+            RunningBalance = BaseBalance,
+        };
 
-
-        public void Deposit(DateTime transactionDate, string subject, decimal amount, string description = null)
-        {
-            var dto = SoaRowDTO.Deposit(transactionDate, subject, description, amount);
-            dto.RunningBalance = GetRunningBalance(dto);
-
-        }
-
-
-        private decimal GetRunningBalance(SoaRowDTO dto)
-        {
-            throw new NotImplementedException();
-        }
-
-
-        public IEnumerable<SoaRowDTO> RowsStartingFrom(DateTime date)
-            => Find(_ => _.DateOffset >= date.SoaRowOffset());
 
 
         private string GetBaseDateKey   () => $"Acct{BankAccountId}_BaseDate";

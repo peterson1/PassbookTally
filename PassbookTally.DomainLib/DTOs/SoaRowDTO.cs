@@ -13,7 +13,7 @@ namespace PassbookTally.DomainLib.DTOs
 
         public string    Subject          { get; set; }
         public string    Description      { get; set; }
-        public int       DateOffset       { get; set; } //todo: index this
+        public int       DateOffset       { get; set; }
         public string    TransactionRef   { get; set; }
         public decimal   Amount           { get; set; }
         public decimal   RunningBalance   { get; set; }//??
