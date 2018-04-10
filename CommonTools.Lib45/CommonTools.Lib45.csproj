@@ -39,6 +39,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Management" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -57,6 +58,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Compile Include="BaseViewModels\MainWindowVMBase.cs" />
+    <Compile Include="Cryptography\AESThenHMAC.cs" />
     <Compile Include="FileSystemTools\Base64FileIO.cs" />
     <Compile Include="FileSystemTools\Class1.cs" />
     <Compile Include="FileSystemTools\ClonedCopyExeUpdater.cs" />
@@ -67,6 +70,7 @@
     <Compile Include="FileSystemTools\JsonFileWriter.cs" />
     <Compile Include="FileSystemTools\ReverseLineReader.cs" />
     <Compile Include="FileSystemTools\ThrottledFileWatcher1.cs" />
+    <Compile Include="LicenseTools\SeatLicenser.cs" />
     <Compile Include="LiteDbTools\DbMetadata.cs" />
     <Compile Include="LiteDbTools\MetadataCollection.cs" />
     <Compile Include="LiteDbTools\NamedCollectionBase.cs" />
