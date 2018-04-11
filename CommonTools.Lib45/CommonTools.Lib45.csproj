@@ -34,6 +34,12 @@
     <Reference Include="LiteDB, Version=4.1.2.0, Culture=neutral, PublicKeyToken=4ee40123013c9f27, processorArchitecture=MSIL">
       <HintPath>..\packages\LiteDB.4.1.2\lib\net40\LiteDB.dll</HintPath>
     </Reference>
+    <Reference Include="MaterialDesignColors, Version=1.1.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MaterialDesignColors.1.1.2\lib\net45\MaterialDesignColors.dll</HintPath>
+    </Reference>
+    <Reference Include="MaterialDesignThemes.Wpf, Version=2.4.0.1044, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MaterialDesignThemes.2.4.0.1044\lib\net45\MaterialDesignThemes.Wpf.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -54,6 +60,22 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseViewModels\SavedListVMBase.cs" />
+    <Compile Include="BusyIndicators\BusyDialog.xaml.cs">
+      <DependentUpon>BusyDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ValueConverters\FirstLetterConverter.cs" />
+    <Compile Include="ValueConverters\SpanDaysConverter.cs" />
+    <Compile Include="ValueConverters\TrueIfFalseConverter.cs" />
+    <Compile Include="ValueConverters\UnderscoreToSpaceConverter.cs" />
+    <Compile Include="ValueConverters\VisibleIfFalseConverter.cs" />
+    <Compile Include="ValueConverters\VisibleIfNotNullConverter.cs" />
+    <Compile Include="ValueConverters\VisibleIfNotZeroConverter.cs" />
+    <Compile Include="ValueConverters\VisibleIfTrueConverter.cs" />
+    <Page Include="BusyIndicators\BusyDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControl1.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -70,6 +92,8 @@
     <Compile Include="FileSystemTools\JsonFileWriter.cs" />
     <Compile Include="FileSystemTools\ReverseLineReader.cs" />
     <Compile Include="FileSystemTools\ThrottledFileWatcher1.cs" />
+    <Compile Include="InputCommands\R2AsyncCommandWPF.cs" />
+    <Compile Include="InputCommands\R2CommandsFactory.cs" />
     <Compile Include="LicenseTools\SeatLicenser.cs" />
     <Compile Include="LiteDbTools\DbMetadata.cs" />
     <Compile Include="LiteDbTools\MetadataCollection.cs" />
@@ -82,6 +106,8 @@
     <Compile Include="ThreadTools\ThisThread.cs" />
     <Compile Include="ThreadTools\ThreadedMessageBox.cs" />
     <Compile Include="ThreadTools\UIThreadInvoker.cs" />
+    <Compile Include="UIExtensions\UIValidationExtensions.cs" />
+    <Compile Include="UIExtensions\WindowExtensions.cs" />
     <Compile Include="UserControl1.xaml.cs">
       <DependentUpon>UserControl1.xaml</DependentUpon>
       <SubType>Code</SubType>

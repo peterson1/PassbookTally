@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace CommonTools.Lib11.InputTools
+namespace CommonTools.Lib11.InputCommands
 {
     public interface IR2Command : ICommand
     {

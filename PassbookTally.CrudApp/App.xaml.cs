@@ -1,10 +1,4 @@
 ﻿using PassbookTally.DomainLib45.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace PassbookTally.CrudApp
@@ -14,7 +8,9 @@ namespace PassbookTally.CrudApp
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
-            this.Initialize(arg => new MainWindowVM(arg))
+
+            this.Initialize(arg
+                => new MainWindowVM(arg).Show<MainWindow>());
         }
     }
 }

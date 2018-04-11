@@ -12,11 +12,12 @@ namespace PassbookTally.DomainLib45.Configuration
             var options = new OptionSet
             {
                 {   "db|database="  , "Database file path", db   => args.DbFilePath = db    },
-                {  "key|publickey=" , "Public key"        , key  => args.GetCredentials(key)}
+                {  "key|publickey=" , "Public key"        , key  => args.SetCredentials(key)}
             };
             try
             {
                 options.Parse(Environment.GetCommandLineArgs());
+                args.InitializeDatabases();
             }
             catch (Exception ex)
             {

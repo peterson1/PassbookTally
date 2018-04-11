@@ -1,4 +1,6 @@
 ﻿using CommonTools.Lib11.EventHandlerTools;
+using CommonTools.Lib11.ExceptionTools;
+using CommonTools.Lib11.StringTools;
 using CommonTools.Lib45.FileSystemTools;
 using LiteDB;
 using System;
@@ -17,6 +19,9 @@ namespace CommonTools.Lib45.LiteDbTools
 
         public SharedLiteDB(string dbFilePath, string currentUser)
         {
+            if (dbFilePath.IsBlank())
+                throw Fault.NullRef("DB File Path");
+
             DbPath = dbFilePath;
             InitializeCommons(currentUser);
 

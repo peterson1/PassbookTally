@@ -1,14 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using CommonTools.Lib11.GoogleTools;
+using CommonTools.Lib11.InputCommands;
+using CommonTools.Lib45.FileSystemTools;
+using CommonTools.Lib45.InputCommands;
+using CommonTools.Lib45.ThreadTools;
+using CommonTools.Lib45.UIExtensions;
+using System;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
 namespace CommonTools.Lib45.BaseViewModels
 {
     public abstract class MainWindowVMBase<TArg> : INotifyPropertyChanged
+        where TArg : ICredentialsProvider
     {
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
         //public event EventHandler<object>        DocumentSaved   = delegate { };
@@ -20,12 +24,15 @@ namespace CommonTools.Lib45.BaseViewModels
 
         public MainWindowVMBase(TArg appArguments)
         {
+            AppArgs = appArguments;
+
             PropertyChanged += (s, e) 
                 => HandleChangesByName(e.PropertyName);
 
             RefreshCmd     = R2Command.Async(DoRefresh, _ => !IsBusy, "Refresh");
             CloseWindowCmd = R2Command.Relay(CloseWindow, null, "Close Window");
-            SetCaption($"as {creds?.NameAndRole}");
+
+            SetCaption($"as {AppArgs?.Credentials?.NameAndRole ?? "Anonymous"}");
         }
 
 
@@ -95,6 +102,7 @@ namespace CommonTools.Lib45.BaseViewModels
             where T: Window, new()
         {
             _win = new T();
+            ApplyWindowTheme(_win);
             _win.DataContext = this;
             _win.MakeDraggable();
             _win.WindowStartupLocation = WindowStartupLocation.CenterScreen;
@@ -109,10 +117,17 @@ namespace CommonTools.Lib45.BaseViewModels
             else
             {
                 //_win.Show();
+#pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
                 _win.ShowTemporarilyOnTop();
+#pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
                 if (hideWindow) _win.Hide();
                 return null;
             }
+        }
+
+
+        protected virtual void ApplyWindowTheme(Window win)
+        {
         }
 
 
