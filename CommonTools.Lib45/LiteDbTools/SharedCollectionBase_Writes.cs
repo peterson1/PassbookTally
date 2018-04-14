@@ -2,6 +2,7 @@
 using LiteDB;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 
 namespace CommonTools.Lib45.LiteDbTools
 {
@@ -55,6 +56,17 @@ namespace CommonTools.Lib45.LiteDbTools
             return ok;
         }
 
+
+        public int Delete(Expression<Func<T, bool>> predicate)
+        {
+            var deletd = 0;
+            using (var db = _db.OpenWrite())
+            {
+                var coll = GetCollection(db);
+                deletd   = coll.Delete(predicate);
+            }
+            return deletd;
+        }
 
 
         private TOut Write<TOut>(T record, 

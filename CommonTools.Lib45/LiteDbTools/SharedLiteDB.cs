@@ -33,8 +33,8 @@ namespace CommonTools.Lib45.LiteDbTools
 
         public SharedLiteDB(MemoryStream memoryStream, string currentUser)
         {
-            InitializeCommons(currentUser);
             _mem = memoryStream;
+            InitializeCommons(currentUser);
         }
 
 

@@ -57,7 +57,15 @@ namespace PassbookTally.DatabaseLib
         {
             AccountNames = GetAccountNames();
             if (!AccountNames.Any())
-                Metadata[$"{ACCT_PREFIX}1"] = "Bank Account 1";
+            {
+                //Metadata[GetAccountNameKey(1)] = "Bank Account 1";
+                ForAccount(1);
+                AccountNames = GetAccountNames();
+            }
         }
+
+
+        internal string GetAccountNameKey(int bankAcctId)
+            => $"{ACCT_PREFIX}{bankAcctId}";
     }
 }

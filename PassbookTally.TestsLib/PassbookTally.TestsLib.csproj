@@ -64,6 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DatabaseLibTests\PassbookDbFacts.cs" />
+    <Compile Include="DatabaseLibTests\RunningBalanceFacts.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
