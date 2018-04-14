@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace CommonTools.Lib45
+namespace CommonTools.Lib45.StyledButtons
 {
     /// <summary>
-    /// Interaction logic for UserControl1.xaml
+    /// Interaction logic for SimpleRefreshButton.xaml
     /// </summary>
-    public partial class UserControl1 : UserControl
+    public partial class SimpleRefreshButton : UserControl
     {
-        public UserControl1()
+        public SimpleRefreshButton()
         {
             InitializeComponent();
         }

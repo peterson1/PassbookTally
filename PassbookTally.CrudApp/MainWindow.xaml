@@ -8,7 +8,9 @@
         Title="{Binding Caption}" 
         Width="950" Height="700"
         xmlns:busy="clr-namespace:CommonTools.Lib45.BusyIndicators;assembly=CommonTools.Lib45"
+        xmlns:butns="clr-namespace:CommonTools.Lib45.StyledButtons;assembly=CommonTools.Lib45"
         xmlns:mat="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:txns="clr-namespace:PassbookTally.CrudApp.TransactionLog"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
         TextElement.FontSize="13"
@@ -17,8 +19,15 @@
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}">
     <Grid>
+        <StackPanel Orientation="Horizontal">
+            <ComboBox ItemsSource="{Binding AccountNames}"
+                      SelectedItem="{Binding AccountName}" />
 
+            <butns:SimpleRefreshButton />
+
+            <txns:TransactionLogUI DataContext="{Binding TransactionLog}" />
+
+        </StackPanel>
         <busy:BusyDialog />
-        
     </Grid>
 </Window>

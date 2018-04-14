@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace PassbookTally.DomainLib45
+namespace PassbookTally.CrudApp.TransactionLog
 {
     /// <summary>
-    /// Interaction logic for UserControl1.xaml
+    /// Interaction logic for TransactionLogUI.xaml
     /// </summary>
-    public partial class UserControl1 : UserControl
+    public partial class TransactionLogUI : UserControl
     {
-        public UserControl1()
+        public TransactionLogUI()
         {
             InitializeComponent();
         }

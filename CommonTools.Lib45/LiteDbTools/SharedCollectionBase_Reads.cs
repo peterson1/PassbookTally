@@ -54,6 +54,17 @@ namespace CommonTools.Lib45.LiteDbTools
         public bool Any() => CountAll() != 0;
 
 
+        public T Earliest()
+        {
+            using (var db = _db.OpenRead())
+            {
+                var colxn = GetCollection(db);
+                var minId = colxn.Min();
+                return colxn.FindById(minId);
+            }
+        }
+
+
         public T Latest()
         {
             using (var db = _db.OpenRead())

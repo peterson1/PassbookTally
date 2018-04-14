@@ -1,8 +1,5 @@
 ﻿using CommonTools.Lib45.LiteDbTools;
 using PassbookTally.DatabaseLib.Repositories;
-using PassbookTally.DomainLib.DTOs;
-using PassbookTally.DomainLib.ReportRows;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -12,6 +9,7 @@ namespace PassbookTally.DatabaseLib
     public class PassbookDB : SharedLiteDB
     {
         private Dictionary<string, SoaRowsRepo1> _soaReposDict = new Dictionary<string, SoaRowsRepo1>();
+        private const string ACCT_PREFIX = "Acct_";
 
 
         public PassbookDB(string dbFilePath, string currentUser) : base(dbFilePath, currentUser)
@@ -21,6 +19,19 @@ namespace PassbookTally.DatabaseLib
         public PassbookDB(MemoryStream memoryStream, string currentUser) : base(memoryStream, currentUser)
         {
         }
+
+
+        public IEnumerable<string>  AccountNames  { get; private set; }
+
+
+        //public void DepositTo(int bankAcctId, DateTime transactionDate,
+        //    string subject, string description, decimal amount)
+        //        => ForAccount(bankAcctId).Deposit(transactionDate, subject, amount, description);
+
+
+        //public void WithdrawFrom(int bankAcctId, DateTime transactionDate,
+        //    string subject, string description, decimal amount)
+        //        => ForAccount(bankAcctId).Withdraw(transactionDate, subject, amount, description);
 
 
         public SoaRowsRepo1 ForAccount(int bankAcctId)
@@ -35,45 +46,18 @@ namespace PassbookTally.DatabaseLib
             return repo;
         }
 
-        //public PassbookDB(int acctId)
-        //{
-        //    this.acctId = acctId;
-        //    _repo = new SoaRowsRepo1();
-        //}
 
+        private IEnumerable<string> GetAccountNames()
+            => Metadata.Find    (_ => _.Name.Contains(ACCT_PREFIX))
+                       .OrderBy (_ => _.Name)
+                       .Select  (_ => _.Value);
 
-        //public void SetBaseBalance(DateTime date, decimal balance)
-        //{
-        //    _repo.BaseDate    = date;
-        //    _repo.BaseBalance = balance;
-        //}
-
-
-        //public void Insert(SoaRowDTO soaRowDTO)
-        //{
-        //    _repo.Add(soaRowDTO);
-        //}
-
-
-        //public IEnumerable<SoaRowVM> RowsStartingFrom(DateTime date)
-        //{
-        //    var rows = _repo.OrderBy(_ => _.DateOffset)
-        //                    .Select(_ => new SoaRowVM(_))
-        //                    .ToList();
-
-        //    for (int i = 0; i < rows.Count; i++)
-        //    {
-        //        var prevBal = i == 0 
-        //                    ? _repo.BaseBalance
-        //                    : rows[i - 1].RunningBalance;
-        //        rows[i].RunningBalance
-        //            = prevBal + rows[i].DTO.Amount;
-        //    }
-        //    return rows;
-        //}
 
         protected override void InitializeCollections()
         {
+            AccountNames = GetAccountNames();
+            if (!AccountNames.Any())
+                Metadata[$"{ACCT_PREFIX}1"] = "Bank Account 1";
         }
     }
 }

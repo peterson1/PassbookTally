@@ -23,7 +23,7 @@ namespace PassbookTally.TestsLib.DatabaseLibTests
             sut.ClosingBalanceFor(31.March(2018)).Should().Be(899_327.02M);
 
             Action act = () => sut.Insert(SoaRowDTO.Deposit
-                (30.March(2018), "before base balance", "", 123.45M));
+                (30.March(2018), "before base balance", "", 123.45M, ""));
 
             act.Should().Throw<PredatesBaseBalanceException>();
         }
@@ -35,7 +35,7 @@ namespace PassbookTally.TestsLib.DatabaseLibTests
             var sut = CreateSUT(out int acctId);
             sut.SetBaseBalance(31.March(2018), 899_327.02M);
 
-            sut.Deposit(31.March(2018), "Interest", 335.66M);
+            sut.Deposit(31.March(2018), "", "Interest", 335.66M, "");
 
             sut.ClosingBalanceFor(31.March(2018)).Should().Be(899_662.68M);
 
@@ -51,8 +51,8 @@ namespace PassbookTally.TestsLib.DatabaseLibTests
             var sut = CreateSUT(out int acctId);
             sut.SetBaseBalance(31.March(2018), 899_327.02M);
 
-            sut.Deposit(31.March(2018), "Interest", 335.66M);
-            sut.Withdraw(31.March(2018), "W/Tax", 67.13M);
+            sut.Deposit (31.March(2018), "", "Interest", 335.66M, "");
+            sut.Withdraw(31.March(2018), "", "W/Tax"   , 67.13M , "");
 
             sut.ClosingBalanceFor(31.March(2018)).Should().Be(899_595.55M);
             sut.ClosingBalanceFor(10.April(2018)).Should().Be(899_595.55M);
@@ -69,10 +69,10 @@ namespace PassbookTally.TestsLib.DatabaseLibTests
             var sut = CreateSUT(out int acctId);
             sut.SetBaseBalance(2.April(2018), 1_693_240.03M);
 
-            sut.Withdraw(2.April(2018), "SixM Funds Transfer", 500_000);
-            sut.Deposit(3.April(2018), "RDM Foods rent", 13_079);
-            sut.Withdraw(3.April(2018), "Employees loan", 23_132);
-            sut.Deposit(4.April(2018), "Late Collection Apr.3", 118_226.25M);
+            sut.Withdraw(2.April(2018), "", "SixM Funds Transfer"  , 500_000    , "");
+            sut.Deposit(3.April(2018) , "", "RDM Foods rent"       , 13_079     , "");
+            sut.Withdraw(3.April(2018), "", "Employees loan"       , 23_132     , "");
+            sut.Deposit(4.April(2018) , "", "Late Collection Apr.3", 118_226.25M, "");
 
             var rows = sut.RowsStartingFrom(31.March(2018));
             rows.Should().HaveCount(4);
@@ -86,10 +86,10 @@ namespace PassbookTally.TestsLib.DatabaseLibTests
             var sut = CreateSUT(out int acctId);
             sut.SetBaseBalance(2.April(2018), 1_693_240.03M);
 
-            sut.Withdraw(2.April(2018), "SixM Funds Transfer", 500_000);
-            sut.Deposit (4.April(2018), "Late Collection Apr.3", 118_226.25M);
-            sut.Deposit (3.April(2018), "RDM Foods rent", 13_079);
-            sut.Withdraw(3.April(2018), "Employees loan", 23_132);
+            sut.Withdraw(2.April(2018), "", "SixM Funds Transfer", 500_000      , "");
+            sut.Deposit (4.April(2018), "", "Late Collection Apr.3", 118_226.25M, "");
+            sut.Deposit (3.April(2018), "", "RDM Foods rent", 13_079            , "");
+            sut.Withdraw(3.April(2018), "", "Employees loan", 23_132            , "");
 
             var rows = sut.RowsStartingFrom(31.March(2018));
             rows.Should().HaveCount(4);
@@ -103,10 +103,10 @@ namespace PassbookTally.TestsLib.DatabaseLibTests
             var sut = CreateSUT(out int acctId);
             sut.SetBaseBalance(2.April(2018), 1_693_240.03M);
 
-            sut.Deposit(4.April(2018), "Late Collection Apr.3", 118_226.25M);
-            sut.Withdraw(3.April(2018), "Employees loan", 23_132);
-            sut.Withdraw(2.April(2018), "SixM Funds Transfer", 500_000);
-            sut.Deposit(3.April(2018), "RDM Foods rent", 13_079);
+            sut.Deposit (4.April(2018), "", "Late Collection Apr.3", 118_226.25M, "");
+            sut.Withdraw(3.April(2018), "", "Employees loan"       , 23_132     , "");
+            sut.Withdraw(2.April(2018), "", "SixM Funds Transfer"  , 500_000    , "");
+            sut.Deposit (3.April(2018), "", "RDM Foods rent"       , 13_079     , "");
 
             var rows = sut.RowsStartingFrom(31.March(2018));
             rows.Should().HaveCount(4);

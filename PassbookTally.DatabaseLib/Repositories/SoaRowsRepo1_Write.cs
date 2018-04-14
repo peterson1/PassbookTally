@@ -15,14 +15,14 @@ namespace PassbookTally.DatabaseLib.Repositories
         }
 
 
-        public void Deposit(DateTime transactionDate, string subject, decimal amount, string description = null)
+        public void Deposit(DateTime transactionDate, string subject, string description, decimal amount, string transactionRef)
             => InsertAndUpdateBalances(SoaRowDTO
-                .Deposit(transactionDate, subject, description, amount));
+                .Deposit(transactionDate, subject, description, amount, transactionRef));
 
 
-        public void Withdraw(DateTime transactionDate, string subject, decimal amount, string description = null)
+        public void Withdraw(DateTime transactionDate, string subject, string description, decimal amount, string transactionRef)
             => InsertAndUpdateBalances(SoaRowDTO
-                .Withdrawal(transactionDate, subject, description, amount));
+                .Withdrawal(transactionDate, subject, description, amount, transactionRef));
 
 
         private void InsertAndUpdateBalances(SoaRowDTO dto)

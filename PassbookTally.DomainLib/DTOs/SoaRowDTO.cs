@@ -22,26 +22,29 @@ namespace PassbookTally.DomainLib.DTOs
 
 
         public static SoaRowDTO Deposit(DateTime transactionDate, 
-            string subject, string description, decimal amount)
-                => GetSoaRowDTO(transactionDate, subject, description, amount, "Deposit", 1);
+            string subject, string description, decimal amount, string transactionRef)
+                => GetSoaRowDTO(transactionDate, subject, description, amount, 
+                        transactionRef, "Deposit", 1);
 
 
         public static SoaRowDTO Withdrawal(DateTime transactionDate,
-            string subject, string description, decimal amount)
-                => GetSoaRowDTO(transactionDate, subject, description, amount, "Withdrawal", -1);
+            string subject, string description, decimal amount, string transactionRef)
+                => GetSoaRowDTO(transactionDate, subject, description, amount, 
+                        transactionRef, "Withdrawal", -1);
 
 
         private static SoaRowDTO GetSoaRowDTO(DateTime transactionDate, 
-            string subject, string description, decimal amount, 
-            string txnType, decimal multiplier)
+            string subject, string description, decimal amount,
+            string transactionRef, string txnType, decimal multiplier)
         {
             if (amount <= 0) throw Fault.BadArg($"{txnType} Amount", amount);
             return new SoaRowDTO
             {
-                DateOffset  = transactionDate.SoaRowOffset(),
-                Subject     = subject,
-                Description = description,
-                Amount      = amount * multiplier
+                DateOffset     = transactionDate.SoaRowOffset(),
+                Subject        = subject,
+                Description    = description,
+                Amount         = amount * multiplier,
+                TransactionRef = transactionRef
             };
         }
     }

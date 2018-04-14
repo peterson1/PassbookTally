@@ -100,6 +100,10 @@ namespace CommonTools.Lib45.LiteDbTools
         {
             CurrentUser = currentUser;
             Metadata = new MetadataCollection(this);
+
+            if (!File.Exists(DbPath))
+                Metadata.CreateInitialRecord();
+
             InitializeCollections();
         }
     }

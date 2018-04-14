@@ -44,7 +44,7 @@ namespace CommonTools.Lib45.BaseViewModels
         public IR2Command  CloseWindowCmd  { get; }
 
 
-        public void CloseWindow() => _win?.Close();
+        public void CloseWindow() => AsUI(() => _win?.Close());
 
 
         protected void SetCaption(string message)

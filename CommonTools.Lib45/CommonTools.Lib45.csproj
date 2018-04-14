@@ -64,6 +64,9 @@
     <Compile Include="BusyIndicators\BusyDialog.xaml.cs">
       <DependentUpon>BusyDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="StyledButtons\SimpleRefreshButton.xaml.cs">
+      <DependentUpon>SimpleRefreshButton.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ValueConverters\FirstLetterConverter.cs" />
     <Compile Include="ValueConverters\SpanDaysConverter.cs" />
     <Compile Include="ValueConverters\TrueIfFalseConverter.cs" />
@@ -76,9 +79,9 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControl1.xaml">
-      <Generator>MSBuild:Compile</Generator>
+    <Page Include="StyledButtons\SimpleRefreshButton.xaml">
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Compile Include="BaseViewModels\MainWindowVMBase.cs" />
     <Compile Include="Cryptography\AESThenHMAC.cs" />
@@ -108,10 +111,6 @@
     <Compile Include="ThreadTools\UIThreadInvoker.cs" />
     <Compile Include="UIExtensions\UIValidationExtensions.cs" />
     <Compile Include="UIExtensions\WindowExtensions.cs" />
-    <Compile Include="UserControl1.xaml.cs">
-      <DependentUpon>UserControl1.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -143,5 +142,6 @@
       <Name>CommonTools.Lib11</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
