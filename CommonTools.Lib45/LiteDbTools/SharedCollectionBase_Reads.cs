@@ -76,6 +76,13 @@ namespace CommonTools.Lib45.LiteDbTools
         }
 
 
+        public int Count(Expression<Func<T, bool>> predicate)
+        {
+            using (var db = _db.OpenRead())
+                return GetCollection(db).Count(predicate);
+        }
+
+
         public int CountAll()
         {
             using (var db = _db.OpenRead())

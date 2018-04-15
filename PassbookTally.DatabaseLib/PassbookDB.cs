@@ -21,7 +21,7 @@ namespace PassbookTally.DatabaseLib
         }
 
 
-        public IEnumerable<string>  AccountNames  { get; private set; }
+        public List<string>  AccountNames  { get; } = new List<string>();
 
 
         //public void DepositTo(int bankAcctId, DateTime transactionDate,
@@ -55,12 +55,14 @@ namespace PassbookTally.DatabaseLib
 
         protected override void InitializeCollections()
         {
-            AccountNames = GetAccountNames();
+            AccountNames.Clear();
+            AccountNames.AddRange(GetAccountNames());
+
             if (!AccountNames.Any())
             {
-                //Metadata[GetAccountNameKey(1)] = "Bank Account 1";
                 ForAccount(1);
-                AccountNames = GetAccountNames();
+                AccountNames.Clear();
+                AccountNames.AddRange(GetAccountNames());
             }
         }
 
