@@ -4,10 +4,12 @@ using PassbookTally.CrudApp.TransactionLog;
 using PassbookTally.DatabaseLib;
 using PassbookTally.DomainLib45.BaseViewModels;
 using PassbookTally.DomainLib45.Configuration;
+using PropertyChanged;
 using System.Linq;
 
 namespace PassbookTally.CrudApp
 {
+    [AddINotifyPropertyChangedInterface]
     internal class MainWindowVM : MaterialWindowBase
     {
         private PassbookDB _db;
@@ -17,6 +19,7 @@ namespace PassbookTally.CrudApp
             _db = AppArgs.PassbookDB;
             AccountNames.SetItems(_db.AccountNames);
             AccountName = AccountNames.FirstOrDefault();
+            ClickRefresh();
         }
 
 

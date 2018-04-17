@@ -4,6 +4,7 @@ using CommonTools.Lib45.FileSystemTools;
 using CommonTools.Lib45.InputCommands;
 using CommonTools.Lib45.ThreadTools;
 using CommonTools.Lib45.UIExtensions;
+using PropertyChanged;
 using System;
 using System.ComponentModel;
 using System.Threading.Tasks;
@@ -11,10 +12,11 @@ using System.Windows;
 
 namespace CommonTools.Lib45.BaseViewModels
 {
-    public abstract class MainWindowVMBase<TArg> : INotifyPropertyChanged
+    [AddINotifyPropertyChangedInterface]
+    public abstract class MainWindowVMBase<TArg>// : INotifyPropertyChanged
         where TArg : ICredentialsProvider
     {
-        public event PropertyChangedEventHandler PropertyChanged = delegate { };
+        //public event PropertyChangedEventHandler PropertyChanged = delegate { };
         //public event EventHandler<object>        DocumentSaved   = delegate { };
         protected string RefreshingText = "Refreshing list of records...";
         protected abstract string CaptionPrefix { get; }
@@ -26,8 +28,8 @@ namespace CommonTools.Lib45.BaseViewModels
         {
             AppArgs = appArguments;
 
-            PropertyChanged += (s, e) 
-                => HandleChangesByName(e.PropertyName);
+            //PropertyChanged += (s, e) 
+            //    => HandleChangesByName(e.PropertyName);
 
             RefreshCmd     = R2Command.Async(DoRefresh, _ => !IsBusy, "Refresh");
             CloseWindowCmd = R2Command.Relay(CloseWindow, null, "Close Window");
@@ -89,13 +91,13 @@ namespace CommonTools.Lib45.BaseViewModels
         public void ClickRefresh() => RefreshCmd.ExecuteIfItCan();
 
 
-        protected virtual void HandleChangesByName(string propertyName)
-        {
-        }
+        //protected virtual void HandleChangesByName(string propertyName)
+        //{
+        //}
 
 
-        protected void SayPropertyChanged(string propertyName)
-            => PropertyChanged.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        //protected void SayPropertyChanged(string propertyName)
+        //    => PropertyChanged.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
 
         public bool? Show<T>(bool hideWindow = false, bool showModal = false) 
@@ -147,7 +149,7 @@ namespace CommonTools.Lib45.BaseViewModels
             => _win?.AllFieldsValid() ?? true;
 
 
-        public void RaisePropertyChanged(object sender, PropertyChangedEventArgs e)
-            => PropertyChanged?.Invoke(sender, e);
+        //public void RaisePropertyChanged(object sender, PropertyChangedEventArgs e)
+        //    => PropertyChanged?.Invoke(sender, e);
     }
 }

@@ -1,16 +1,17 @@
 ﻿using CommonTools.Lib11.DataStructures;
 using CommonTools.Lib45.LiteDbTools;
+using PropertyChanged;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 
 namespace CommonTools.Lib45.BaseViewModels
 {
-    public abstract class SavedListVMBase<TDTO> : INotifyPropertyChanged
+    [AddINotifyPropertyChangedInterface]
+    public abstract class SavedListVMBase<TDTO>// : INotifyPropertyChanged
         where TDTO : IDocumentDTO
     {
-        public event PropertyChangedEventHandler PropertyChanged = delegate { };
+        //public event PropertyChangedEventHandler PropertyChanged = delegate { };
         public event EventHandler<decimal>       TotalSumChanged;
 
         protected SharedCollectionBase<TDTO> _db;
@@ -86,7 +87,7 @@ namespace CommonTools.Lib45.BaseViewModels
         }
 
 
-        public void RaisePropertyChanged(object sender, PropertyChangedEventArgs e)
-            => PropertyChanged?.Invoke(sender, e);
+        //public void RaisePropertyChanged(object sender, PropertyChangedEventArgs e)
+        //    => PropertyChanged?.Invoke(sender, e);
     }
 }

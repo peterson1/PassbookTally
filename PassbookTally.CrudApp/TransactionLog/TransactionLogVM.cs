@@ -1,14 +1,17 @@
 ﻿using CommonTools.Lib11.DataStructures;
 using CommonTools.Lib45.BaseViewModels;
 using CommonTools.Lib45.LiteDbTools;
+using CommonTools.Lib45.ThreadTools;
 using PassbookTally.DomainLib.DTOs;
 using PassbookTally.DomainLib.ReportRows;
+using PropertyChanged;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace PassbookTally.CrudApp.TransactionLog
 {
+    [AddINotifyPropertyChangedInterface]
     public class TransactionLogVM : SavedListVMBase<SoaRowDTO>
     {
         public TransactionLogVM(SharedCollectionBase<SoaRowDTO> sharedCollection, bool doReload = true) : base(sharedCollection, doReload)

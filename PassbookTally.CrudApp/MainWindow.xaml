@@ -19,15 +19,18 @@
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}">
     <Grid>
-        <StackPanel Orientation="Horizontal">
-            <ComboBox ItemsSource="{Binding AccountNames}"
-                      SelectedItem="{Binding AccountName}" />
+        <DockPanel>
+            <StackPanel DockPanel.Dock="Top"
+                        Orientation="Horizontal">
+                <ComboBox ItemsSource="{Binding AccountNames}"
+                          SelectedItem="{Binding AccountName}" />
 
-            <butns:SimpleRefreshButton />
+                <butns:SimpleRefreshButton />
+            </StackPanel>
 
             <txns:TransactionLogUI DataContext="{Binding TransactionLog}" />
-
-        </StackPanel>
+            
+        </DockPanel>
         <busy:BusyDialog />
     </Grid>
 </Window>
