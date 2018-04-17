@@ -1,11 +1,11 @@
-﻿using CommonTools.Lib45.BaseViewModels;
+﻿using CommonTools.Lib11.DataStructures;
+using CommonTools.Lib45.BaseViewModels;
 using CommonTools.Lib45.LiteDbTools;
 using PassbookTally.DomainLib.DTOs;
+using PassbookTally.DomainLib.ReportRows;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PassbookTally.CrudApp.TransactionLog
 {
@@ -14,6 +14,18 @@ namespace PassbookTally.CrudApp.TransactionLog
         public TransactionLogVM(SharedCollectionBase<SoaRowDTO> sharedCollection, bool doReload = true) : base(sharedCollection, doReload)
         {
         }
+
+
+        public UIList<SoaRowVM> Rows { get; } = new UIList<SoaRowVM>();
+
+
+        protected override IEnumerable<SoaRowDTO> QueryItems(SharedCollectionBase<SoaRowDTO> db)
+        {
+            var dtos = db.GetAll();
+            Rows.SetItems(dtos.Select(_ => new SoaRowVM(_)));
+            return dtos;
+        }
+
 
         protected override Func<SoaRowDTO, decimal> SummedAmount => _ => _.Amount;
     }

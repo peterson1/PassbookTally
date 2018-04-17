@@ -8,10 +8,16 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <DataGrid x:Name="dg" Style="{StaticResource dgReadOnly}"
-                  DataContext="{Binding ItemsList}"
+                  DataContext="{Binding Rows}"
                   ItemsSource="{Binding }">
             <DataGrid.Columns>
-                
+                <DataGridTextColumn Header="date" Binding="{Binding TransactionDate, StringFormat=d MMM yyyy}" />
+                <DataGridTextColumn Header="ref #" Binding="{Binding TransactionRef}" />
+                <DataGridTextColumn Header="subject" Binding="{Binding Subject}" />
+                <DataGridTextColumn Header="description" Binding="{Binding Description}" />
+                <DataGridTextColumn Header="deposit" Binding="{Binding Deposit, StringFormat=N2}" />
+                <DataGridTextColumn Header="withdrawal" Binding="{Binding Withdrawal, StringFormat=N2}" />
+                <DataGridTextColumn Header="balance" Binding="{Binding RunningBalance, StringFormat=N2}" />
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

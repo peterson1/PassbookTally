@@ -84,5 +84,9 @@ namespace CommonTools.Lib45.BaseViewModels
             if (TotalSum != oldSum)
                 TotalSumChanged?.Invoke(this, TotalSum);
         }
+
+
+        public void RaisePropertyChanged(object sender, PropertyChangedEventArgs e)
+            => PropertyChanged?.Invoke(sender, e);
     }
 }

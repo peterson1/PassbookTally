@@ -145,5 +145,9 @@ namespace CommonTools.Lib45.BaseViewModels
 
         public bool AllFieldsValid()
             => _win?.AllFieldsValid() ?? true;
+
+
+        public void RaisePropertyChanged(object sender, PropertyChangedEventArgs e)
+            => PropertyChanged?.Invoke(sender, e);
     }
 }
