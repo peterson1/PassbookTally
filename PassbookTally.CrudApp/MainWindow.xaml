@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:PassbookTally.CrudApp"
         mc:Ignorable="d"
         Title="{Binding Caption}" 
-        Width="950" Height="700"
+        Width="1360" Height="700"
         xmlns:busy="clr-namespace:CommonTools.Lib45.BusyIndicators;assembly=CommonTools.Lib45"
         xmlns:butns="clr-namespace:CommonTools.Lib45.StyledButtons;assembly=CommonTools.Lib45"
         xmlns:mat="http://materialdesigninxaml.net/winfx/xaml/themes"

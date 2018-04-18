@@ -46,6 +46,12 @@ namespace PassbookTally.CrudApp.FundRequests
 
         protected override bool IsValidDraft(FundRequestDTO draft, out string whyInvalid)
         {
+            if (_db.HasRequestSerial(draft.SerialNum))
+            {
+                whyInvalid = "Serial number is used in another request.";
+                return false;
+            }
+
             if (draft.Amount == 0)
             {
                 whyInvalid = "Amount should not be zero.";

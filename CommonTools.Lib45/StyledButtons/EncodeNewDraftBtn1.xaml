@@ -7,9 +7,9 @@
              xmlns:mat="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Button Content="{mat:PackIcon Kind=Plus, Size=21}"
+    <Button Content="{mat:PackIcon Kind=Plus, Size=24}"
             Command="{Binding EncodeNewDraftCmd}"
             ToolTip="{Binding EncodeNewDraftCmd.CurrentLabel}"
-            Style="{StaticResource MaterialDesignFloatingActionButton}"
+            Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
             />
 </UserControl>

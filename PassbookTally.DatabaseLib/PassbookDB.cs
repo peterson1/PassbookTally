@@ -1,5 +1,6 @@
 ﻿using CommonTools.Lib45.LiteDbTools;
 using PassbookTally.DatabaseLib.Repositories;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -21,8 +22,9 @@ namespace PassbookTally.DatabaseLib
         }
 
 
-        public List<string>        AccountNames    { get; } = new List<string>();
-        public ActiveFundReqsRepo  ActiveRequests  { get; private set; }
+        public List<string>          AccountNames      { get; } = new List<string>();
+        public ActiveFundReqsRepo    ActiveRequests    { get; private set; }
+        public InactiveFundReqsRepo  InactiveRequests  { get; private set; }
 
 
         public SoaRowsRepo1 ForAccount(int bankAcctId)
@@ -40,10 +42,15 @@ namespace PassbookTally.DatabaseLib
 
         public int NextRequestSerial()
         {
-            var activesMax = ActiveRequests.GetMaxSerial();
-            //todo: get max for inactives
-            return activesMax + 1;
+            var activesMax  = ActiveRequests.GetMaxSerial();
+            var inactivsMax = InactiveRequests.GetMaxSerial();
+            return Math.Max(activesMax, inactivsMax) + 1;
         }
+
+
+        public bool HasRequestSerial(int serialNum)
+            => ActiveRequests  .HasRequestSerial(serialNum)
+            || InactiveRequests.HasRequestSerial(serialNum);
 
 
         private IEnumerable<string> GetAccountNames()
@@ -54,7 +61,8 @@ namespace PassbookTally.DatabaseLib
 
         protected override void InitializeCollections()
         {
-            ActiveRequests = new ActiveFundReqsRepo(this);
+            ActiveRequests   = new ActiveFundReqsRepo(this);
+            InactiveRequests = new InactiveFundReqsRepo(this);
 
             AccountNames.Clear();
             AccountNames.AddRange(GetAccountNames());
