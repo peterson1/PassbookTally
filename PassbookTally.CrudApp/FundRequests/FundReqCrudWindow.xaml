@@ -4,6 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PassbookTally.CrudApp.FundRequests"
+        xmlns:int="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:txbhv="clr-namespace:CommonTools.Lib45.UIBehaviors.TextBoxBehaviors;assembly=CommonTools.Lib45"
         xmlns:mat="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         Title="{Binding Caption}" 
@@ -55,7 +57,11 @@
                          mat:HintAssist.Hint="purpose" />
 
                 <TextBox Text="{Binding Draft.Amount, StringFormat=N2, UpdateSourceTrigger=PropertyChanged}"
-                         mat:HintAssist.Hint="amount" />
+                         mat:HintAssist.Hint="amount">
+                    <int:Interaction.Behaviors>
+                        <txbhv:SelectAllOnFocusBehavior />
+                    </int:Interaction.Behaviors>
+                </TextBox>
             </StackPanel>
         </StackPanel>
 

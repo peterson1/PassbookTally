@@ -16,6 +16,7 @@ namespace PassbookTally.CrudApp.FundRequests
 
         private PassbookDB         _db;
         private ActiveFundReqsRepo _repo;
+        private int                _savedSerial;
 
 
         public FundReqCrudVM(PassbookDB passbookDB, AppArguments appArguments) : base(appArguments)
@@ -46,7 +47,7 @@ namespace PassbookTally.CrudApp.FundRequests
 
         protected override bool IsValidDraft(FundRequestDTO draft, out string whyInvalid)
         {
-            if (_db.HasRequestSerial(draft.SerialNum))
+            if (IsDuplicateSerial(draft))
             {
                 whyInvalid = "Serial number is used in another request.";
                 return false;
@@ -69,6 +70,25 @@ namespace PassbookTally.CrudApp.FundRequests
             }
             whyInvalid = "";
             return true;
+        }
+
+
+        protected override FundRequestDTO CreateDraftFromRecord(FundRequestDTO record)
+        {
+            _savedSerial = record.SerialNum;
+            return base.CreateDraftFromRecord(record);
+        }
+
+
+        private bool IsDuplicateSerial(FundRequestDTO draft)
+        {
+            if (draft.Id == 0)
+                return _db.HasRequestSerial(draft.SerialNum);
+
+            if (_savedSerial == draft.SerialNum)
+                return false;
+
+            return _db.HasRequestSerial(draft.SerialNum);
         }
     }
 }

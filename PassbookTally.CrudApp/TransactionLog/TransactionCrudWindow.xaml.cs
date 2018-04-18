@@ -27,5 +27,8 @@ namespace PassbookTally.CrudApp.TransactionCRUD
             //    tgl.is
             //};
         }
+
+        //private void TextBox_GotFocus(object sender, RoutedEventArgs e) 
+        //    => ((TextBox)sender).SelectAll();
     }
 }
