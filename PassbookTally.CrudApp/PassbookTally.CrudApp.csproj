@@ -76,6 +76,12 @@
       <DependentUpon>FundReqCrudWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="FundRequests\FundReqListVM.cs" />
+    <Compile Include="FundRequests\FundReqsTable.xaml.cs">
+      <DependentUpon>FundReqsTable.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="FundRequests\FundRequestsUI.xaml.cs">
+      <DependentUpon>FundRequestsUI.xaml</DependentUpon>
+    </Compile>
     <Compile Include="TransactionLog\TransactionCrudVM.cs" />
     <Compile Include="TransactionLog\TransactionCrudWindow.xaml.cs">
       <DependentUpon>TransactionCrudWindow.xaml</DependentUpon>
@@ -88,6 +94,14 @@
       <DependentUpon>TransactionsTable.xaml</DependentUpon>
     </Compile>
     <Page Include="FundRequests\FundReqCrudWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="FundRequests\FundReqsTable.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="FundRequests\FundRequestsUI.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

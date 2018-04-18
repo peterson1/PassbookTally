@@ -17,13 +17,13 @@ namespace PassbookTally.CrudApp.TransactionLog
     [AddINotifyPropertyChangedInterface]
     public class TransactionLogVM : SavedListVMBase<SoaRowDTO, AppArguments>
     {
-        private SoaRowsRepo1 _repo;
+        private SoaRowsRepo1 _repo1;
 
 
         public TransactionLogVM(SoaRowsRepo1 soaRowsRepo, AppArguments args, bool doReload = true) : base(soaRowsRepo, args, doReload)
         {
-            _repo = soaRowsRepo;
-            Crud  = new TransactionCrudVM(_repo, args);
+            _repo1 = soaRowsRepo;
+            Crud   = new TransactionCrudVM(_repo1, args);
             Crud.SaveCompleted += (s, e) => ReloadFromDB();
             Rows.ItemOpened    += Rows_ItemOpened;
             Rows.ItemDeleted   += Rows_ItemDeleted;
@@ -61,7 +61,7 @@ namespace PassbookTally.CrudApp.TransactionLog
         {
             if (IsEditable(e) &&
                 AppArgs.CanDeleteBankTransaction(true))
-                    _repo.Delete(e.DTO);
+                    _repo1.Delete(e.DTO);
 
             ReloadFromDB();
         }

@@ -16,7 +16,7 @@
         TextOptions.TextRenderingMode="Auto"
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
-        FocusManager.FocusedElement="{Binding ElementName=txtAmount}">
+        FocusManager.FocusedElement="{Binding ElementName=txtFirstFocus}">
     <Window.Resources>
         <Style TargetType="TextBox"
                BasedOn="{StaticResource MaterialDesignFloatingHintTextBox}">
@@ -40,7 +40,8 @@
                         Margin="0 18 0 0" />
 
             <StackPanel Margin="30 0 0 0">
-                <TextBox Text="{Binding Draft.Subject, UpdateSourceTrigger=PropertyChanged}"
+                <TextBox x:Name="txtFirstFocus"
+                         Text="{Binding Draft.Subject, UpdateSourceTrigger=PropertyChanged}"
                          mat:HintAssist.Hint="subject" />
 
                 <TextBox Text="{Binding Draft.Description, UpdateSourceTrigger=PropertyChanged}"
@@ -49,8 +50,7 @@
                 <TextBox Text="{Binding Draft.TransactionRef, UpdateSourceTrigger=PropertyChanged}"
                          mat:HintAssist.Hint="deposit/withdrawal slip #" />
 
-                <TextBox x:Name="txtAmount" 
-                         Text="{Binding Draft.Amount, StringFormat=N2, UpdateSourceTrigger=PropertyChanged}"
+                <TextBox Text="{Binding Draft.Amount, StringFormat=N2, UpdateSourceTrigger=PropertyChanged}"
                          mat:HintAssist.Hint="amount" />
                 </StackPanel>
         </StackPanel>

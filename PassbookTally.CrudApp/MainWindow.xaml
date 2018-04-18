@@ -11,6 +11,7 @@
         xmlns:butns="clr-namespace:CommonTools.Lib45.StyledButtons;assembly=CommonTools.Lib45"
         xmlns:mat="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:txns="clr-namespace:PassbookTally.CrudApp.TransactionLog"
+        xmlns:reqs="clr-namespace:PassbookTally.CrudApp.FundRequests"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
         TextElement.FontSize="13"
@@ -28,7 +29,22 @@
                 <butns:SimpleRefreshButton />
             </StackPanel>
 
-            <txns:TransactionLogUI DataContext="{Binding TransactionLog}" />
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="5*" />
+                    <ColumnDefinition Width="5" />
+                    <ColumnDefinition Width="5*" />
+                </Grid.ColumnDefinitions>
+                
+                <txns:TransactionLogUI Grid.Column="0" 
+                                       DataContext="{Binding TransactionLog}" />
+
+                <GridSplitter Grid.Column="1" Style="{StaticResource vSplit}" />
+
+                <reqs:FundRequestsUI Grid.Column="2"
+                                     DataContext="{Binding FundRequests}" />
+            </Grid>
+            
             
         </DockPanel>
         <busy:BusyDialog />

@@ -15,7 +15,7 @@ namespace CommonTools.Lib45.LiteDbTools
         public string CollectionName { get; }
 
 
-        internal override LiteCollection<T> GetCollection(LiteDatabase db)
+        public override LiteCollection<T> GetCollection(LiteDatabase db)
             => db.GetCollection<T>(CollectionName);
     }
 }

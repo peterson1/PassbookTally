@@ -1,4 +1,6 @@
-﻿using CommonTools.Lib45.LiteDbTools;
+﻿using System;
+using CommonTools.Lib45.LiteDbTools;
+using LiteDB;
 using PassbookTally.DomainLib.DTOs;
 
 namespace PassbookTally.DatabaseLib.Repositories
@@ -10,6 +12,26 @@ namespace PassbookTally.DatabaseLib.Repositories
         }
 
 
-        public override void Validate(FundRequestDTO model, SharedLiteDB db) { }
+        public int GetMaxSerial()
+        {
+            using (var db = _db.OpenRead())
+            {
+                var coll = GetCollection(db);
+                if (coll.Count() == 0) return 0;
+                return coll.Max(_ => _.SerialNum);
+            }
+        }
+
+
+        public override void Validate(FundRequestDTO model, SharedLiteDB db)
+        {
+            //todo: reject duplicate serial #
+        }
+
+
+        protected override void EnsureIndeces(LiteCollection<FundRequestDTO> coll)
+        {
+            coll.EnsureIndex(_ => _.SerialNum, false);
+        }
     }
 }

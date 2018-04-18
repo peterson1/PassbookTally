@@ -15,15 +15,15 @@ namespace CommonTools.Lib45.BaseViewModels
     {
         public event EventHandler<decimal>       TotalSumChanged;
 
-        protected SharedCollectionBase<TDTO> _db;
+        private SharedCollectionBase<TDTO> _repo;
 
 
         public SavedListVMBase(SharedCollectionBase<TDTO> sharedCollection, TArg appArguments, bool doReload = true)
         {
-            _db     = sharedCollection;
+            _repo     = sharedCollection;
             AppArgs = appArguments;
 
-            _db.ContentChanged          += (s, e) => ReloadFromDB();
+            _repo.ContentChanged          += (s, e) => ReloadFromDB();
             ItemsList.ItemDeleted       += (s, e) => ExecuteDeleteRecord(e);
             ItemsList.CollectionChanged += (s, e) => UpdateTotalSum();
             ItemsList.ItemOpened        += ItemsList_ItemOpened;
@@ -42,7 +42,7 @@ namespace CommonTools.Lib45.BaseViewModels
 
         private void ExecuteDeleteRecord(TDTO dto)
         {
-            DeleteRecord(_db, dto);
+            DeleteRecord(_repo, dto);
             UpdateTotalSum();
             TotalSumChanged?.Invoke(this, TotalSum);
         }
@@ -65,7 +65,7 @@ namespace CommonTools.Lib45.BaseViewModels
 
 
         public void ReloadFromDB()
-            => ItemsList.SetItems(PostProcess(QueryItems(_db)));
+            => ItemsList.SetItems(PostProcess(QueryItems(_repo)));
 
 
         protected virtual IEnumerable<TDTO> QueryItems(SharedCollectionBase<TDTO> db)

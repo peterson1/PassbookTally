@@ -19,7 +19,7 @@ namespace PassbookTally.CrudApp
             _db = AppArgs.PassbookDB;
             AccountNames.SetItems(_db.AccountNames);
             AccountName  = AccountNames.FirstOrDefault();
-            FundRequests = new FundReqListVM(_db.ActiveRequests, AppArgs);
+            FundRequests = new FundReqListVM(_db, AppArgs);
             ClickRefresh();
         }
 

@@ -1,8 +1,11 @@
 ﻿using CommonTools.Lib11.StringTools;
 using CommonTools.Lib45.BaseViewModels;
+using PassbookTally.DatabaseLib;
 using PassbookTally.DatabaseLib.Repositories;
+using PassbookTally.DomainLib.Authorization;
 using PassbookTally.DomainLib.DTOs;
 using PassbookTally.DomainLib45.Configuration;
+using System;
 
 namespace PassbookTally.CrudApp.FundRequests
 {
@@ -11,14 +14,26 @@ namespace PassbookTally.CrudApp.FundRequests
         public    override string TypeDescription => "Voucher Request";
         protected override string CaptionPrefix   => "Voucher Request";
 
+        private PassbookDB         _db;
         private ActiveFundReqsRepo _repo;
 
 
-        public FundReqCrudVM(ActiveFundReqsRepo activeFundReqsRepo, AppArguments appArguments) : base(appArguments)
+        public FundReqCrudVM(PassbookDB passbookDB, AppArguments appArguments) : base(appArguments)
         {
-            _repo = activeFundReqsRepo;
+            _db   = passbookDB;
+            _repo = _db.ActiveRequests;
         }
 
+
+        protected override void SetNewDraftDefaults(FundRequestDTO draft)
+        {
+            draft.RequestDate = DateTime.Now;
+            draft.SerialNum   = _db.NextRequestSerial();
+        }
+
+
+        protected override bool CanEncodeNewDraft()
+            => AppArgs.CanAddVoucherRequest(false);
 
 
         protected override void SaveNewRecord(FundRequestDTO draft) 

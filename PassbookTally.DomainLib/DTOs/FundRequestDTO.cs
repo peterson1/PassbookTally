@@ -11,6 +11,7 @@ namespace PassbookTally.DomainLib.DTOs
         public DateTime  Timestamp    { get; set; }
         public string    Remarks      { get; set; }
 
+        public int       SerialNum    { get; set; }
         public string    Payee        { get; set; }
         public string    Purpose      { get; set; }
         public DateTime  RequestDate  { get; set; }

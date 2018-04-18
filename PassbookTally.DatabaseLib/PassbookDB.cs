@@ -38,6 +38,14 @@ namespace PassbookTally.DatabaseLib
         }
 
 
+        public int NextRequestSerial()
+        {
+            var activesMax = ActiveRequests.GetMaxSerial();
+            //todo: get max for inactives
+            return activesMax + 1;
+        }
+
+
         private IEnumerable<string> GetAccountNames()
             => Metadata.Find    (_ => _.Name.Contains(ACCT_PREFIX))
                        .OrderBy (_ => _.Name)

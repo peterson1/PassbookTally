@@ -4,9 +4,71 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PassbookTally.CrudApp.FundRequests"
+        xmlns:mat="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="FundReqCrudWindow" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+        Title="{Binding Caption}" 
+        SizeToContent="WidthAndHeight"
+        WindowStartupLocation="CenterOwner"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        FocusManager.FocusedElement="{Binding ElementName=txtFirstFocus}">
+    <Window.Resources>
+        <Style TargetType="TextBox"
+               BasedOn="{StaticResource MaterialDesignFloatingHintTextBox}">
+            <Setter Property="MinWidth" Value="200" />
+            <Setter Property="Margin" Value="0 7 0 7" />
+        </Style>
+
+        <Style TargetType="DatePicker"
+               BasedOn="{StaticResource MaterialDesignFloatingHintDatePicker}">
+            <Setter Property="Margin" Value="0 19 0 7" />
+        </Style>
+
+    </Window.Resources>
+    <StackPanel Margin="30">
+
+
+        <StackPanel Orientation="Horizontal">
+
+            <StackPanel VerticalAlignment="Top">
+
+                <TextBox Text="{Binding Draft.SerialNum, StringFormat=000#, UpdateSourceTrigger=PropertyChanged}"
+                         mat:HintAssist.Hint="req. #"
+                         MinWidth="110" />
+
+                <DatePicker SelectedDate="{Binding Draft.RequestDate, UpdateSourceTrigger=PropertyChanged}"
+                            mat:HintAssist.Hint="request date" />
+            </StackPanel>
+            
+
+            <StackPanel Margin="50 0 0 0">
+                <TextBox x:Name="txtFirstFocus"
+                         Text="{Binding Draft.Payee, UpdateSourceTrigger=PropertyChanged}"
+                         mat:HintAssist.Hint="payee" />
+
+                <TextBox Text="{Binding Draft.Purpose, UpdateSourceTrigger=PropertyChanged}"
+                         mat:HintAssist.Hint="purpose" />
+
+                <TextBox Text="{Binding Draft.Amount, StringFormat=N2, UpdateSourceTrigger=PropertyChanged}"
+                         mat:HintAssist.Hint="amount" />
+            </StackPanel>
+        </StackPanel>
+
+        <TextBox Text="{Binding Draft.Remarks}"
+                 mat:HintAssist.Hint="remarks" />
+
+        <TextBlock Text="{Binding WhyInvalid}"
+                   Margin="0 20 0 0" />
+
+        <Button Command="{Binding SaveDraftCmd}"
+                Content="{Binding SaveDraftCmd.CurrentLabel}"
+                IsDefault="True"
+                Margin="0 20 0 0" />
+
+    </StackPanel>
 </Window>

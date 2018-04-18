@@ -18,7 +18,7 @@ namespace CommonTools.Lib45.LiteDbTools
         protected LiteDatabase WritableDB() => _db.OpenWrite();
 
 
-        internal virtual LiteCollection<T> GetCollection(LiteDatabase db)
+        public virtual LiteCollection<T> GetCollection(LiteDatabase db)
             => db.GetCollection<T>();
     }
 }
