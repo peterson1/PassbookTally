@@ -27,6 +27,7 @@
         <Style TargetType="DatePicker"
                BasedOn="{StaticResource MaterialDesignFloatingHintDatePicker}">
             <Setter Property="Margin" Value="0 7 0 7" />
+            <Setter Property="MinWidth" Value="115" />
         </Style>
 
     </Window.Resources>
@@ -34,12 +35,23 @@
 
 
         <StackPanel Orientation="Horizontal">
-            <DatePicker SelectedDate="{Binding TransactionDate, UpdateSourceTrigger=PropertyChanged}"
-                        mat:HintAssist.Hint="transaction date"
-                        VerticalAlignment="Top"
-                        Margin="0 18 0 0" />
 
-            <StackPanel Margin="30 0 0 0">
+            <Grid>
+                <DatePicker SelectedDate="{Binding TransactionDate, UpdateSourceTrigger=PropertyChanged}"
+                            mat:HintAssist.Hint="transaction date"
+                            VerticalAlignment="Top"
+                            Margin="0 18 0 0" />
+                
+                <ToggleButton Style="{StaticResource MaterialDesignActionAccentToggleButton}"
+                              Content="{mat:PackIcon Minus}"
+                              mat:ToggleButtonAssist.OnContent="{mat:PackIcon Plus}"
+                              IsChecked="{Binding IsDeposit, UpdateSourceTrigger=PropertyChanged}"
+                              VerticalAlignment="Bottom"
+                              HorizontalAlignment="Right"
+                              Margin="0 0 0 10" />
+            </Grid>
+
+            <StackPanel Margin="20 0 0 0">
                 <TextBox x:Name="txtFirstFocus"
                          Text="{Binding Draft.Subject, UpdateSourceTrigger=PropertyChanged}"
                          mat:HintAssist.Hint="subject" />
@@ -48,10 +60,10 @@
                          mat:HintAssist.Hint="description" />
 
                 <TextBox Text="{Binding Draft.TransactionRef, UpdateSourceTrigger=PropertyChanged}"
-                         mat:HintAssist.Hint="deposit/withdrawal slip #" />
+                         mat:HintAssist.Hint="{Binding TxnRefType}" />
 
                 <TextBox Text="{Binding Draft.Amount, StringFormat=N2, UpdateSourceTrigger=PropertyChanged}"
-                         mat:HintAssist.Hint="amount" />
+                         mat:HintAssist.Hint="{Binding AmountType}" />
                 </StackPanel>
         </StackPanel>
 

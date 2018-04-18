@@ -22,6 +22,10 @@ namespace PassbookTally.CrudApp.TransactionCRUD
         public TransactionCrudWindow()
         {
             InitializeComponent();
+            //Loaded += (a, b) =>
+            //{
+            //    tgl.is
+            //};
         }
     }
 }

@@ -5,10 +5,12 @@ using PassbookTally.DomainLib.Authorization;
 using PassbookTally.DomainLib.DTOs;
 using PassbookTally.DomainLib.ReportRows;
 using PassbookTally.DomainLib45.Configuration;
+using PropertyChanged;
 using System;
 
 namespace PassbookTally.CrudApp.TransactionCRUD
 {
+    [AddINotifyPropertyChangedInterface]
     public class TransactionCrudVM : CrudWindowVMBase<SoaRowDTO, TransactionCrudWindow, AppArguments>
     {
         public    override string TypeDescription => "Bank Transaction";
@@ -23,6 +25,10 @@ namespace PassbookTally.CrudApp.TransactionCRUD
 
 
         public DateTime TransactionDate { get; set; } = DateTime.Now;
+        public bool     IsDeposit       { get; set; } = true;
+        public string   TransactionType => IsDeposit ? "deposit" : "withdrawal";
+        public string   AmountType      => $"{TransactionType} amount";
+        public string   TxnRefType      => $"{TransactionType} slip #";
 
 
         protected override void SaveNewRecord(SoaRowDTO draft)  => TweakThenSave(draft);
@@ -37,6 +43,9 @@ namespace PassbookTally.CrudApp.TransactionCRUD
         {
             dto.DocRefType = this.GetType().Namespace;
             dto.DateOffset = TransactionDate.SoaRowOffset();
+            dto.Amount     = Math.Abs(dto.Amount) 
+                            * (IsDeposit ? 1.0M : -1.0M);
+
             _repo.UpsertAndUpdateBalances(dto);
         }
 
@@ -44,6 +53,8 @@ namespace PassbookTally.CrudApp.TransactionCRUD
         protected override SoaRowDTO CreateDraftFromRecord(SoaRowDTO record)
         {
             TransactionDate = record.GetDate();
+            IsDeposit       = record.Amount > 0;
+            record.Amount   = Math.Abs(record.Amount);
             return record;
         }
 
