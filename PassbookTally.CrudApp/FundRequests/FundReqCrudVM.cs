@@ -53,11 +53,11 @@ namespace PassbookTally.CrudApp.FundRequests
                 return false;
             }
 
-            if (draft.Amount == 0)
-            {
-                whyInvalid = "Amount should not be zero.";
-                return false;
-            }
+            //if (draft.Amount == 0)
+            //{
+            //    whyInvalid = "Amount should not be zero.";
+            //    return false;
+            //}
             if (draft.Payee.IsBlank())
             {
                 whyInvalid = "Payee should not be blank.";

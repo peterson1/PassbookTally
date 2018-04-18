@@ -29,22 +29,26 @@
                 <Setter Property="Background" Value="LightGray" />
             </Style>
 
+            <Style x:Key="colCenter" TargetType="TextBlock">
+                <Setter Property="TextAlignment" Value="Center" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+            </Style>
+            <Style x:Key="colRight" TargetType="TextBlock">
+                <Setter Property="TextAlignment" Value="Right" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+            </Style>
             <Style x:Key="colLabel" TargetType="TextBlock">
                 <Setter Property="FontWeight" Value="Medium" />
+                <Setter Property="VerticalAlignment" Value="Center" />
             </Style>
             <Style x:Key="totalsRow" TargetType="TextBlock">
                 <Setter Property="FontWeight" Value="Medium" />
                 <Setter Property="TextAlignment" Value="Right" />
+                <Setter Property="VerticalAlignment" Value="Center" />
             </Style>
             <Style x:Key="colHdrCentered" TargetType="DataGridColumnHeader"
                    BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}">
                 <Setter Property="HorizontalAlignment" Value="Center"/>
-            </Style>
-            <Style x:Key="colCenter" TargetType="TextBlock">
-                <Setter Property="TextAlignment" Value="Center" />
-            </Style>
-            <Style x:Key="colRight" TargetType="TextBlock">
-                <Setter Property="TextAlignment" Value="Right" />
             </Style>
             <Style x:Key="dgReadOnly" TargetType="DataGrid" BasedOn="{StaticResource MaterialDesignDataGrid}">
                 <Style.Resources>

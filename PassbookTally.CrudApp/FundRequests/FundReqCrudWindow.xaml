@@ -54,6 +54,7 @@
                          mat:HintAssist.Hint="payee" />
 
                 <TextBox Text="{Binding Draft.Purpose, UpdateSourceTrigger=PropertyChanged}"
+                         AcceptsReturn="True"
                          mat:HintAssist.Hint="purpose" />
 
                 <TextBox Text="{Binding Draft.Amount, StringFormat=N2, UpdateSourceTrigger=PropertyChanged}"

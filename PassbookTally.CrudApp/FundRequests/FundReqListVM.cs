@@ -27,7 +27,7 @@ namespace PassbookTally.CrudApp.FundRequests
         public FundReqCrudVM Crud { get; }
 
 
-        protected override Func<FundRequestDTO, decimal> SummedAmount => _ => _.Amount;
+        protected override Func<FundRequestDTO, decimal> SummedAmount => _ => _.Amount ?? 0;
 
 
         protected override IEnumerable<FundRequestDTO> QueryItems(SharedCollectionBase<FundRequestDTO> db)

@@ -6,14 +6,20 @@
              xmlns:local="clr-namespace:PassbookTally.CrudApp.FundRequests"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <Style x:Key="colPurpose" TargetType="TextBlock">
+            <Setter Property="TextWrapping" Value="Wrap" />
+            <Setter Property="FontSize" Value="11" />
+        </Style>
+    </UserControl.Resources>
     <Grid>
         <DataGrid x:Name="dg" Style="{StaticResource dgReadOnly}"
                   ItemsSource="{Binding }">
             <DataGrid.Columns>
-                <DataGridTextColumn Width="10*" Header="req #" Binding="{Binding SerialNum, StringFormat=000#}" ElementStyle="{StaticResource colCenter}" />
-                <DataGridTextColumn Width="20*" Header="request date" Binding="{Binding RequestDate, StringFormat=d MMM yyyy}" ElementStyle="{StaticResource colCenter}" />
-                <DataGridTextColumn Width="20*" Header="payee" Binding="{Binding Payee}" ElementStyle="{StaticResource colCenter}" />
-                <DataGridTextColumn Width="30*" Header="purpose" Binding="{Binding Purpose}" ElementStyle="{StaticResource colLabel}" />
+                <DataGridTextColumn Width="08*" Header="req #" Binding="{Binding SerialNum, StringFormat=000#}" ElementStyle="{StaticResource colCenter}" />
+                <DataGridTextColumn Width="15*" Header="request date" Binding="{Binding RequestDate, StringFormat=d MMM yyyy}" ElementStyle="{StaticResource colCenter}" />
+                <DataGridTextColumn Width="20*" Header="payee" Binding="{Binding Payee}" ElementStyle="{StaticResource colLabel}" />
+                <DataGridTextColumn Width="37*" Header="purpose" Binding="{Binding Purpose}" ElementStyle="{StaticResource colPurpose}" />
                 <DataGridTextColumn Width="20*" Header="amount" Binding="{Binding Amount, StringFormat=N2}" ElementStyle="{StaticResource colRight}" />
             </DataGrid.Columns>
         </DataGrid>
