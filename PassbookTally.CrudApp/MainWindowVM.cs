@@ -34,7 +34,7 @@ namespace PassbookTally.CrudApp
         protected override void OnRefreshClicked()
         {
             var repo       = _db.ForAccount(AccountId);
-            TransactionLog = new TransactionLogVM(repo);
+            TransactionLog = new TransactionLogVM(AppArgs, repo);
         }
     }
 }

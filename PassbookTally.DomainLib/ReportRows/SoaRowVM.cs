@@ -21,5 +21,6 @@ namespace PassbookTally.DomainLib.ReportRows
         public decimal?  Deposit          => IsDeposit ? DTO.Amount : (decimal?)null;
         public decimal?  Withdrawal       => IsWithdrawal ? Math.Abs(DTO.Amount) : (decimal?)null;
         public decimal   RunningBalance   => DTO.RunningBalance;
+        public string    Remarks          => DTO.Remarks;
     }
 }

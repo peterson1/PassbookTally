@@ -6,18 +6,15 @@ using CommonTools.Lib45.ThreadTools;
 using CommonTools.Lib45.UIExtensions;
 using PropertyChanged;
 using System;
-using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows;
 
 namespace CommonTools.Lib45.BaseViewModels
 {
     [AddINotifyPropertyChangedInterface]
-    public abstract class MainWindowVMBase<TArg>// : INotifyPropertyChanged
+    public abstract class MainWindowVMBase<TArg>
         where TArg : ICredentialsProvider
     {
-        //public event PropertyChangedEventHandler PropertyChanged = delegate { };
-        //public event EventHandler<object>        DocumentSaved   = delegate { };
         protected string RefreshingText = "Refreshing list of records...";
         protected abstract string CaptionPrefix { get; }
 
@@ -81,7 +78,6 @@ namespace CommonTools.Lib45.BaseViewModels
             StartBeingBusy(RefreshingText);
             OnRefreshClicked();
 
-            //await OnRefreshClickedAsync();
             await Task.Run(() => OnRefreshClickedAsync());
 
             StopBeingBusy();
@@ -89,15 +85,6 @@ namespace CommonTools.Lib45.BaseViewModels
         protected virtual void OnRefreshClicked     () { }
         protected virtual Task OnRefreshClickedAsync() => Task.Delay(0);
         public void ClickRefresh() => RefreshCmd.ExecuteIfItCan();
-
-
-        //protected virtual void HandleChangesByName(string propertyName)
-        //{
-        //}
-
-
-        //protected void SayPropertyChanged(string propertyName)
-        //    => PropertyChanged.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
 
         public bool? Show<T>(bool hideWindow = false, bool showModal = false) 
@@ -118,7 +105,6 @@ namespace CommonTools.Lib45.BaseViewModels
                 return _win.ShowDialog();
             else
             {
-                //_win.Show();
 #pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
                 _win.ShowTemporarilyOnTop();
 #pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
@@ -141,15 +127,7 @@ namespace CommonTools.Lib45.BaseViewModels
         }
 
 
-        //protected void RaiseDocumentSaved<T>(T document)
-        //    => DocumentSaved.Invoke(this, document);
-
-
         public bool AllFieldsValid()
             => _win?.AllFieldsValid() ?? true;
-
-
-        //public void RaisePropertyChanged(object sender, PropertyChangedEventArgs e)
-        //    => PropertyChanged?.Invoke(sender, e);
     }
 }

@@ -71,6 +71,7 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseViewModels\CrudWindowVMBase.cs" />
     <Compile Include="BaseViewModels\SavedListVMBase.cs" />
     <Compile Include="BusyIndicators\BusyDialog.xaml.cs">
       <DependentUpon>BusyDialog.xaml</DependentUpon>
@@ -78,6 +79,9 @@
     <Compile Include="StyledButtons\SimpleRefreshButton.xaml.cs">
       <DependentUpon>SimpleRefreshButton.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UIExtensions\ConfirmToDeleteExtensions.cs" />
+    <Compile Include="UIExtensions\CurrentItemDataGridExtensions.cs" />
+    <Compile Include="UIExtensions\ListScrollerExtensions.cs" />
     <Compile Include="ValueConverters\FirstLetterConverter.cs" />
     <Compile Include="ValueConverters\SpanDaysConverter.cs" />
     <Compile Include="ValueConverters\TrueIfFalseConverter.cs" />

@@ -1,15 +1,17 @@
 ﻿using CommonTools.Lib11.DataStructures;
 using CommonTools.Lib11.ExceptionTools;
+using CommonTools.Lib11.ReflectionTools;
 using PassbookTally.DomainLib.ReportRows;
 using System;
 
 namespace PassbookTally.DomainLib.DTOs
 {
-    public class SoaRowDTO : IDocumentDTO
+    public class SoaRowDTO : IDocumentDTO, ICloneable
     {
         public int       Id               { get; set; }
         public string    Author           { get; set; }
         public DateTime  Timestamp        { get; set; }
+        public string    Remarks          { get; set; }
 
         public string    Subject          { get; set; }
         public string    Description      { get; set; }
@@ -47,5 +49,9 @@ namespace PassbookTally.DomainLib.DTOs
                 TransactionRef = transactionRef
             };
         }
+
+
+        public T DeepClone   <T>() => throw new NotImplementedException();
+        public T ShallowClone<T>() => (T)this.MemberwiseClone();
     }
 }

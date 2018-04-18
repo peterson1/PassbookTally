@@ -16,18 +16,18 @@ namespace PassbookTally.DatabaseLib.Repositories
 
 
         public void Deposit(DateTime transactionDate, string subject, string description, decimal amount, string transactionRef)
-            => InsertAndUpdateBalances(SoaRowDTO
+            => UpsertAndUpdateBalances(SoaRowDTO
                 .Deposit(transactionDate, subject, description, amount, transactionRef));
 
 
         public void Withdraw(DateTime transactionDate, string subject, string description, decimal amount, string transactionRef)
-            => InsertAndUpdateBalances(SoaRowDTO
+            => UpsertAndUpdateBalances(SoaRowDTO
                 .Withdrawal(transactionDate, subject, description, amount, transactionRef));
 
 
-        private void InsertAndUpdateBalances(SoaRowDTO dto)
+        public void UpsertAndUpdateBalances(SoaRowDTO dto)
         {
-            Insert(dto);
+            Upsert(dto);
             var rows = RowsStartingFrom(BaseDate).ToList();
             rows[0].RunningBalance = BaseBalance + rows[0].Amount;
 
