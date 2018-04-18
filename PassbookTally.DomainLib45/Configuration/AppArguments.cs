@@ -1,7 +1,6 @@
 ﻿using CommonTools.Lib11.GoogleTools;
 using CommonTools.Lib45.LicenseTools;
 using PassbookTally.DatabaseLib;
-using System;
 
 namespace PassbookTally.DomainLib45.Configuration
 {

@@ -76,6 +76,9 @@
     <Compile Include="BusyIndicators\BusyDialog.xaml.cs">
       <DependentUpon>BusyDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="StyledButtons\EncodeNewDraftBtn1.xaml.cs">
+      <DependentUpon>EncodeNewDraftBtn1.xaml</DependentUpon>
+    </Compile>
     <Compile Include="StyledButtons\SimpleRefreshButton.xaml.cs">
       <DependentUpon>SimpleRefreshButton.xaml</DependentUpon>
     </Compile>
@@ -91,6 +94,10 @@
     <Compile Include="ValueConverters\VisibleIfNotZeroConverter.cs" />
     <Compile Include="ValueConverters\VisibleIfTrueConverter.cs" />
     <Page Include="BusyIndicators\BusyDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="StyledButtons\EncodeNewDraftBtn1.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -21,17 +21,8 @@ namespace PassbookTally.DatabaseLib
         }
 
 
-        public List<string>  AccountNames  { get; } = new List<string>();
-
-
-        //public void DepositTo(int bankAcctId, DateTime transactionDate,
-        //    string subject, string description, decimal amount)
-        //        => ForAccount(bankAcctId).Deposit(transactionDate, subject, amount, description);
-
-
-        //public void WithdrawFrom(int bankAcctId, DateTime transactionDate,
-        //    string subject, string description, decimal amount)
-        //        => ForAccount(bankAcctId).Withdraw(transactionDate, subject, amount, description);
+        public List<string>        AccountNames    { get; } = new List<string>();
+        public ActiveFundReqsRepo  ActiveRequests  { get; private set; }
 
 
         public SoaRowsRepo1 ForAccount(int bankAcctId)
@@ -55,9 +46,10 @@ namespace PassbookTally.DatabaseLib
 
         protected override void InitializeCollections()
         {
+            ActiveRequests = new ActiveFundReqsRepo(this);
+
             AccountNames.Clear();
             AccountNames.AddRange(GetAccountNames());
-
             if (!AccountNames.Any())
             {
                 ForAccount(1);

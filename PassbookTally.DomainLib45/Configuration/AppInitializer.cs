@@ -1,5 +1,6 @@
 ﻿using CommonTools.Lib45.FileSystemTools;
 using CommonTools.Lib45.ThreadTools;
+using PassbookTally.DomainLib.Authorization;
 using System;
 //using Serilog;
 using System.Threading.Tasks;
@@ -12,6 +13,7 @@ namespace PassbookTally.DomainLib45.Configuration
         public static void Initialize(this Application app, Action<AppArguments> onStartup)
         {
             HandleGlobalErrors();
+            AccessControlExtensions.OnUnauthorizedAccess = s => ShowNotAllowed(s);
 
             ThisThread.SetShortDateFormat("d MMM yyyy");
 
@@ -23,6 +25,10 @@ namespace PassbookTally.DomainLib45.Configuration
             //Log.Information("{User} launched {Exe}", args.UserName, args.ExeName);
             SafeExecute(onStartup, args);
         }
+
+
+        private static void ShowNotAllowed(string msg)
+            => MessageBox.Show(msg, "  Unauthorized Access", MessageBoxButton.OK, MessageBoxImage.Information);
 
 
         private static void SafeExecute(Action<AppArguments> action, AppArguments args)

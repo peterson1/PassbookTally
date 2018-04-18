@@ -1,4 +1,5 @@
 ﻿using CommonTools.Lib11.DataStructures;
+using CommonTools.Lib11.GoogleTools;
 using CommonTools.Lib45.LiteDbTools;
 using PropertyChanged;
 using System;
@@ -8,29 +9,30 @@ using System.Linq;
 namespace CommonTools.Lib45.BaseViewModels
 {
     [AddINotifyPropertyChangedInterface]
-    public abstract class SavedListVMBase<TDTO>// : INotifyPropertyChanged
+    public abstract class SavedListVMBase<TDTO, TArg>
         where TDTO : IDocumentDTO
+        where TArg : ICredentialsProvider
     {
-        //public event PropertyChangedEventHandler PropertyChanged = delegate { };
         public event EventHandler<decimal>       TotalSumChanged;
 
         protected SharedCollectionBase<TDTO> _db;
 
 
-        public SavedListVMBase(SharedCollectionBase<TDTO> sharedCollection, bool doReload = true)
+        public SavedListVMBase(SharedCollectionBase<TDTO> sharedCollection, TArg appArguments, bool doReload = true)
         {
-            _db = sharedCollection;
+            _db     = sharedCollection;
+            AppArgs = appArguments;
 
-            _db.ContentChanged    += (s, e) => ReloadFromDB();
-
-            ItemsList.ItemDeleted += (s, e) => ExecuteDeleteRecord(e);
+            _db.ContentChanged          += (s, e) => ReloadFromDB();
+            ItemsList.ItemDeleted       += (s, e) => ExecuteDeleteRecord(e);
             ItemsList.CollectionChanged += (s, e) => UpdateTotalSum();
-            ItemsList.ItemOpened += ItemsList_ItemOpened;
+            ItemsList.ItemOpened        += ItemsList_ItemOpened;
 
             if (doReload) ReloadFromDB();
         }
 
 
+        public TArg          AppArgs    { get; }
         public UIList<TDTO>  ItemsList  { get; } = new UIList<TDTO>();
         public decimal       TotalSum   { get; private set; }
 

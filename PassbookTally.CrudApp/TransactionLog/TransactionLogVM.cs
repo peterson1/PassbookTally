@@ -3,6 +3,7 @@ using CommonTools.Lib45.BaseViewModels;
 using CommonTools.Lib45.LiteDbTools;
 using PassbookTally.CrudApp.TransactionCRUD;
 using PassbookTally.DatabaseLib.Repositories;
+using PassbookTally.DomainLib.Authorization;
 using PassbookTally.DomainLib.DTOs;
 using PassbookTally.DomainLib.ReportRows;
 using PassbookTally.DomainLib45.Configuration;
@@ -14,12 +15,12 @@ using System.Linq;
 namespace PassbookTally.CrudApp.TransactionLog
 {
     [AddINotifyPropertyChangedInterface]
-    public class TransactionLogVM : SavedListVMBase<SoaRowDTO>
+    public class TransactionLogVM : SavedListVMBase<SoaRowDTO, AppArguments>
     {
         private SoaRowsRepo1 _repo;
 
 
-        public TransactionLogVM(AppArguments args, SoaRowsRepo1 soaRowsRepo, bool doReload = true) : base(soaRowsRepo, doReload)
+        public TransactionLogVM(SoaRowsRepo1 soaRowsRepo, AppArguments args, bool doReload = true) : base(soaRowsRepo, args, doReload)
         {
             _repo = soaRowsRepo;
             Crud  = new TransactionCrudVM(_repo, args);
@@ -32,6 +33,7 @@ namespace PassbookTally.CrudApp.TransactionLog
         public UIList<SoaRowVM>    Rows         { get; } = new UIList<SoaRowVM>();
         public TransactionCrudVM   Crud         { get; }
         public decimal             LastBalance  { get; private set; }
+        public DateTime            LastDate     { get; private set; }
 
 
         protected override IEnumerable<SoaRowDTO> QueryItems(SharedCollectionBase<SoaRowDTO> db)
@@ -39,23 +41,30 @@ namespace PassbookTally.CrudApp.TransactionLog
             var dtos = db.GetAll();
             Rows.SetItems(dtos.Select (_ => new SoaRowVM(_))
                               .OrderBy(_ => _.TransactionDate));
-            LastBalance = dtos.LastBalance();
+
+            var lastRow = dtos.LastRow();
+            LastBalance = lastRow.RunningBalance;
+            LastDate    = lastRow.GetDate();
             return dtos;
         }
 
 
         private void Rows_ItemOpened(object sender, SoaRowVM e)
         {
-            if (IsEditable(e)) Crud.EditCurrentRecord(e.DTO);
+            if (IsEditable(e) &&
+                AppArgs.CanEditBankTransaction(true))
+                    Crud.EditCurrentRecord(e.DTO);
         }
 
 
         private void Rows_ItemDeleted(object sender, SoaRowVM e)
         {
-            if (IsEditable(e)) _repo.Delete(e.DTO);
+            if (IsEditable(e) &&
+                AppArgs.CanDeleteBankTransaction(true))
+                    _repo.Delete(e.DTO);
+
             ReloadFromDB();
         }
-
 
 
         private bool IsEditable(SoaRowVM row)

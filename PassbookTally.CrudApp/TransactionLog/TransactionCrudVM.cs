@@ -1,6 +1,7 @@
 ﻿using CommonTools.Lib11.StringTools;
 using CommonTools.Lib45.BaseViewModels;
 using PassbookTally.DatabaseLib.Repositories;
+using PassbookTally.DomainLib.Authorization;
 using PassbookTally.DomainLib.DTOs;
 using PassbookTally.DomainLib.ReportRows;
 using PassbookTally.DomainLib45.Configuration;
@@ -26,6 +27,10 @@ namespace PassbookTally.CrudApp.TransactionCRUD
 
         protected override void SaveNewRecord(SoaRowDTO draft)  => TweakThenSave(draft);
         protected override void UpdateRecord (SoaRowDTO record) => TweakThenSave(record);
+
+
+        protected override bool CanEncodeNewDraft()
+            => AppArgs.CanAddBankTransaction(false);
 
 
         private void TweakThenSave(SoaRowDTO dto)

@@ -1,5 +1,5 @@
 ﻿using CommonTools.Lib11.DataStructures;
-using CommonTools.Lib45.ThreadTools;
+using PassbookTally.CrudApp.FundRequests;
 using PassbookTally.CrudApp.TransactionLog;
 using PassbookTally.DatabaseLib;
 using PassbookTally.DomainLib45.BaseViewModels;
@@ -18,7 +18,8 @@ namespace PassbookTally.CrudApp
         {
             _db = AppArgs.PassbookDB;
             AccountNames.SetItems(_db.AccountNames);
-            AccountName = AccountNames.FirstOrDefault();
+            AccountName  = AccountNames.FirstOrDefault();
+            FundRequests = new FundReqListVM(_db.ActiveRequests, AppArgs);
             ClickRefresh();
         }
 
@@ -26,6 +27,7 @@ namespace PassbookTally.CrudApp
         public UIList<string>    AccountNames    { get; } = new UIList<string>();
         public string            AccountName     { get; set; }
         public TransactionLogVM  TransactionLog  { get; private set; }
+        public FundReqListVM     FundRequests    { get; }
 
 
         public int AccountId => AccountNames.IndexOf(AccountName) + 1;
@@ -34,7 +36,8 @@ namespace PassbookTally.CrudApp
         protected override void OnRefreshClicked()
         {
             var repo       = _db.ForAccount(AccountId);
-            TransactionLog = new TransactionLogVM(AppArgs, repo);
+            TransactionLog = new TransactionLogVM(repo, AppArgs);
+            FundRequests.ReloadFromDB();
         }
     }
 }
