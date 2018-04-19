@@ -99,6 +99,9 @@
     <Compile Include="TransactionLog\TransactionsTable.xaml.cs">
       <DependentUpon>TransactionsTable.xaml</DependentUpon>
     </Compile>
+    <Compile Include="TransactionLog\TxnLogToolbar.xaml.cs">
+      <DependentUpon>TxnLogToolbar.xaml</DependentUpon>
+    </Compile>
     <Page Include="FundRequests\FundReqCrudWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -132,6 +135,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="TransactionLog\TransactionsTable.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TransactionLog\TxnLogToolbar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

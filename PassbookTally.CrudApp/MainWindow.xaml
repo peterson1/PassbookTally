@@ -20,33 +20,30 @@
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}">
     <Grid>
-        <DockPanel>
-            <StackPanel DockPanel.Dock="Top"
+            <!--<StackPanel DockPanel.Dock="Top"
                         Orientation="Horizontal">
                 <ComboBox ItemsSource="{Binding AccountNames}"
                           SelectedItem="{Binding AccountName}" />
 
                 <butns:SimpleRefreshButton />
-            </StackPanel>
+            </StackPanel>-->
 
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="5*" />
-                    <ColumnDefinition Width="5" />
-                    <ColumnDefinition Width="5*" />
-                </Grid.ColumnDefinitions>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="5*" />
+                <ColumnDefinition Width="5" />
+                <ColumnDefinition Width="5*" />
+            </Grid.ColumnDefinitions>
                 
-                <txns:TransactionLogUI Grid.Column="0" 
-                                       DataContext="{Binding TransactionLog}" />
+            <txns:TransactionLogUI Grid.Column="0" />
 
-                <GridSplitter Grid.Column="1" Style="{StaticResource vSplit}" />
+            <GridSplitter Grid.Column="1" Style="{StaticResource vSplit}" />
 
-                <reqs:FundRequestsUI Grid.Column="2"
-                                     DataContext="{Binding FundRequests}" />
-            </Grid>
+            <reqs:FundRequestsUI Grid.Column="2"
+                                    DataContext="{Binding FundRequests}" />
+        </Grid>
             
             
-        </DockPanel>
         <busy:BusyDialog />
     </Grid>
 </Window>

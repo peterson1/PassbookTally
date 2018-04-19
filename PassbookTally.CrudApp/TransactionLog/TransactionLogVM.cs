@@ -18,12 +18,16 @@ namespace PassbookTally.CrudApp.TransactionLog
     public class TransactionLogVM : SavedListVMBase<SoaRowDTO, AppArguments>
     {
         private SoaRowsRepo1 _repo1;
+        private DateTime     _startDate;
 
 
-        public TransactionLogVM(SoaRowsRepo1 soaRowsRepo, AppArguments args, bool doReload = true) : base(soaRowsRepo, args, doReload)
+        public TransactionLogVM(SoaRowsRepo1 soaRowsRepo, AppArguments args, DateTime startDate, bool doReload = false) : base(soaRowsRepo, args, doReload)
         {
-            _repo1 = soaRowsRepo;
-            Crud   = new TransactionCrudVM(_repo1, args);
+            _repo1     = soaRowsRepo;
+            _startDate = startDate;
+            Crud       = new TransactionCrudVM(_repo1, args);
+            ReloadFromDB();
+
             Crud.SaveCompleted += (s, e) => ReloadFromDB();
             Rows.ItemOpened    += Rows_ItemOpened;
             Rows.ItemDeleted   += Rows_ItemDeleted;
@@ -38,7 +42,7 @@ namespace PassbookTally.CrudApp.TransactionLog
 
         protected override List<SoaRowDTO> QueryItems(SharedCollectionBase<SoaRowDTO> db)
         {
-            var dtos = db.GetAll();
+            var dtos = _repo1.RowsStartingFrom(_startDate).ToList();
             Rows.SetItems(dtos.Select (_ => new SoaRowVM(_))
                               .OrderBy(_ => _.TransactionDate));
 

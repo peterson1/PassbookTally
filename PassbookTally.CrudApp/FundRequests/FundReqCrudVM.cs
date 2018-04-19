@@ -1,4 +1,5 @@
-﻿using CommonTools.Lib11.StringTools;
+﻿using CommonTools.Lib11.DataStructures;
+using CommonTools.Lib11.StringTools;
 using CommonTools.Lib45.BaseViewModels;
 using PassbookTally.DatabaseLib;
 using PassbookTally.DatabaseLib.Repositories;
@@ -23,15 +24,18 @@ namespace PassbookTally.CrudApp.FundRequests
         {
             _db   = passbookDB;
             _repo = _db.ActiveRequests;
-
-            //todo: load list of request payees
         }
+
+
+
+        public UIList<string>  Payees  { get; } = new UIList<string>();
 
 
         protected override void SetNewDraftDefaults(FundRequestDTO draft)
         {
             draft.RequestDate = DateTime.Now;
             draft.SerialNum   = _db.NextRequestSerial();
+            Payees.SetItems(_db.GetPayees());
         }
 
 

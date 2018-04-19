@@ -5,6 +5,7 @@ using PassbookTally.DatabaseLib;
 using PassbookTally.DomainLib45.BaseViewModels;
 using PassbookTally.DomainLib45.Configuration;
 using PropertyChanged;
+using System;
 using System.Linq;
 
 namespace PassbookTally.CrudApp
@@ -28,6 +29,7 @@ namespace PassbookTally.CrudApp
         public string            AccountName     { get; set; }
         public TransactionLogVM  TransactionLog  { get; private set; }
         public FundReqListVM     FundRequests    { get; }
+        public DateTime          StartDate       { get; set; } = DateTime.Now.AddDays(-10);
 
 
         public int AccountId => AccountNames.IndexOf(AccountName) + 1;
@@ -36,7 +38,7 @@ namespace PassbookTally.CrudApp
         protected override void OnRefreshClicked()
         {
             var repo       = _db.ForAccount(AccountId);
-            TransactionLog = new TransactionLogVM(repo, AppArgs);
+            TransactionLog = new TransactionLogVM(repo, AppArgs, StartDate);
             FundRequests.ReloadFromDB();
         }
     }
