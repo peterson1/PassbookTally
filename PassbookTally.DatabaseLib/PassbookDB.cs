@@ -10,7 +10,6 @@ namespace PassbookTally.DatabaseLib
     public class PassbookDB : SharedLiteDB
     {
         private Dictionary<string, SoaRowsRepo1> _soaReposDict = new Dictionary<string, SoaRowsRepo1>();
-        private const string ACCT_PREFIX = "Acct_";
 
 
         public PassbookDB(string dbFilePath, string currentUser) : base(dbFilePath, currentUser)
@@ -40,24 +39,6 @@ namespace PassbookTally.DatabaseLib
         }
 
 
-        public int NextRequestSerial()
-        {
-            var activesMax  = ActiveRequests.GetMaxSerial();
-            var inactivsMax = InactiveRequests.GetMaxSerial();
-            return Math.Max(activesMax, inactivsMax) + 1;
-        }
-
-
-        public bool HasRequestSerial(int serialNum)
-            => ActiveRequests  .HasRequestSerial(serialNum)
-            || InactiveRequests.HasRequestSerial(serialNum);
-
-
-        private IEnumerable<string> GetAccountNames()
-            => Metadata.Find    (_ => _.Name.Contains(ACCT_PREFIX))
-                       .OrderBy (_ => _.Name)
-                       .Select  (_ => _.Value);
-
 
         protected override void InitializeCollections()
         {
@@ -65,17 +46,13 @@ namespace PassbookTally.DatabaseLib
             InactiveRequests = new InactiveFundReqsRepo(this);
 
             AccountNames.Clear();
-            AccountNames.AddRange(GetAccountNames());
+            AccountNames.AddRange(this.GetAccountNames());
             if (!AccountNames.Any())
             {
                 ForAccount(1);
                 AccountNames.Clear();
-                AccountNames.AddRange(GetAccountNames());
+                AccountNames.AddRange(this.GetAccountNames());
             }
         }
-
-
-        internal string GetAccountNameKey(int bankAcctId)
-            => $"{ACCT_PREFIX}{bankAcctId}";
     }
 }

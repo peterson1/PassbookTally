@@ -1,6 +1,8 @@
 ﻿using CommonTools.Lib45.LiteDbTools;
 using LiteDB;
 using PassbookTally.DomainLib.DTOs;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace PassbookTally.DatabaseLib.Repositories
 {
@@ -36,6 +38,12 @@ namespace PassbookTally.DatabaseLib.Repositories
                 return coll.Exists(_ => _.SerialNum == serialNum);
             }
         }
+
+
+        internal IEnumerable<string> GetPayees()
+            => GetAll().Select  (_ => _.Payee)
+                       .GroupBy (_ => _)
+                       .Select  (p => p.First());
 
 
         protected override void EnsureIndeces(LiteCollection<FundRequestDTO> coll)

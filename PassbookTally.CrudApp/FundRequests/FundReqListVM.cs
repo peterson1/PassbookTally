@@ -30,8 +30,8 @@ namespace PassbookTally.CrudApp.FundRequests
         protected override Func<FundRequestDTO, decimal> SummedAmount => _ => _.Amount ?? 0;
 
 
-        protected override IEnumerable<FundRequestDTO> QueryItems(SharedCollectionBase<FundRequestDTO> db)
-            => db.GetAll().OrderBy(_ => _.SerialNum);
+        protected override List<FundRequestDTO> QueryItems(SharedCollectionBase<FundRequestDTO> db)
+            => db.GetAll().OrderBy(_ => _.SerialNum).ToList();
 
 
         protected override void DeleteRecord(SharedCollectionBase<FundRequestDTO> db, FundRequestDTO dto)

@@ -25,24 +25,24 @@ namespace CommonTools.Lib45.LiteDbTools
         }
 
 
-        public IEnumerable<T> Find(Expression<Func<T, bool>> predicate)
+        public List<T> Find(Expression<Func<T, bool>> predicate)
         {
             using (var db = _db.OpenRead())
-                return GetCollection(db).Find(predicate);
+                return GetCollection(db).Find(predicate).ToList();
         }
 
 
-        protected IEnumerable<T> Find(Query query)
+        private List<T> Find(Query query)
         {
             using (var db = _db.OpenRead())
-                return GetCollection(db).Find(query);
+                return GetCollection(db).Find(query).ToList();
         }
 
 
-        public IEnumerable<T> GetAll()
+        public List<T> GetAll()
         {
             using (var db = _db.OpenRead())
-                return GetCollection(db).FindAll();
+                return GetCollection(db).FindAll().ToList();
         }
 
 

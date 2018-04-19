@@ -9,7 +9,7 @@ namespace PassbookTally.DatabaseLib.Repositories
     public partial class SoaRowsRepo1
     {
         public IEnumerable<SoaRowDTO> RowsStartingFrom(DateTime date)
-            => Find(_ => _.DateOffset >= date.SoaRowOffset()).Sort();
+            => Find(_ => _.DateOffset >= date.SoaRowOffset()).SortRows();
 
 
         public decimal ClosingBalanceFor(DateTime date)
@@ -21,5 +21,20 @@ namespace PassbookTally.DatabaseLib.Repositories
             var nextDay = date.AddDays(1).SoaRowOffset();
             return Find(_ => _.DateOffset < nextDay).LastBalance();
         }
+    }
+
+
+    public static class SoaRowsRepo1_Read
+    {
+        private const string ACCT_PREFIX = "Acct_";
+
+        internal static IEnumerable<string> GetAccountNames(this PassbookDB db)
+            => db.Metadata.Find    (_ => _.Name.Contains(ACCT_PREFIX))
+                          .OrderBy (_ => _.Name)
+                          .Select  (_ => _.Value);
+
+
+        internal static string GetAccountNameKey(this PassbookDB db, int bankAcctId)
+            => $"{ACCT_PREFIX}{bankAcctId}";
     }
 }

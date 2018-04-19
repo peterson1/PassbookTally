@@ -23,6 +23,8 @@ namespace PassbookTally.CrudApp.FundRequests
         {
             _db   = passbookDB;
             _repo = _db.ActiveRequests;
+
+            //todo: load list of request payees
         }
 
 

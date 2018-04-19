@@ -7,7 +7,7 @@ namespace PassbookTally.DomainLib.ReportRows
 {
     public static class SoaRowExtensions
     {
-        public static IOrderedEnumerable<SoaRowDTO> Sort(this IEnumerable<SoaRowDTO> unsorted)
+        public static IOrderedEnumerable<SoaRowDTO> SortRows(this IEnumerable<SoaRowDTO> unsorted)
             => unsorted.OrderBy(_ => _.DateOffset)
                        .ThenBy (_ => _.Id);
 
@@ -17,7 +17,7 @@ namespace PassbookTally.DomainLib.ReportRows
 
 
         public static SoaRowDTO LastRow(this IEnumerable<SoaRowDTO> rows)
-            => rows.Sort().Last();
+            => rows.SortRows().Last();
 
 
         public static int SoaRowOffset(this DateTime date)

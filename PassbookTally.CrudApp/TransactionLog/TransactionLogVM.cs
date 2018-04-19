@@ -36,7 +36,7 @@ namespace PassbookTally.CrudApp.TransactionLog
         public DateTime            LastDate     { get; private set; }
 
 
-        protected override IEnumerable<SoaRowDTO> QueryItems(SharedCollectionBase<SoaRowDTO> db)
+        protected override List<SoaRowDTO> QueryItems(SharedCollectionBase<SoaRowDTO> db)
         {
             var dtos = db.GetAll();
             Rows.SetItems(dtos.Select (_ => new SoaRowVM(_))

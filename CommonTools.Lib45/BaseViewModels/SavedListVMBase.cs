@@ -68,7 +68,7 @@ namespace CommonTools.Lib45.BaseViewModels
             => ItemsList.SetItems(PostProcess(QueryItems(_repo)));
 
 
-        protected virtual IEnumerable<TDTO> QueryItems(SharedCollectionBase<TDTO> db)
+        protected virtual List<TDTO> QueryItems(SharedCollectionBase<TDTO> db)
             => db.GetAll();
 
 
