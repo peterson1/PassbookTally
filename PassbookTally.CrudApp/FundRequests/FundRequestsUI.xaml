@@ -4,21 +4,43 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:PassbookTally.CrudApp.FundRequests"
+             xmlns:mat="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:btns="clr-namespace:CommonTools.Lib45.StyledButtons;assembly=CommonTools.Lib45"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <DockPanel>
-        <StackPanel Orientation="Horizontal" DockPanel.Dock="Top"
-                    HorizontalAlignment="Right" Margin="0 0 20 20">
+        <mat:ColorZone Style="{StaticResource zone2}"
+                       DockPanel.Dock="Top">
 
-            <TextBlock Text="{Binding TotalSum, StringFormat={}for check preparation total :  P {0:N2}}"
-                       FontWeight="Bold"/>
-            <!--<TextBlock Text="{Binding LastDate, StringFormat={}(as of {0:d MMM yyyy})}"
-                       Margin="7 0 0 0" />-->
-        </StackPanel>
+            <Grid>
+                <StackPanel Orientation="Horizontal" 
+                            Margin="0 0 0 0">
+
+                    <TextBlock Text="For Check Preparation"
+                               Style="{StaticResource MaterialDesignSubheadingTextBlock}"
+                               VerticalAlignment="Center" />
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" 
+                            HorizontalAlignment="Right">
+
+                    <TextBlock Text="total :" VerticalAlignment="Center" />
+                    
+                    <TextBlock Text="{Binding TotalSum, StringFormat=N2}"
+                               Style="{StaticResource MaterialDesignBody2TextBlock}"
+                               VerticalAlignment="Center"
+                               Margin="5 0 0 0" />
+                    
+                    <Button Content="{mat:PackIcon Printer, Size=21}"
+                            Style="{StaticResource MaterialDesignFlatButton}"
+                            Margin="10 0 0 0"
+                            Padding="3 0 3 0" />
+                </StackPanel>
+            </Grid>
+        </mat:ColorZone>
 
         <Grid>
-            <local:FundReqsTable DataContext="{Binding ItemsList}" />
+            <local:FundReqsTable />
 
             <btns:EncodeNewDraftBtn1 DataContext="{Binding Crud}"
                                      Margin="30 0 0 30"

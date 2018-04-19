@@ -12,7 +12,7 @@ using System.Linq;
 namespace PassbookTally.CrudApp.FundRequests
 {
     [AddINotifyPropertyChangedInterface]
-    public class FundReqListVM : SavedListVMBase<FundRequestDTO, AppArguments>
+    public class FundReqListVM : FilteredSavedListVMBase<FundRequestDTO, FundReqListFilterVM, AppArguments>
     {
         private PassbookDB _db;
 
@@ -31,7 +31,7 @@ namespace PassbookTally.CrudApp.FundRequests
 
 
         protected override List<FundRequestDTO> QueryItems(SharedCollectionBase<FundRequestDTO> db)
-            => db.GetAll().OrderBy(_ => _.SerialNum).ToList();
+            => db.GetAll().OrderByDescending(_ => _.SerialNum).ToList();
 
 
         protected override void DeleteRecord(SharedCollectionBase<FundRequestDTO> db, FundRequestDTO dto)

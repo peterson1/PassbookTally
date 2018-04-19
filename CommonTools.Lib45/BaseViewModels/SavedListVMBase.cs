@@ -64,15 +64,19 @@ namespace CommonTools.Lib45.BaseViewModels
         }
 
 
-        public void ReloadFromDB()
-            => ItemsList.SetItems(PostProcess(QueryItems(_repo)));
+        public virtual void ReloadFromDB()
+            => ItemsList.SetItems(GetPostProcessedResult());
+
+
+        protected IEnumerable<TDTO> GetPostProcessedResult()
+            => PostProcessQueried(QueryItems(_repo));
 
 
         protected virtual List<TDTO> QueryItems(SharedCollectionBase<TDTO> db)
             => db.GetAll();
 
 
-        protected virtual IEnumerable<TDTO> PostProcess(IEnumerable<TDTO> items) 
+        protected virtual IEnumerable<TDTO> PostProcessQueried(IEnumerable<TDTO> items) 
             => items;
 
 

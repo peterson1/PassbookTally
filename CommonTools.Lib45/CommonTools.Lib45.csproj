@@ -78,7 +78,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseViewModels\CrudWindowVMBase.cs" />
+    <Compile Include="BaseViewModels\FilteredSavedListVMBase.cs" />
     <Compile Include="BaseViewModels\SavedListVMBase.cs" />
+    <Compile Include="BaseViewModels\TextFilterBase.cs" />
     <Compile Include="BusyIndicators\BusyDialog.xaml.cs">
       <DependentUpon>BusyDialog.xaml</DependentUpon>
     </Compile>

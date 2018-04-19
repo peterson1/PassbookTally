@@ -81,6 +81,7 @@
     <Compile Include="FundRequests\FundReqCrudWindow.xaml.cs">
       <DependentUpon>FundReqCrudWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="FundRequests\FundReqListFilterVM.cs" />
     <Compile Include="FundRequests\FundReqListVM.cs" />
     <Compile Include="FundRequests\FundReqsTable.xaml.cs">
       <DependentUpon>FundReqsTable.xaml</DependentUpon>

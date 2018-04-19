@@ -15,7 +15,7 @@
                 <Label Content="Statement of Account for" 
                        Foreground="White"
                        VerticalAlignment="Center"
-                       Margin="20 0 10 0" />
+                       Margin="0 0 10 0" />
 
                 <ComboBox ItemsSource="{Binding AccountNames}"
                           SelectedItem="{Binding AccountName}"
@@ -26,8 +26,7 @@
             </StackPanel>
 
             <StackPanel Orientation="Horizontal"
-                        HorizontalAlignment="Right"
-                        Margin="0 0 10 0">
+                        HorizontalAlignment="Right">
                 <Label Content="starting from" Margin="0 0 10 0"
                        VerticalAlignment="Center"
                        Foreground="{DynamicResource PrimaryHueLightBrush}"/>
