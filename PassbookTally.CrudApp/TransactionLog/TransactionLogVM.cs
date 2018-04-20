@@ -34,10 +34,11 @@ namespace PassbookTally.CrudApp.TransactionLog
         }
 
 
-        public UIList<SoaRowVM>    Rows         { get; } = new UIList<SoaRowVM>();
-        public TransactionCrudVM   Crud         { get; }
-        public decimal             LastBalance  { get; private set; }
-        public DateTime            LastDate     { get; private set; }
+        public TransactionCrudVM       Crud         { get; }
+        public UIList<SoaRowVM>        Rows         { get; } = new UIList<SoaRowVM>();
+        public TransactionLogFilterVM  Filter       { get; } = new TransactionLogFilterVM();
+        public decimal                 LastBalance  { get; private set; }
+        public DateTime                LastDate     { get; private set; }
 
 
         protected override List<SoaRowDTO> QueryItems(SharedCollectionBase<SoaRowDTO> db)

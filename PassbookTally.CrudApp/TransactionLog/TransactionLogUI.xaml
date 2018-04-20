@@ -29,7 +29,7 @@
                 </StackPanel>
             </Grid>
 
-            <local:TransactionsTable DataContext="{Binding TransactionLog.Rows}"
+            <local:TransactionsTable DataContext="{Binding TransactionLog}"
                                      Margin="0 10 0 0" />
         </DockPanel>
 

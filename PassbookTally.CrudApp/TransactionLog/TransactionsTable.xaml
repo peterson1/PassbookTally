@@ -7,19 +7,42 @@
              xmlns:mat="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
+    <DockPanel>
+        <Grid DockPanel.Dock="Top" DataContext="{Binding Filter}">
+            <Grid.Resources>
+                <Style TargetType="TextBox" 
+                       BasedOn="{StaticResource filterTxtbox}" />
+            </Grid.Resources>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="08*" />
+                <ColumnDefinition Width="08*" />
+                <ColumnDefinition Width="14*" />
+                <ColumnDefinition Width="30*" />
+                <ColumnDefinition Width="13*" />
+                <ColumnDefinition Width="13*" />
+                <ColumnDefinition Width="14*" />
+            </Grid.ColumnDefinitions>
+            <TextBox Grid.Column="0" mat:HintAssist.Hint="date"        Text="{Binding FilterTransactionDate, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBox Grid.Column="1" mat:HintAssist.Hint="ref #"       Text="{Binding FilterTransactionRef , UpdateSourceTrigger=PropertyChanged}" />
+            <TextBox Grid.Column="2" mat:HintAssist.Hint="subject"     Text="{Binding FilterSubject        , UpdateSourceTrigger=PropertyChanged}" />
+            <TextBox Grid.Column="3" mat:HintAssist.Hint="description" Text="{Binding FilterDescription    , UpdateSourceTrigger=PropertyChanged}" />
+            <TextBox Grid.Column="4" mat:HintAssist.Hint="deposit"     Text="{Binding FilterDeposit        , UpdateSourceTrigger=PropertyChanged}" />
+            <TextBox Grid.Column="5" mat:HintAssist.Hint="withdrawal"  Text="{Binding FilterWithdrawal     , UpdateSourceTrigger=PropertyChanged}" />
+            <TextBox Grid.Column="6" mat:HintAssist.Hint="balance"     Text="{Binding FilterRunningBalance , UpdateSourceTrigger=PropertyChanged}" />
+        </Grid>
         <DataGrid x:Name="dg" Style="{StaticResource dgReadOnly}"
+                  DataContext="{Binding Rows}"
                   ItemsSource="{Binding }"
                   mat:DataGridAssist.CellPadding="6 3 6 3">
             <DataGrid.Columns>
-                <DataGridTextColumn Width="8*" Header="date" Binding="{Binding TransactionDate, StringFormat=d MMM}" ElementStyle="{StaticResource colSmallWrapCenter}" />
-                <DataGridTextColumn Width="8*" Header="ref #" Binding="{Binding TransactionRef}" ElementStyle="{StaticResource colSmallWrapCenter}" />
-                <DataGridTextColumn Width="14*" Header="subject" Binding="{Binding Subject}" ElementStyle="{StaticResource colSmallWrapRightBold}" />
+                <DataGridTextColumn Width="08*" Header="date"        Binding="{Binding TransactionDate, StringFormat=d MMM}" ElementStyle="{StaticResource colSmallWrapCenter}" />
+                <DataGridTextColumn Width="08*" Header="ref #"       Binding="{Binding TransactionRef}" ElementStyle="{StaticResource colSmallWrapCenter}" />
+                <DataGridTextColumn Width="14*" Header="subject"     Binding="{Binding Subject}" ElementStyle="{StaticResource colSmallWrapRightBold}" />
                 <DataGridTextColumn Width="30*" Header="description" Binding="{Binding Description}" ElementStyle="{StaticResource colSmallWrapLeft}" />
-                <DataGridTextColumn Width="13*" Header="deposit" Binding="{Binding Deposit, StringFormat=N2}" ElementStyle="{StaticResource colRight}" />
-                <DataGridTextColumn Width="13*" Header="withdrawal" Binding="{Binding Withdrawal, StringFormat=N2}" ElementStyle="{StaticResource colRight}" />
-                <DataGridTextColumn Width="14*" Header="balance" Binding="{Binding RunningBalance, StringFormat=N2}" ElementStyle="{StaticResource colRightEnd}" />
+                <DataGridTextColumn Width="13*" Header="deposit"     Binding="{Binding Deposit, StringFormat=N2}" ElementStyle="{StaticResource colRight}" />
+                <DataGridTextColumn Width="13*" Header="withdrawal"  Binding="{Binding Withdrawal, StringFormat=N2}" ElementStyle="{StaticResource colRight}" />
+                <DataGridTextColumn Width="14*" Header="balance"     Binding="{Binding RunningBalance, StringFormat=N2}" ElementStyle="{StaticResource colRightEnd}" />
             </DataGrid.Columns>
         </DataGrid>
-    </Grid>
+    </DockPanel>
 </UserControl>

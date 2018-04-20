@@ -11,10 +11,7 @@
         <Grid DockPanel.Dock="Top" DataContext="{Binding Filter}">
             <Grid.Resources>
                 <Style TargetType="TextBox" 
-                       BasedOn="{StaticResource MaterialDesignFloatingHintTextBox}">
-                    <Setter Property="Margin" Value="0 0 5 0" />
-                    <Setter Property="HorizontalContentAlignment" Value="Center" />
-                </Style>
+                       BasedOn="{StaticResource filterTxtbox}" />
             </Grid.Resources>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="08*" />

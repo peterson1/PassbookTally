@@ -93,6 +93,7 @@
     <Compile Include="TransactionLog\TransactionCrudWindow.xaml.cs">
       <DependentUpon>TransactionCrudWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="TransactionLog\TransactionLogFilterVM.cs" />
     <Compile Include="TransactionLog\TransactionLogUI.xaml.cs">
       <DependentUpon>TransactionLogUI.xaml</DependentUpon>
     </Compile>

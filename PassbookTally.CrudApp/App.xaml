@@ -85,6 +85,12 @@
                 <Setter Property="SelectionMode" Value="Single" />
             </Style>
 
+            <Style x:Key="filterTxtbox" TargetType="TextBox" 
+                   BasedOn="{StaticResource MaterialDesignFloatingHintTextBox}">
+                <Setter Property="Margin" Value="0 0 5 0" />
+                <Setter Property="HorizontalContentAlignment" Value="Center" />
+            </Style>
+            
             <Style x:Key="zone1" TargetType="mat:ColorZone">
                 <Setter Property="Mode" Value="PrimaryMid" />
                 <Setter Property="Padding"  Value="25 6 20 6" />
@@ -94,10 +100,10 @@
                 <Setter Property="Padding"  Value="25 6 20 6" />
             </Style>
 
-            <cnv:VisibleIfTrueConverter x:Key="visIfTrue" />
-            <cnv:VisibleIfFalseConverter x:Key="visIfFalse" />
-            <cnv:VisibleIfNotZeroConverter x:Key="visIfNotZero" />
-            <cnv:SpanDaysConverter x:Key="spanDays" />
+            <cnv:VisibleIfTrueConverter     x:Key="visIfTrue"     />
+            <cnv:VisibleIfFalseConverter    x:Key="visIfFalse"    />
+            <cnv:VisibleIfNotZeroConverter  x:Key="visIfNotZero"  />
+            <cnv:SpanDaysConverter          x:Key="spanDays"      />
             <cnv:UnderscoreToSpaceConverter x:Key="uscoreToSpace" />
 
         </ResourceDictionary>
