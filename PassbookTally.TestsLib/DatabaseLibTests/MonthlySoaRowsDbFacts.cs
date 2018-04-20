@@ -115,11 +115,11 @@ namespace PassbookTally.TestsLib.DatabaseLibTests
 
 
 
-        private MonthlySoaRowsDB CreateSUT(out int bankAcctId)
+        private MonthlyDBsIndex CreateSUT(out int bankAcctId)
         {
             bankAcctId = 1;
             var db = new PassbookDB(new MemoryStream(), "usr");
-            return new MonthlySoaRowsDB(bankAcctId, db);
+            return new MonthlyDBsIndex(bankAcctId, db);
         }
     }
 }

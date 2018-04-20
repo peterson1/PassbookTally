@@ -46,9 +46,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MonthlySoaRows\MonthlySoaRowsDB.cs" />
-    <Compile Include="MonthlySoaRows\MonthlySoaRowsDB_Read.cs" />
-    <Compile Include="MonthlySoaRows\MonthlySoaRowsDB_Write.cs" />
+    <Compile Include="MonthlySoaRows\MonthlyPassbookDB.cs" />
+    <Compile Include="MonthlySoaRows\MonthlyDBsIndex.cs" />
+    <Compile Include="MonthlySoaRows\MonthlyDBsIndex_BaseBalance.cs" />
+    <Compile Include="MonthlySoaRows\MonthlyDBsIndex_Read.cs" />
+    <Compile Include="MonthlySoaRows\MonthlyDBsIndex_Write.cs" />
     <Compile Include="PassbookDB.cs" />
     <Compile Include="Repositories\FundReqsRepo_Active.cs" />
     <Compile Include="Repositories\FundReqsRepo_Inactive.cs" />

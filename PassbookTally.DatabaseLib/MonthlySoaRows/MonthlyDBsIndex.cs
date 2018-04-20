@@ -1,16 +1,17 @@
 ﻿using PassbookTally.DatabaseLib.Repositories;
+using CommonTools.Lib11.DateTimeTools;
 using System;
 using System.Collections.Generic;
 using System.IO;
 
 namespace PassbookTally.DatabaseLib.MonthlySoaRows
 {
-    public class MonthlySoaRowsDB
+    public class MonthlyDBsIndex
     {
-        private Dictionary<string, PassbookDB> _dict = new Dictionary<string, PassbookDB>();
+        private Dictionary<DateTime, MonthlyPassbookDB> _dict = new Dictionary<DateTime, MonthlyPassbookDB>();
 
 
-        public MonthlySoaRowsDB(int bankAcctId, PassbookDB passbookDB)
+        public MonthlyDBsIndex(int bankAcctId, PassbookDB passbookDB)
         {
             MainDB        = passbookDB;
             BankAccountId = bankAcctId;
@@ -27,31 +28,29 @@ namespace PassbookTally.DatabaseLib.MonthlySoaRows
                                 GetMonthDB(date));
 
 
-        private PassbookDB GetMonthDB(DateTime date)
+        private MonthlyPassbookDB GetMonthDB(DateTime date)
             => MainDB.IsInMemory ? GetInMemoryMonthDB  (date)
                                  : GetPersistentMonthDB(date);
 
 
-        private PassbookDB GetInMemoryMonthDB(DateTime date)
+        private MonthlyPassbookDB GetInMemoryMonthDB(DateTime date)
         {
-            var key = GetMonthKey(date);
-
-            if (!_dict.TryGetValue(key, out PassbookDB db))
+            var day1 = date.MonthFirstDay();
+            if (!_dict.TryGetValue(day1, out MonthlyPassbookDB db))
             {
-                db = new PassbookDB(new MemoryStream(), MainDB.CurrentUser);
+                db = new MonthlyPassbookDB(this, date, new MemoryStream(), MainDB.CurrentUser);
                 db.AccountNames.Clear();
                 db.AccountNames.AddRange(MainDB.AccountNames);
-                _dict.Add(key, db);
+                this.SetBaseBalance(db);
+                _dict.Add(day1, db);
             }
             return db;
         }
 
 
-        private static string GetMonthKey(DateTime date)
-            => date.ToString("yyyy-MM");
 
 
-        private PassbookDB GetPersistentMonthDB(DateTime date)
+        private MonthlyPassbookDB GetPersistentMonthDB(DateTime date)
         {
             throw new NotImplementedException();
         }
