@@ -47,7 +47,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MonthlySoaRows\MonthlySoaRowsDB.cs" />
-    <Compile Include="MonthlySoaRows\MonthlySoaRowsDB_Connect.cs" />
     <Compile Include="MonthlySoaRows\MonthlySoaRowsDB_Read.cs" />
     <Compile Include="MonthlySoaRows\MonthlySoaRowsDB_Write.cs" />
     <Compile Include="PassbookDB.cs" />
