@@ -33,6 +33,7 @@
         <DataGrid x:Name="dg" Style="{StaticResource dgReadOnly}"
                   DataContext="{Binding Rows}"
                   ItemsSource="{Binding }"
+                  HeadersVisibility="None"
                   mat:DataGridAssist.CellPadding="6 3 6 3">
             <DataGrid.Columns>
                 <DataGridTextColumn Width="08*" Header="date"        Binding="{Binding TransactionDate, StringFormat=d MMM}" ElementStyle="{StaticResource colSmallWrapCenter}" />

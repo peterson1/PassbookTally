@@ -1,6 +1,5 @@
 ﻿using CommonTools.Lib11.DataStructures;
 using CommonTools.Lib45.BaseViewModels;
-using CommonTools.Lib45.LiteDbTools;
 using PassbookTally.CrudApp.TransactionCRUD;
 using PassbookTally.DatabaseLib.Repositories;
 using PassbookTally.DomainLib.Authorization;
@@ -17,9 +16,9 @@ namespace PassbookTally.CrudApp.TransactionLog
     [AddINotifyPropertyChangedInterface]
     public class TransactionLogVM : SavedListVMBase<SoaRowDTO, AppArguments>
     {
-        private SoaRowsRepo1 _repo1;
-        private DateTime     _startDate;
-
+        private SoaRowsRepo1   _repo1;
+        private DateTime       _startDate;
+        private List<SoaRowVM> _queried;
 
         public TransactionLogVM(SoaRowsRepo1 soaRowsRepo, AppArguments args, DateTime startDate, bool doReload = false) : base(soaRowsRepo, args, doReload)
         {
@@ -28,9 +27,10 @@ namespace PassbookTally.CrudApp.TransactionLog
             Crud       = new TransactionCrudVM(_repo1, args);
             ReloadFromDB();
 
-            Crud.SaveCompleted += (s, e) => ReloadFromDB();
-            Rows.ItemOpened    += Rows_ItemOpened;
-            Rows.ItemDeleted   += Rows_ItemDeleted;
+            Crud  .SaveCompleted     += (s, e) => ReloadFromDB();
+            Filter.TextFilterChanged += (s, e) => ApplyTextFilters();
+            Rows  .ItemOpened        += Rows_ItemOpened;
+            Rows  .ItemDeleted       += Rows_ItemDeleted;
         }
 
 
@@ -39,19 +39,6 @@ namespace PassbookTally.CrudApp.TransactionLog
         public TransactionLogFilterVM  Filter       { get; } = new TransactionLogFilterVM();
         public decimal                 LastBalance  { get; private set; }
         public DateTime                LastDate     { get; private set; }
-
-
-        protected override List<SoaRowDTO> QueryItems(SharedCollectionBase<SoaRowDTO> db)
-        {
-            var dtos = _repo1.RowsStartingFrom(_startDate).ToList();
-            Rows.SetItems(dtos.Select (_ => new SoaRowVM(_))
-                              .OrderBy(_ => _.TransactionDate));
-
-            var lastRow = dtos.LastRow();
-            LastBalance = lastRow.RunningBalance;
-            LastDate    = lastRow.GetDate();
-            return dtos;
-        }
 
 
         private void Rows_ItemOpened(object sender, SoaRowVM e)
@@ -69,6 +56,27 @@ namespace PassbookTally.CrudApp.TransactionLog
                     _repo1.Delete(e.DTO);
 
             ReloadFromDB();
+        }
+
+
+        public override void ReloadFromDB()
+        {
+            var dtos    = _repo1.RowsStartingFrom(_startDate).ToList();
+            var lastRow = dtos.LastRow();
+            LastBalance = lastRow.RunningBalance;
+            LastDate    = lastRow.GetDate();
+            _queried    =  dtos.Select (_ => new SoaRowVM(_))
+                               .OrderBy(_ => _.TransactionDate)
+                               .ToList();
+            ApplyTextFilters();
+        }
+
+
+        private void ApplyTextFilters()
+        {
+            var list = _queried.ToList();
+            Filter.RemoveNonMatches(ref list);
+            Rows.SetItems(list);
         }
 
 
