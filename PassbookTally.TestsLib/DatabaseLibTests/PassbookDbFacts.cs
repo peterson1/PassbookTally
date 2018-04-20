@@ -6,7 +6,7 @@ using Xunit;
 
 namespace PassbookTally.TestsLib.DatabaseLibTests
 {
-    [Trait("Solitary", "Passbook DB")]
+    [Trait("SoaRowsRepo1", "Solitary")]
     public class PassbookDbFacts
     {
         [Fact(DisplayName = "Creates default bank acct if no accounts yet")]

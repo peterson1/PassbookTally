@@ -47,15 +47,10 @@ namespace CommonTools.Lib45.LiteDbTools
 
 
         public LiteDatabase OpenRead()
-        {
-            //if (_mem == null && !File.Exists(DbPath))
-            //{
-            //    var db = Connect(LiteDB.FileMode.Shared);
-            //    Metadata.Add("v", "0.1");
-            //    db.Dispose();
-            //}
-            return Connect(LiteDB.FileMode.ReadOnly);
-        }
+            => Connect(LiteDB.FileMode.ReadOnly);
+
+
+        public bool IsInMemory => _mem != null;
 
 
         public LiteDatabase OpenWrite()

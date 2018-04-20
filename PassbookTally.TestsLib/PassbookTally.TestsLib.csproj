@@ -63,6 +63,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DatabaseLibTests\MonthlySoaRowsDbFacts.cs" />
     <Compile Include="DatabaseLibTests\PassbookDbFacts.cs" />
     <Compile Include="DatabaseLibTests\RunningBalanceFacts.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

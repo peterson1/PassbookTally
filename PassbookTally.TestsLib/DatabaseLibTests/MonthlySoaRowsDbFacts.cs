@@ -1,7 +1,7 @@
 ﻿using FluentAssertions;
 using FluentAssertions.Extensions;
 using PassbookTally.DatabaseLib;
-using PassbookTally.DatabaseLib.Repositories;
+using PassbookTally.DatabaseLib.MonthlySoaRows;
 using PassbookTally.DomainLib.DTOs;
 using PassbookTally.DomainLib.Exceptions;
 using PassbookTally.DomainLib.ReportRows;
@@ -11,8 +11,8 @@ using Xunit;
 
 namespace PassbookTally.TestsLib.DatabaseLibTests
 {
-    [Trait("SoaRowsRepo1", "Solitary")]
-    public class RunningBalanceFacts
+    [Trait("Monthly SoaRows DB", "Solitary")]
+    public class MonthlySoaRowsDbFacts
     {
         [Fact(DisplayName = "Rejects predated txn")]
         public void Rejectspredatedtxn()
@@ -115,10 +115,11 @@ namespace PassbookTally.TestsLib.DatabaseLibTests
 
 
 
-        private SoaRowsRepo1 CreateSUT(out int bankAcctId)
+        private MonthlySoaRowsDB CreateSUT(out int bankAcctId)
         {
-            var db  = new PassbookDB(new MemoryStream(), "");
-            return db.ForAccount(bankAcctId = 1);
+            bankAcctId = 1;
+            var db = new PassbookDB(new MemoryStream(), "usr");
+            return new MonthlySoaRowsDB(bankAcctId, db);
         }
     }
 }

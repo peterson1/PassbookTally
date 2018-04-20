@@ -28,7 +28,7 @@ namespace PassbookTally.DatabaseLib
 
         public SoaRowsRepo1 ForAccount(int bankAcctId)
         {
-            var key = $"Account{bankAcctId}_SoaRows";
+            var key = GetKey(bankAcctId);
 
             if (_soaReposDict.TryGetValue(key, out SoaRowsRepo1 repo))
                 return repo;
@@ -38,6 +38,9 @@ namespace PassbookTally.DatabaseLib
             return repo;
         }
 
+
+        internal string GetKey(int bankAcctId)
+            => $"Account{bankAcctId}_SoaRows";
 
 
         protected override void InitializeCollections()
