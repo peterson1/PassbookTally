@@ -30,7 +30,14 @@
                                Style="{StaticResource MaterialDesignBody2TextBlock}"
                                VerticalAlignment="Center"
                                Margin="5 0 0 0" />
-                    
+
+                    <Button Content="{mat:PackIcon Refresh, Size=21}"
+                            Command="{Binding RefreshCmd}"
+                            ToolTip="{Binding RefreshCmd.CurrentLabel}"
+                            Style="{StaticResource MaterialDesignFlatButton}"
+                            Margin="15 0 0 0"
+                            Padding="3 0 3 0" />
+
                     <Button Content="{mat:PackIcon Printer, Size=21}"
                             Style="{StaticResource MaterialDesignFlatButton}"
                             Margin="10 0 0 0"

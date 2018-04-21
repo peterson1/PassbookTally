@@ -1,5 +1,7 @@
 ﻿using CommonTools.Lib11.DataStructures;
 using CommonTools.Lib11.GoogleTools;
+using CommonTools.Lib11.InputCommands;
+using CommonTools.Lib45.InputCommands;
 using CommonTools.Lib45.LiteDbTools;
 using PropertyChanged;
 using System;
@@ -20,8 +22,9 @@ namespace CommonTools.Lib45.BaseViewModels
 
         public SavedListVMBase(SharedCollectionBase<TDTO> sharedCollection, TArg appArguments, bool doReload = true)
         {
-            _repo     = sharedCollection;
-            AppArgs = appArguments;
+            _repo      = sharedCollection;
+            AppArgs    = appArguments;
+            RefreshCmd = R2Command.Relay(ReloadFromDB, null, "Refresh");
 
             _repo.ContentChanged          += (s, e) => ReloadFromDB();
             ItemsList.ItemDeleted       += (s, e) => ExecuteDeleteRecord(e);
@@ -33,6 +36,7 @@ namespace CommonTools.Lib45.BaseViewModels
 
 
         public TArg          AppArgs    { get; }
+        public IR2Command    RefreshCmd { get; }
         public UIList<TDTO>  ItemsList  { get; } = new UIList<TDTO>();
         public decimal       TotalSum   { get; private set; }
 
