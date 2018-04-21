@@ -7,21 +7,14 @@ namespace PassbookTally.DomainLib.ReportRows
 {
     public static class SoaRowExtensions
     {
-        public static IOrderedEnumerable<SoaRowDTO> SortRows(this IEnumerable<SoaRowDTO> unsorted)
+        public static List<SoaRowDTO> SortRows(this List<SoaRowDTO> unsorted)
             => unsorted.OrderBy(_ => _.DateOffset)
-                       .ThenBy (_ => _.Id);
-
-
-        public static decimal LastBalance(this IEnumerable<SoaRowDTO> rows)
-            => rows.LastRow().RunningBalance;
-
-
-        public static SoaRowDTO LastRow(this IEnumerable<SoaRowDTO> rows)
-            => rows.SortRows().Last();
+                       .ThenBy (_ => _.Id)
+                       .ToList ();
 
 
         public static int SoaRowOffset(this DateTime date)
-            => (date - DateTime.MinValue).Days;
+            => (date.Date - DateTime.MinValue).Days;
 
 
         public static DateTime GetDate(this SoaRowDTO dto)

@@ -42,7 +42,7 @@ namespace PassbookTally.CrudApp
 
         protected override void OnRefreshClicked()
         {
-            var repo = AppArgs.GetPassbookDB(AccountId).GetRepo();
+            var repo = AppArgs.GetPassbookDB(AccountId).GetSoaRepo();
             TransactionLog = new TransactionLogVM(repo, AppArgs, StartDate);
             FundRequests.ReloadFromDB();
         }

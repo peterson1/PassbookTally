@@ -16,7 +16,7 @@ namespace PassbookTally.TestsLib.DatabaseLibTests
             db.AccountNames.Should().HaveCount(1);
             var meta = db.Metadata;
             meta.HasName("Acct_1").Should().BeTrue();
-            var repo = db.GetRepo();
+            var repo = db.GetSoaRepo();
             meta.HasName("Acct1_BaseDate").Should().BeTrue();
             meta.HasName("Acct1_BaseBalance").Should().BeTrue();
         }
@@ -27,7 +27,7 @@ namespace PassbookTally.TestsLib.DatabaseLibTests
         {
             var db   = new PassbookDB(2, new MemoryStream(), "");
             var meta = db.Metadata;
-            db.GetRepo().Deposit(DateTime.Now, "", "", 1, "");
+            db.GetSoaRepo().Deposit(DateTime.Now, "", "", 1, "");
             meta.HasName("Acct_2").Should().BeTrue();
             meta.HasName("Acct2_BaseDate").Should().BeTrue();
             meta.HasName("Acct2_BaseBalance").Should().BeTrue();

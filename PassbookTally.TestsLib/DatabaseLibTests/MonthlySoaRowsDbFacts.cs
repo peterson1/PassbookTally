@@ -30,7 +30,7 @@ namespace PassbookTally.TestsLib.DatabaseLibTests
 
         //    var rows = sut.RowsStartingFrom(31.March(2018));
         //    rows.Should().HaveCount(1);
-        //    rows.LastBalance().Should().Be(899_662.68M);
+        //    rows.Last().RunningBalance.Should().Be(899_662.68M);
         //}
 
 
@@ -47,7 +47,7 @@ namespace PassbookTally.TestsLib.DatabaseLibTests
 
         //    var rows = sut.RowsStartingFrom(31.March(2018));
         //    rows.Should().HaveCount(2);
-        //    rows.LastBalance().Should().Be(899_595.55M);
+        //    rows.Last().RunningBalance.Should().Be(899_595.55M);
         //}
 
 
@@ -63,7 +63,7 @@ namespace PassbookTally.TestsLib.DatabaseLibTests
 
         //    var rows = sut.RowsStartingFrom(31.March(2018));
         //    rows.Should().HaveCount(4);
-        //    rows.LastBalance().Should().Be(1_301_413.28M);
+        //    rows.Last().RunningBalance.Should().Be(1_301_413.28M);
         //}
 
 
@@ -79,7 +79,7 @@ namespace PassbookTally.TestsLib.DatabaseLibTests
 
         //    var rows = sut.RowsStartingFrom(31.March(2018));
         //    rows.Should().HaveCount(4);
-        //    rows.LastBalance().Should().Be(1_301_413.28M);
+        //    rows.Last().RunningBalance.Should().Be(1_301_413.28M);
         //}
 
 
@@ -95,7 +95,7 @@ namespace PassbookTally.TestsLib.DatabaseLibTests
 
         //    var rows = sut.RowsStartingFrom(31.March(2018));
         //    rows.Should().HaveCount(4);
-        //    rows.LastBalance().Should().Be(1_301_413.28M);
+        //    rows.Last().RunningBalance.Should().Be(1_301_413.28M);
         //}
 
 

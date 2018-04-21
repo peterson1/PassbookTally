@@ -1,6 +1,7 @@
 ﻿using FluentAssertions;
 using FluentAssertions.Extensions;
 using PassbookTally.DatabaseLib;
+using PassbookTally.DatabaseLib.MonthlyShardedSoA;
 using PassbookTally.DatabaseLib.Repositories;
 using PassbookTally.DomainLib.DTOs;
 using PassbookTally.DomainLib.Exceptions;
@@ -10,10 +11,10 @@ using System.IO;
 using System.Linq;
 using Xunit;
 
-namespace PassbookTally.TestsLib.DatabaseLibTests
+namespace PassbookTally.TestsLib.MonthlyShardTests
 {
-    [Trait("SoaRowsRepo1", "Solitary")]
-    public class RunningBalanceFacts
+    [Trait("Monthly Shard", "Solitary")]
+    public class MonthShardPassbookDBFacts
     {
         [Fact(DisplayName = "Rejects predated txn")]
         public void Rejectspredatedtxn()
@@ -112,7 +113,7 @@ namespace PassbookTally.TestsLib.DatabaseLibTests
 
         private SoaRowsRepo1 CreateSUT(DateTime baseDate, decimal baseBalance)
         {
-            var db  = new PassbookDB(1, new MemoryStream(), "");
+            var db  = new MonthShardPassbookDB(1, new MemoryStream(), "");
             return db.GetSoaRepo(baseBalance, baseDate);
         }
     }

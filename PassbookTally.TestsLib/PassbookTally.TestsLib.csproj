@@ -66,6 +66,7 @@
     <Compile Include="DatabaseLibTests\MonthlySoaRowsDbFacts.cs" />
     <Compile Include="DatabaseLibTests\PassbookDbFacts.cs" />
     <Compile Include="DatabaseLibTests\RunningBalanceFacts.cs" />
+    <Compile Include="MonthlyShardTests\MonthShardPassbookDBFacts.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

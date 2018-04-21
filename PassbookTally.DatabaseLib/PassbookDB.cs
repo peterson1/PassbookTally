@@ -11,7 +11,7 @@ namespace PassbookTally.DatabaseLib
     {
         private const string ACCT_PREFIX = "Acct_";
 
-        private Dictionary<string, SoaRowsRepo1> _soaReposDict = new Dictionary<string, SoaRowsRepo1>();
+        //protected Dictionary<string, SoaRowsRepo1> _soaReposDict = new Dictionary<string, SoaRowsRepo1>();
 
 
         public PassbookDB(int bankAcctId, string dbFilePath, string currentUser) : base(dbFilePath, currentUser, false)
@@ -49,27 +49,31 @@ namespace PassbookTally.DatabaseLib
 
 
 
-        public SoaRowsRepo1 GetRepo(decimal? baseBalance = null, DateTime? baseDate = null)
+        public SoaRowsRepo1 GetSoaRepo(decimal? baseBalance = null, DateTime? baseDate = null)
         {
-            if (_soaReposDict.TryGetValue(RepoKey, out SoaRowsRepo1 repo))
-                return repo;
+            //if (_soaReposDict.TryGetValue(RepoKey, out SoaRowsRepo1 repo))
+            //    return repo;
 
-            var bseBal  = baseBalance ?? decimal .Parse(Metadata[BaseBalanceKey]);
+            var bseBal  = baseBalance ?? decimal.Parse(Metadata[BaseBalanceKey]);
             var bseDate = baseDate    ?? DateTime.Parse(Metadata[BaseDateKey]);
 
-            repo = new SoaRowsRepo1(bseBal, bseDate, this);
-            _soaReposDict.Add(RepoKey, repo);
-            return repo;
+            return CreateRepoInstance(bseBal, bseDate);
+            //_soaReposDict.Add(RepoKey, repo);
+            //return repo;
         }
+
+
+        protected virtual SoaRowsRepo1 CreateRepoInstance(decimal baseBalance, DateTime baseDate) 
+            => new SoaRowsRepo1(baseBalance, baseDate, this);
 
 
         internal string RepoKey
             => $"Account{BankAccountId}_SoaRows";
 
 
-        private string AccountNameKey => $"{ACCT_PREFIX}{BankAccountId}";
-        private string BaseDateKey    => $"Acct{BankAccountId}_BaseDate";
-        private string BaseBalanceKey => $"Acct{BankAccountId}_BaseBalance";
+        protected string AccountNameKey => $"{ACCT_PREFIX}{BankAccountId}";
+        protected string BaseDateKey    => $"Acct{BankAccountId}_BaseDate";
+        protected string BaseBalanceKey => $"Acct{BankAccountId}_BaseBalance";
 
 
         protected override void InitializeCollections()
@@ -83,7 +87,7 @@ namespace PassbookTally.DatabaseLib
             AccountNames.AddRange(GetAccountNames());
             if (!AccountNames.Any())
             {
-                GetRepo();
+                GetSoaRepo();
                 AccountNames.Clear();
                 AccountNames.AddRange(this.GetAccountNames());
             }
