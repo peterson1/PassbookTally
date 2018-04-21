@@ -1,4 +1,5 @@
-﻿using CommonTools.Lib11.GoogleTools;
+﻿using System;
+using CommonTools.Lib11.GoogleTools;
 using CommonTools.Lib45.LicenseTools;
 using PassbookTally.DatabaseLib;
 
@@ -21,10 +22,16 @@ namespace PassbookTally.DomainLib45.Configuration
         }
 
 
-        internal void InitializeDatabases()
+        internal void InitializeDatabases(int bankAcctId = 1)
+        {
+            PassbookDB = GetPassbookDB(bankAcctId);
+        }
+
+
+        public PassbookDB GetPassbookDB(int bankAcctId)
         {
             var usr = IsValidUser ? Credentials.HumanName : "Anonymous";
-            PassbookDB = new PassbookDB(DbFilePath, usr);
+            return new PassbookDB(bankAcctId, DbFilePath, usr);
         }
     }
 }

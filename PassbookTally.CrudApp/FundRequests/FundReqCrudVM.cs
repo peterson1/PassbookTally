@@ -15,27 +15,31 @@ namespace PassbookTally.CrudApp.FundRequests
         public    override string TypeDescription => "Voucher Request";
         protected override string CaptionPrefix   => "Voucher Request";
 
-        private PassbookDB         _db;
-        private ActiveFundReqsRepo _repo;
+        //private PassbookDB         _db;
+        //private ActiveFundReqsRepo _repo;
         private int                _savedSerial;
 
 
-        public FundReqCrudVM(PassbookDB passbookDB, AppArguments appArguments) : base(appArguments)
+        public FundReqCrudVM(AppArguments appArguments) : base(appArguments)
         {
-            _db   = passbookDB;
-            _repo = _db.ActiveRequests;
+            //_db   = passbookDB;
+            //_repo = appArguments.PassbookDB.ActiveRequests;
         }
 
 
 
         public UIList<string>  Payees  { get; } = new UIList<string>();
 
+        private PassbookDB         DB   => AppArgs.PassbookDB;
+        private ActiveFundReqsRepo Repo => DB.ActiveRequests;
+
+
 
         protected override void SetNewDraftDefaults(FundRequestDTO draft)
         {
             draft.RequestDate = DateTime.Now;
-            draft.SerialNum   = _db.NextRequestSerial();
-            Payees.SetItems(_db.GetPayees());
+            draft.SerialNum   = DB.NextRequestSerial();
+            Payees.SetItems(DB.GetPayees());
         }
 
 
@@ -44,11 +48,11 @@ namespace PassbookTally.CrudApp.FundRequests
 
 
         protected override void SaveNewRecord(FundRequestDTO draft) 
-            => _repo.Insert(draft);
+            => Repo.Insert(draft);
 
 
         protected override void UpdateRecord(FundRequestDTO record)
-            => _repo.Update(record);
+            => Repo.Update(record);
 
 
         protected override bool IsValidDraft(FundRequestDTO draft, out string whyInvalid)
@@ -89,12 +93,12 @@ namespace PassbookTally.CrudApp.FundRequests
         private bool IsDuplicateSerial(FundRequestDTO draft)
         {
             if (draft.Id == 0)
-                return _db.HasRequestSerial(draft.SerialNum);
+                return DB.HasRequestSerial(draft.SerialNum);
 
             if (_savedSerial == draft.SerialNum)
                 return false;
 
-            return _db.HasRequestSerial(draft.SerialNum);
+            return DB.HasRequestSerial(draft.SerialNum);
         }
     }
 }

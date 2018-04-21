@@ -12,11 +12,11 @@ namespace PassbookTally.TestsLib.DatabaseLibTests
         [Fact(DisplayName = "Creates default bank acct if no accounts yet")]
         public void Createsdefaultbankacctifnoaccountsyet()
         {
-            var db   = new PassbookDB(new MemoryStream(), "");
+            var db   = new PassbookDB(1, new MemoryStream(), "");
             db.AccountNames.Should().HaveCount(1);
             var meta = db.Metadata;
             meta.HasName("Acct_1").Should().BeTrue();
-            var repo = db.ForAccount(1);
+            var repo = db.GetRepo();
             meta.HasName("Acct1_BaseDate").Should().BeTrue();
             meta.HasName("Acct1_BaseBalance").Should().BeTrue();
         }
@@ -25,9 +25,9 @@ namespace PassbookTally.TestsLib.DatabaseLibTests
         [Fact(DisplayName = "Creates meta for new accounts")]
         public void Createsmetafornewaccounts()
         {
-            var db   = new PassbookDB(new MemoryStream(), "");
+            var db   = new PassbookDB(2, new MemoryStream(), "");
             var meta = db.Metadata;
-            db.ForAccount(2).Deposit(DateTime.Now, "", "", 1, "");
+            db.GetRepo().Deposit(DateTime.Now, "", "", 1, "");
             meta.HasName("Acct_2").Should().BeTrue();
             meta.HasName("Acct2_BaseDate").Should().BeTrue();
             meta.HasName("Acct2_BaseBalance").Should().BeTrue();

@@ -17,13 +17,14 @@ namespace CommonTools.Lib45.LiteDbTools
         private bool              _isDelaying;
 
 
-        public SharedLiteDB(string dbFilePath, string currentUser)
+        public SharedLiteDB(string dbFilePath, string currentUser, bool doInitialize = true)
         {
             if (dbFilePath.IsBlank())
                 throw Fault.NullRef("DB File Path");
 
             DbPath = dbFilePath;
-            InitializeCommons(currentUser);
+
+            if (doInitialize) InitializeCommons(currentUser);
 
             if (!File.Exists(DbPath))
                 Metadata.CreateInitialRecord();
@@ -31,10 +32,10 @@ namespace CommonTools.Lib45.LiteDbTools
             InitializeFileWatcher();
         }
 
-        public SharedLiteDB(MemoryStream memoryStream, string currentUser)
+        public SharedLiteDB(MemoryStream memoryStream, string currentUser, bool doInitialize = true)
         {
             _mem = memoryStream;
-            InitializeCommons(currentUser);
+            if (doInitialize) InitializeCommons(currentUser);
         }
 
 
@@ -91,7 +92,7 @@ namespace CommonTools.Lib45.LiteDbTools
         }
 
 
-        private void InitializeCommons(string currentUser)
+        protected void InitializeCommons(string currentUser)
         {
             CurrentUser = currentUser;
             Metadata = new MetadataCollection(this);

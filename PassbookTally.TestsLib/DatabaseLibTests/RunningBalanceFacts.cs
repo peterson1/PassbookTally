@@ -17,8 +17,7 @@ namespace PassbookTally.TestsLib.DatabaseLibTests
         [Fact(DisplayName = "Rejects predated txn")]
         public void Rejectspredatedtxn()
         {
-            var sut = CreateSUT(out int acctId);
-            sut.SetBaseBalance(31.March(2018), 899_327.02M);
+            var sut = CreateSUT(31.March(2018), 899_327.02M);
 
             sut.ClosingBalanceFor(31.March(2018)).Should().Be(899_327.02M);
 
@@ -32,8 +31,7 @@ namespace PassbookTally.TestsLib.DatabaseLibTests
         [Fact(DisplayName = "Deposit increases balance")]
         public void Depositincreasesbalance()
         {
-            var sut = CreateSUT(out int acctId);
-            sut.SetBaseBalance(31.March(2018), 899_327.02M);
+            var sut = CreateSUT(31.March(2018), 899_327.02M);
 
             sut.Deposit(31.March(2018), "", "Interest", 335.66M, "");
 
@@ -48,8 +46,7 @@ namespace PassbookTally.TestsLib.DatabaseLibTests
         [Fact(DisplayName = "Withdrawal decreases balance")]
         public void Withdrawaldecreasesbalance()
         {
-            var sut = CreateSUT(out int acctId);
-            sut.SetBaseBalance(31.March(2018), 899_327.02M);
+            var sut = CreateSUT(31.March(2018), 899_327.02M);
 
             sut.Deposit (31.March(2018), "", "Interest", 335.66M, "");
             sut.Withdraw(31.March(2018), "", "W/Tax"   , 67.13M , "");
@@ -66,8 +63,7 @@ namespace PassbookTally.TestsLib.DatabaseLibTests
         [Fact(DisplayName = "Commutative 2-3-3-4")]
         public void Commutative2334()
         {
-            var sut = CreateSUT(out int acctId);
-            sut.SetBaseBalance(2.April(2018), 1_693_240.03M);
+            var sut = CreateSUT(2.April(2018), 1_693_240.03M);
 
             sut.Withdraw(2.April(2018), "", "SixM Funds Transfer"  , 500_000    , "");
             sut.Deposit(3.April(2018) , "", "RDM Foods rent"       , 13_079     , "");
@@ -83,8 +79,7 @@ namespace PassbookTally.TestsLib.DatabaseLibTests
         [Fact(DisplayName = "Commutative 2-4-3-3")]
         public void Commutative2433()
         {
-            var sut = CreateSUT(out int acctId);
-            sut.SetBaseBalance(2.April(2018), 1_693_240.03M);
+            var sut = CreateSUT(2.April(2018), 1_693_240.03M);
 
             sut.Withdraw(2.April(2018), "", "SixM Funds Transfer", 500_000      , "");
             sut.Deposit (4.April(2018), "", "Late Collection Apr.3", 118_226.25M, "");
@@ -100,8 +95,7 @@ namespace PassbookTally.TestsLib.DatabaseLibTests
         [Fact(DisplayName = "Commutative 4-3-2-3")]
         public void Commutative4323()
         {
-            var sut = CreateSUT(out int acctId);
-            sut.SetBaseBalance(2.April(2018), 1_693_240.03M);
+            var sut = CreateSUT(2.April(2018), 1_693_240.03M);
 
             sut.Deposit (4.April(2018), "", "Late Collection Apr.3", 118_226.25M, "");
             sut.Withdraw(3.April(2018), "", "Employees loan"       , 23_132     , "");
@@ -115,10 +109,10 @@ namespace PassbookTally.TestsLib.DatabaseLibTests
 
 
 
-        private SoaRowsRepo1 CreateSUT(out int bankAcctId)
+        private SoaRowsRepo1 CreateSUT(DateTime baseDate, decimal baseBalance)
         {
-            var db  = new PassbookDB(new MemoryStream(), "");
-            return db.ForAccount(bankAcctId = 1);
+            var db  = new PassbookDB(1, new MemoryStream(), "");
+            return db.GetRepo(baseBalance, baseDate);
         }
     }
 }

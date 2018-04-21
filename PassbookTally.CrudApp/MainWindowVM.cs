@@ -13,14 +13,12 @@ namespace PassbookTally.CrudApp
     [AddINotifyPropertyChangedInterface]
     internal class MainWindowVM : MaterialWindowBase
     {
-        private PassbookDB _db;
+        //private PassbookDB _db;
 
         public MainWindowVM(AppArguments appArguments) : base(appArguments)
         {
-            _db = AppArgs.PassbookDB;
-            AccountNames.SetItems(_db.AccountNames);
-            AccountName  = AccountNames.FirstOrDefault();
-            FundRequests = new FundReqListVM(_db, AppArgs);
+            FillAccountNames();
+            FundRequests = new FundReqListVM(AppArgs);
             ClickRefresh();
         }
 
@@ -31,13 +29,20 @@ namespace PassbookTally.CrudApp
         public FundReqListVM     FundRequests    { get; }
         public DateTime          StartDate       { get; set; } = DateTime.Now.AddDays(-10);
 
-
         public int AccountId => AccountNames.IndexOf(AccountName) + 1;
+
+
+        private void FillAccountNames()
+        {
+            AccountNames.SetItems(AppArgs.PassbookDB.AccountNames);
+            AccountName = AccountNames.FirstOrDefault();
+        }
+
 
 
         protected override void OnRefreshClicked()
         {
-            var repo       = _db.ForAccount(AccountId);
+            var repo = AppArgs.GetPassbookDB(AccountId).GetRepo();
             TransactionLog = new TransactionLogVM(repo, AppArgs, StartDate);
             FundRequests.ReloadFromDB();
         }

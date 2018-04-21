@@ -46,19 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MonthlySoaRows\MonthlyPassbookDB.cs" />
-    <Compile Include="MonthlySoaRows\MonthlyDBsIndex.cs" />
-    <Compile Include="MonthlySoaRows\MonthlyDBsIndex_BaseBalance.cs" />
-    <Compile Include="MonthlySoaRows\MonthlyDBsIndex_Read.cs" />
-    <Compile Include="MonthlySoaRows\MonthlyDBsIndex_Write.cs" />
     <Compile Include="PassbookDB.cs" />
     <Compile Include="Repositories\FundReqsRepo_Active.cs" />
     <Compile Include="Repositories\FundReqsRepo_Inactive.cs" />
     <Compile Include="Repositories\FundReqsRepo_Reads.cs" />
     <Compile Include="Repositories\SoaRowsRepo1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\SoaRowsRepo1_Read.cs" />
-    <Compile Include="Repositories\SoaRowsRepo1_Write.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CommonTools.Lib11\CommonTools.Lib11.csproj">

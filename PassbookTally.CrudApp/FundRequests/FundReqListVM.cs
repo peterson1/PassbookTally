@@ -14,13 +14,9 @@ namespace PassbookTally.CrudApp.FundRequests
     [AddINotifyPropertyChangedInterface]
     public class FundReqListVM : FilteredSavedListVMBase<FundRequestDTO, FundReqListFilterVM, AppArguments>
     {
-        private PassbookDB _db;
-
-
-        public FundReqListVM(PassbookDB passbookDB, AppArguments appArguments) : base(passbookDB.ActiveRequests, appArguments, false)
+        public FundReqListVM(AppArguments appArguments) : base(appArguments.PassbookDB.ActiveRequests, appArguments, false)
         {
-            _db  = passbookDB;
-            Crud = new FundReqCrudVM(_db, AppArgs);
+            Crud = new FundReqCrudVM(AppArgs);
         }
 
 
