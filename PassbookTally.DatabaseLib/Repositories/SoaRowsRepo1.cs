@@ -34,31 +34,6 @@ namespace PassbookTally.DatabaseLib.Repositories
         }
 
 
-        public void Deposit(DateTime transactionDate, string subject, string description, decimal amount, string transactionRef)
-            => UpsertAndUpdateBalances(SoaRowDTO
-                .Deposit(transactionDate, subject, description, amount, transactionRef));
-
-
-        public void Withdraw(DateTime transactionDate, string subject, string description, decimal amount, string transactionRef)
-            => UpsertAndUpdateBalances(SoaRowDTO
-                .Withdrawal(transactionDate, subject, description, amount, transactionRef));
-
-
-        public virtual void UpsertAndUpdateBalances(SoaRowDTO dto)
-        {
-            Upsert(dto);
-            var rows = GetFrom(BaseDate);
-            rows[0].RunningBalance = BaseBalance + rows[0].Amount;
-
-            for (int i = 1; i < rows.Count; i++)
-                rows[i].RunningBalance
-                    = rows[i - 1].RunningBalance + rows[i].Amount;
-
-            Update(rows);
-        }
-
-
-
         public override void Validate(SoaRowDTO model, SharedLiteDB db)
         {
             if (model.GetDate() < BaseDate)

@@ -1,5 +1,7 @@
-﻿using PassbookTally.DatabaseLib.Repositories;
+﻿using CommonTools.Lib11.DateTimeTools;
+using PassbookTally.DatabaseLib.Repositories;
 using PassbookTally.DomainLib.DTOs;
+using PassbookTally.DomainLib.ReportRows;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,9 +19,22 @@ namespace PassbookTally.DatabaseLib.MonthlyShardedSoA
         }
 
 
-        public override void UpsertAndUpdateBalances(SoaRowDTO dto)
+        protected override void InsertOrUpdate(SoaRowDTO dto) 
+            => _moDB.GetMonthRepo(dto.GetDate()).Upsert(dto);
+
+
+        public override void BulkUpdate(IEnumerable<SoaRowDTO> rows)
         {
-            //todo: override this
+            var grpd = rows.GroupBy(_ => _.GetDate().MonthFirstDay());
+            foreach (var grp in grpd)
+            {
+                var repo = _moDB.GetMonthRepo(grp.Key);
+                repo.BulkUpdate(grp);
+            }
+
+            //todo: group by month
+            //foreach (var row in rows)
+            //    _moDB.GetMonthRepo(row.GetDate()).Update(row);
         }
 
 

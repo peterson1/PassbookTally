@@ -94,21 +94,30 @@ namespace CommonTools.Lib45.LiteDbTools
         {
             using (var db = _db.OpenRead())
             {
-                var matches = GetCollection(db).Find(Query.EQ(field, value));
+                var coll = GetCollection(db);
+
+                if (coll.Count() == 0)
+                    return DefaultOrThrow(field, value, errorIfMissing);
+
+                var matches = coll.Find(Query.EQ(field, value));
 
                 if (!matches.Any())
-                {
-                    if (errorIfMissing)
-                        throw RecordNotFoundException.For<T>(field, value);
-                    else
-                        return default(T);
-                }
+                    return DefaultOrThrow(field, value, errorIfMissing);
 
                 if (matches.Count() > 1)
                     throw DuplicateRecordsException.For(matches, field, value);
 
                 return matches.Single();
             }
+        }
+
+
+        private static T DefaultOrThrow(string field, BsonValue value, bool errorIfMissing)
+        {
+            if (errorIfMissing)
+                throw RecordNotFoundException.For<T>(field, value);
+            else
+                return default(T);
         }
 
 

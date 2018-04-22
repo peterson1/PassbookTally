@@ -113,7 +113,11 @@ namespace PassbookTally.TestsLib.MonthlyShardTests
 
         private SoaRowsRepo1 CreateSUT(DateTime baseDate, decimal baseBalance)
         {
-            var db  = new MonthShardPassbookDB(1, new MemoryStream(), "");
+            //var db  = new MonthShardPassbookDB(1, new MemoryStream(), "");
+            var dir = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
+            Directory.CreateDirectory(dir);
+            var file = Path.Combine(dir, "Monthlys.ldb");
+            var db = new MonthShardPassbookDB(1, file, "");
             return db.GetSoaRepo(baseBalance, baseDate);
         }
     }

@@ -1,4 +1,5 @@
-﻿using PassbookTally.DatabaseLib.Repositories;
+﻿using CommonTools.Lib11.DateTimeTools;
+using PassbookTally.DatabaseLib.Repositories;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -27,8 +28,21 @@ namespace PassbookTally.DatabaseLib.MonthlyShardedSoA
                               : this.CreateFileBasedIndex  ();
         }
 
+
         protected override SoaRowsRepo1 CreateRepoInstance(decimal baseBalance, DateTime baseDate)
             => new MonthShardSoaRepo(baseBalance, baseDate, this);
+
+
+        internal SoaRowsRepo1 GetMonthRepo(DateTime date)
+        {
+            var day1 = date.MonthFirstDay();
+            if (_idx.TryGetValue(day1, out SoaRowsRepo1 repo))
+                return repo;
+            repo = IsInMemory ? this.CreateInMemoryShard ()
+                              : this.CreateFileBasedShard(day1);
+            _idx.Add(day1, repo);
+            return repo;
+        }
 
 
         internal IEnumerable<SoaRowsRepo1> GetMonthsUpTo(DateTime maxDate)

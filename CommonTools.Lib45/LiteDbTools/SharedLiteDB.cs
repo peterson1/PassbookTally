@@ -24,7 +24,8 @@ namespace CommonTools.Lib45.LiteDbTools
 
             DbPath = dbFilePath;
 
-            if (doInitialize) InitializeCommons(currentUser);
+            InitializeCommons(currentUser);
+            if (doInitialize) InitializeCollections();
 
             if (!File.Exists(DbPath))
                 Metadata.CreateInitialRecord();
@@ -35,7 +36,8 @@ namespace CommonTools.Lib45.LiteDbTools
         public SharedLiteDB(MemoryStream memoryStream, string currentUser, bool doInitialize = true)
         {
             _mem = memoryStream;
-            if (doInitialize) InitializeCommons(currentUser);
+            InitializeCommons(currentUser);
+            if (doInitialize) InitializeCollections();
         }
 
 
@@ -92,15 +94,13 @@ namespace CommonTools.Lib45.LiteDbTools
         }
 
 
-        protected void InitializeCommons(string currentUser)
+        private void InitializeCommons(string currentUser)
         {
             CurrentUser = currentUser;
             Metadata = new MetadataCollection(this);
 
             if (!File.Exists(DbPath))
                 Metadata.CreateInitialRecord();
-
-            InitializeCollections();
         }
     }
 }

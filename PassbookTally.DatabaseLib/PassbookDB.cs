@@ -17,13 +17,13 @@ namespace PassbookTally.DatabaseLib
         public PassbookDB(int bankAcctId, string dbFilePath, string currentUser) : base(dbFilePath, currentUser, false)
         {
             BankAccountId = bankAcctId;
-            InitializeCommons(currentUser);
+            InitializeCollections();
         }
 
         public PassbookDB(int bankAcctId, MemoryStream memoryStream, string currentUser) : base(memoryStream, currentUser, false)
         {
             BankAccountId = bankAcctId;
-            InitializeCommons(currentUser);
+            InitializeCollections();
         }
 
 

@@ -61,7 +61,10 @@ namespace PassbookTally.CrudApp.TransactionLog
 
         public override void ReloadFromDB()
         {
+            Rows.Clear();
             var dtos    = _repo1.GetFrom(_startDate);
+            if (!dtos.Any()) return;
+
             var lastRow = dtos.Last();
             LastBalance = lastRow.RunningBalance;
             LastDate    = lastRow.GetDate();

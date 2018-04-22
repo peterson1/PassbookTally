@@ -2,6 +2,7 @@
 using CommonTools.Lib11.GoogleTools;
 using CommonTools.Lib45.LicenseTools;
 using PassbookTally.DatabaseLib;
+using PassbookTally.DatabaseLib.MonthlyShardedSoA;
 
 namespace PassbookTally.DomainLib45.Configuration
 {
@@ -31,7 +32,7 @@ namespace PassbookTally.DomainLib45.Configuration
         public PassbookDB GetPassbookDB(int bankAcctId)
         {
             var usr = IsValidUser ? Credentials.HumanName : "Anonymous";
-            return new PassbookDB(bankAcctId, DbFilePath, usr);
+            return new MonthShardPassbookDB(bankAcctId, DbFilePath, usr);
         }
     }
 }
