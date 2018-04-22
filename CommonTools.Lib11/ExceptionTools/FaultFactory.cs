@@ -25,6 +25,11 @@ namespace CommonTools.Lib11.ExceptionTools
                 $"Invalid [{argumentName}]: “{argumentValue}”");
 
 
+        public static InvalidCastException BadCast<T>(string textToParse, T targetType)
+            => new InvalidCastException(
+                $"Non-convertible to ‹{typeof(T).Name}›: “{textToParse}”.");
+
+
         public static IntrusionAttemptException Intruder()
             => new IntrusionAttemptException();
 

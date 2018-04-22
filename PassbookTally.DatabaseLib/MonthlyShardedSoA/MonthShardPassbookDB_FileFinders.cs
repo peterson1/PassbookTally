@@ -1,4 +1,5 @@
 ﻿using PassbookTally.DatabaseLib.Repositories;
+using CommonTools.Lib11.StringTools;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -29,9 +30,9 @@ namespace PassbookTally.DatabaseLib.MonthlyShardedSoA
 
         private static DateTime ToFirstDay(string fileName)
         {
-            var yrStr = fileName.Substring(0, 4);
-            var moStr = fileName.Substring(5, 2);
-            return new DateTime(int.Parse(yrStr), int.Parse(moStr), 1);
+            var yr = fileName.Substring(0, 4).ToInt();
+            var mo = fileName.Substring(5, 2).ToInt();
+            return new DateTime(yr, mo, 1);
         }
 
 

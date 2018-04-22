@@ -29,6 +29,7 @@ namespace PassbookTally.DatabaseLib
 
         public int                   BankAccountId     { get; } = 1;
         public List<string>          AccountNames      { get; } = new List<string>();
+        public List<int>             AccountIDs        { get; } = new List<int>();
         public ActiveFundReqsRepo    ActiveRequests    { get; private set; }
         public InactiveFundReqsRepo  InactiveRequests  { get; private set; }
 
@@ -90,6 +91,8 @@ namespace PassbookTally.DatabaseLib
                 GetSoaRepo();
                 AccountNames.Clear();
                 AccountNames.AddRange(this.GetAccountNames());
+                AccountIDs.Clear();
+                AccountIDs.AddRange(AccountNames.Select((s, i) => i + 1));
             }
         }
     }
