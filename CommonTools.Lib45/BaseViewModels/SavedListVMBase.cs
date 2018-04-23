@@ -42,6 +42,10 @@ namespace CommonTools.Lib45.BaseViewModels
 
 
         protected abstract Func<TDTO, decimal> SummedAmount { get; }
+        protected virtual bool CanDeletetRecord    (TDTO rec) => true;
+        protected virtual bool CanEditRecord       (TDTO rec) => true;
+        protected virtual void LoadRecordForEditing(TDTO rec) { }
+        protected virtual IEnumerable<TDTO> PostProcessQueried(IEnumerable<TDTO> items) => items;
 
 
         private void ExecuteDeleteRecord(TDTO dto)
@@ -52,8 +56,11 @@ namespace CommonTools.Lib45.BaseViewModels
         }
 
 
-        protected virtual void DeleteRecord(SharedCollectionBase<TDTO> db, TDTO dto) 
-            => db.Delete(dto);
+        protected virtual void DeleteRecord(SharedCollectionBase<TDTO> db, TDTO dto)
+        {
+            if (CanDeletetRecord(dto)) db.Delete(dto);
+            ReloadFromDB();
+        }
 
 
         private void ItemsList_ItemOpened(object sender, TDTO e)
@@ -65,6 +72,8 @@ namespace CommonTools.Lib45.BaseViewModels
 
         protected virtual void OnItemOpened(TDTO e)
         {
+            if (CanEditRecord(e))
+                LoadRecordForEditing(e);
         }
 
 
@@ -80,8 +89,6 @@ namespace CommonTools.Lib45.BaseViewModels
             => db.GetAll();
 
 
-        protected virtual IEnumerable<TDTO> PostProcessQueried(IEnumerable<TDTO> items) 
-            => items;
 
 
         private void UpdateTotalSum()

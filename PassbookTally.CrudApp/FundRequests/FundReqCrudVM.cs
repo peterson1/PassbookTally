@@ -15,24 +15,18 @@ namespace PassbookTally.CrudApp.FundRequests
         public    override string TypeDescription => "Voucher Request";
         protected override string CaptionPrefix   => "Voucher Request";
 
-        //private PassbookDB         _db;
-        //private ActiveFundReqsRepo _repo;
         private int                _savedSerial;
 
 
         public FundReqCrudVM(AppArguments appArguments) : base(appArguments)
         {
-            //_db   = passbookDB;
-            //_repo = appArguments.PassbookDB.ActiveRequests;
         }
-
 
 
         public UIList<string>  Payees  { get; } = new UIList<string>();
 
         private PassbookDB         DB   => AppArgs.PassbookDB;
         private ActiveFundReqsRepo Repo => DB.ActiveRequests;
-
 
 
         protected override void SetNewDraftDefaults(FundRequestDTO draft)
@@ -62,12 +56,6 @@ namespace PassbookTally.CrudApp.FundRequests
                 whyInvalid = "Serial number is used in another request.";
                 return false;
             }
-
-            //if (draft.Amount == 0)
-            //{
-            //    whyInvalid = "Amount should not be zero.";
-            //    return false;
-            //}
             if (draft.Payee.IsBlank())
             {
                 whyInvalid = "Payee should not be blank.";

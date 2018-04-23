@@ -86,6 +86,9 @@
     <Compile Include="FundRequests\FundReqsTable.xaml.cs">
       <DependentUpon>FundReqsTable.xaml</DependentUpon>
     </Compile>
+    <Compile Include="FundRequests\FundReqsTableFilter.xaml.cs">
+      <DependentUpon>FundReqsTableFilter.xaml</DependentUpon>
+    </Compile>
     <Compile Include="FundRequests\FundRequestsUI.xaml.cs">
       <DependentUpon>FundRequestsUI.xaml</DependentUpon>
     </Compile>
@@ -109,6 +112,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="FundRequests\FundReqsTable.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="FundRequests\FundReqsTableFilter.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

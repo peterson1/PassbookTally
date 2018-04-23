@@ -43,7 +43,7 @@ namespace PassbookTally.CrudApp.TransactionLog
 
         private void Rows_ItemOpened(object sender, SoaRowVM e)
         {
-            if (IsEditable(e) &&
+            if (IsEditable(e.DTO) &&
                 AppArgs.CanEditBankTransaction(true))
                     Crud.EditCurrentRecord(e.DTO);
         }
@@ -51,7 +51,7 @@ namespace PassbookTally.CrudApp.TransactionLog
 
         private void Rows_ItemDeleted(object sender, SoaRowVM e)
         {
-            if (IsEditable(e) &&
+            if (IsEditable(e.DTO) &&
                 AppArgs.CanDeleteBankTransaction(true))
                     _repo1.Delete(e.DTO);
 
@@ -83,8 +83,8 @@ namespace PassbookTally.CrudApp.TransactionLog
         }
 
 
-        private bool IsEditable(SoaRowVM row)
-            => row.DTO.DocRefType == typeof(TransactionCrudVM).Namespace;
+        private bool IsEditable(SoaRowDTO dto)
+            => dto.DocRefType == typeof(TransactionCrudVM).Namespace;
 
 
         protected override Func<SoaRowDTO, decimal> SummedAmount => _ => _.Amount;
