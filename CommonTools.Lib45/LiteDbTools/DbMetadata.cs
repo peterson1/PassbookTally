@@ -21,5 +21,6 @@ namespace CommonTools.Lib45.LiteDbTools
         public int       Id         { get; set; }
         public string    Author     { get; set; }
         public DateTime  Timestamp  { get; set; }
+        public string    Remarks    { get; set; }
     }
 }

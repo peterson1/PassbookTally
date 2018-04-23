@@ -84,6 +84,11 @@
     <Compile Include="BusyIndicators\BusyDialog.xaml.cs">
       <DependentUpon>BusyDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="InputDialogs\PopUpInput.cs" />
+    <Compile Include="InputDialogs\PopUpInputInt.cs" />
+    <Compile Include="InputDialogs\PopUpInputIntWindow.xaml.cs">
+      <DependentUpon>PopUpInputIntWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="StyledButtons\EncodeNewDraftBtn1.xaml.cs">
       <DependentUpon>EncodeNewDraftBtn1.xaml</DependentUpon>
     </Compile>
@@ -103,6 +108,10 @@
     <Compile Include="ValueConverters\VisibleIfNotZeroConverter.cs" />
     <Compile Include="ValueConverters\VisibleIfTrueConverter.cs" />
     <Page Include="BusyIndicators\BusyDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="InputDialogs\PopUpInputIntWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

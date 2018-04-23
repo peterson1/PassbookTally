@@ -10,8 +10,8 @@
     <UserControl.Resources>
 
         <ContextMenu x:Key="rowCtxMenu">
-            <MenuItem Header ="{Binding IssueCheckCmd.CurrentLabel}" 
-                      Command="{Binding IssueCheckCmd}"
+            <MenuItem Header ="{Binding InputChequeCmd.CurrentLabel}" 
+                      Command="{Binding InputChequeCmd}"
                       DataContext="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}" />
         </ContextMenu>
 

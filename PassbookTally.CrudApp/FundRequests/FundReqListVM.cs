@@ -1,7 +1,9 @@
 ﻿using CommonTools.Lib11.InputCommands;
 using CommonTools.Lib45.BaseViewModels;
 using CommonTools.Lib45.InputCommands;
+using CommonTools.Lib45.InputDialogs;
 using CommonTools.Lib45.LiteDbTools;
+using CommonTools.Lib45.ThreadTools;
 using PassbookTally.DomainLib.Authorization;
 using PassbookTally.DomainLib.DTOs;
 using PassbookTally.DomainLib45.Configuration;
@@ -17,21 +19,22 @@ namespace PassbookTally.CrudApp.FundRequests
     {
         public FundReqListVM(AppArguments appArguments) : base(appArguments.PassbookDB.ActiveRequests, appArguments, false)
         {
-            Crud          = new FundReqCrudVM(AppArgs);
-            IssueCheckCmd = R2Command.Relay(IssueCheck, null, "Issue Check to Payee");
+            Crud           = new FundReqCrudVM(AppArgs);
+            InputChequeCmd = R2Command.Relay(InputChequeDetails, null, "Input Cheque Details");
         }
 
 
-        public FundReqCrudVM  Crud           { get; }
-        public IR2Command     IssueCheckCmd  { get; }
+        public FundReqCrudVM  Crud            { get; }
+        public IR2Command     InputChequeCmd  { get; }
 
 
         protected override Func<FundRequestDTO, decimal> SummedAmount => _ => _.Amount ?? 0;
 
 
-        private void IssueCheck()
+        private void InputChequeDetails()
         {
-            throw new NotImplementedException();
+            if (!PopUpInput.TryGetInt("Cheque Number", out int num)) return;
+            Alert.Show(num.ToString());
         }
 
 

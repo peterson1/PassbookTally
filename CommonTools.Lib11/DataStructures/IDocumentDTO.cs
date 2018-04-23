@@ -7,5 +7,6 @@ namespace CommonTools.Lib11.DataStructures
         int       Id         { get; set; }
         string    Author     { get; set; }
         DateTime  Timestamp  { get; set; }
+        string    Remarks    { get; set; }
     }
 }
