@@ -20,18 +20,19 @@ namespace PassbookTally.DatabaseLib.MonthlyShardedSoA
                               _ => _.Repo);
 
 
-        private static (DateTime FirstDay, SoaRowsRepo1 Repo) CreateMonthlyRepo(string fileName, MonthShardPassbookDB monthDb)
+        private static (DateTime FirstDay, SoaRowsRepo1 Repo) CreateMonthlyRepo(string filePath, MonthShardPassbookDB monthDb)
         {
-            var day1 = ToFirstDay(fileName);
+            var day1 = ToFirstDay(filePath);
             var repo = monthDb.CreateFileBasedShard(day1);
             return (day1, repo);
         }
 
 
-        private static DateTime ToFirstDay(string fileName)
+        private static DateTime ToFirstDay(string filePath)
         {
-            var yr = fileName.Substring(0, 4).ToInt();
-            var mo = fileName.Substring(5, 2).ToInt();
+            var nme = Path.GetFileName(filePath);
+            var yr  = nme.Substring(0, 4).ToInt();
+            var mo  = nme.Substring(5, 2).ToInt();
             return new DateTime(yr, mo, 1);
         }
 

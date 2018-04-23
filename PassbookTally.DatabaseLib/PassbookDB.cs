@@ -11,8 +11,6 @@ namespace PassbookTally.DatabaseLib
     {
         private const string ACCT_PREFIX = "Acct_";
 
-        //protected Dictionary<string, SoaRowsRepo1> _soaReposDict = new Dictionary<string, SoaRowsRepo1>();
-
 
         public PassbookDB(int bankAcctId, string dbFilePath, string currentUser) : base(dbFilePath, currentUser, false)
         {
@@ -52,15 +50,10 @@ namespace PassbookTally.DatabaseLib
 
         public SoaRowsRepo1 GetSoaRepo(decimal? baseBalance = null, DateTime? baseDate = null)
         {
-            //if (_soaReposDict.TryGetValue(RepoKey, out SoaRowsRepo1 repo))
-            //    return repo;
-
             var bseBal  = baseBalance ?? decimal.Parse(Metadata[BaseBalanceKey]);
             var bseDate = baseDate    ?? DateTime.Parse(Metadata[BaseDateKey]);
 
             return CreateRepoInstance(bseBal, bseDate);
-            //_soaReposDict.Add(RepoKey, repo);
-            //return repo;
         }
 
 
