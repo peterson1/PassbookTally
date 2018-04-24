@@ -84,6 +84,8 @@
     <Compile Include="BusyIndicators\BusyDialog.xaml.cs">
       <DependentUpon>BusyDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="InputCommands\TempExeLauncherCommand.cs" />
+    <Compile Include="InputCommands\ExeLauncherCommand.cs" />
     <Compile Include="InputDialogs\PopUpInput.cs" />
     <Compile Include="InputDialogs\PopUpInputDate.cs" />
     <Compile Include="InputDialogs\PopUpInputDateWindow.xaml.cs">

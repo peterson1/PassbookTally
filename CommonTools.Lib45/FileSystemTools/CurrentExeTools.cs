@@ -1,9 +1,9 @@
-﻿using System.Diagnostics;
+﻿using CommonTools.Lib11.StringTools;
+using CommonTools.Lib45.ThreadTools;
+using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Windows;
-using CommonTools.Lib11.StringTools;
-using CommonTools.Lib45.ThreadTools;
 
 namespace CommonTools.Lib45.FileSystemTools
 {
@@ -60,12 +60,13 @@ namespace CommonTools.Lib45.FileSystemTools
         }
 
 
-        public static int CountRunningInstances()
-        {
-            //var nme = AppDomain.CurrentDomain.FriendlyName;
-            var nme = Process.GetCurrentProcess().ProcessName;
-            return Process.GetProcessesByName(nme).Length;
-        }
+        public static Process   GetProcess    () => Process.GetCurrentProcess();
+        public static Process[] GetProcesses  () => Process.GetProcessesByName(GetProcessName());
+        public static string    GetProcessName() => GetProcess().ProcessName;
+
+
+        public static int CountRunningInstances() 
+            => GetProcesses().Length;
 
 
         public static bool HasAnotherInstance()
