@@ -35,8 +35,8 @@
                 <DataGridTextColumn Width="08*" Header="chq #"    Binding="{Binding ChequeNumber, StringFormat=000#}" ElementStyle="{StaticResource colCenter}" />
                 <DataGridTextColumn Width="15*" Header="chq date" Binding="{Binding ChequeDate, StringFormat=d MMM yyyy}" ElementStyle="{StaticResource colSmallWrapCenter}" />
                 <DataGridTextColumn Width="20*" Header="payee"    Binding="{Binding Request.Payee}" ElementStyle="{StaticResource colSmallWrapRightBold}" />
-                <DataGridTextColumn Width="29*" Header="purpose"  Binding="{Binding Request.Purpose}" ElementStyle="{StaticResource colSmallWrapLeft}" />
-                <DataGridTextColumn Width="20*" Header="amount"   Binding="{Binding Request.Amount, StringFormat=N2}" ElementStyle="{StaticResource colRightEnd}" />
+                <DataGridTextColumn Width="31*" Header="purpose"  Binding="{Binding Request.Purpose}" ElementStyle="{StaticResource colSmallWrapLeft}" />
+                <DataGridTextColumn Width="18*" Header="amount"   Binding="{Binding Request.Amount, StringFormat=N2}" ElementStyle="{StaticResource colRightEnd}" />
             </DataGrid.Columns>
         </DataGrid>
     </DockPanel>

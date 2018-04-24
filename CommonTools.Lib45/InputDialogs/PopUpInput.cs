@@ -3,6 +3,7 @@ using CommonTools.Lib45.InputCommands;
 using CommonTools.Lib45.UIExtensions;
 using PropertyChanged;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -88,8 +89,19 @@ namespace CommonTools.Lib45.InputDialogs
             => new PopUpInputInt(caption, message, defaultVal)
                 .TryGetValidInput(out input);
 
+
+        public static bool TryGetString(string message, out string input, string defaultVal = null, string caption = "Please enter a value")
+            => new PopUpInputString(caption, message, defaultVal)
+                .TryGetValidInput(out input);
+
+
         public static bool TryGetDate(string message, out DateTime input, DateTime? defaultVal = null, string caption = "Please select a date")
             => new PopUpInputDate(caption, message, defaultVal)
                 .TryGetValidInput(out input);
+
+
+        public static bool TryGetIndex<T>(string message, out int listIndex, IEnumerable<T> options, int? defaultIndex = null, string caption = "Please select an item")
+            => new PopUpInputIndex<T>(caption, message, options, defaultIndex)
+                .TryGetValidInput(out listIndex);
     }
 }

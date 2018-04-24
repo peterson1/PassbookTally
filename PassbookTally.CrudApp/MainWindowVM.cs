@@ -1,7 +1,9 @@
 ﻿using CommonTools.Lib11.DataStructures;
 using PassbookTally.CrudApp.FundRequests;
+using PassbookTally.CrudApp.IssuedCheques;
 using PassbookTally.CrudApp.PreparedCheques;
 using PassbookTally.CrudApp.TransactionLog;
+using PassbookTally.DatabaseLib.Repositories;
 using PassbookTally.DomainLib45.BaseViewModels;
 using PassbookTally.DomainLib45.Configuration;
 using PropertyChanged;
@@ -11,15 +13,14 @@ using System.Linq;
 namespace PassbookTally.CrudApp
 {
     [AddINotifyPropertyChangedInterface]
-    internal class MainWindowVM : MaterialWindowBase
+    public class MainWindowVM : MaterialWindowBase
     {
-        //private PassbookDB _db;
-
         public MainWindowVM(AppArguments appArguments) : base(appArguments)
         {
             FillAccountNames();
             FundRequests    = new FundReqListVM(this);
             PreparedCheques = new PreparedChequesListVM(this);
+            IssuedCheques   = new IssuedChequesListVM(this);
             ClickRefresh();
         }
 
@@ -29,6 +30,7 @@ namespace PassbookTally.CrudApp
         public TransactionLogVM       TransactionLog   { get; private set; }
         public FundReqListVM          FundRequests     { get; }
         public PreparedChequesListVM  PreparedCheques  { get; }
+        public IssuedChequesListVM    IssuedCheques    { get; }
         public DateTime               StartDate        { get; set; } = DateTime.Now.AddDays(-10);
 
         public int AccountId => AccountNames.IndexOf(AccountName) + 1;
@@ -36,18 +38,21 @@ namespace PassbookTally.CrudApp
 
         private void FillAccountNames()
         {
-            AccountNames.SetItems(AppArgs.PassbookDB.AccountNames);
+            AccountNames.SetItems(AppArgs.DCDR.AccountNames);
             AccountName = AccountNames.FirstOrDefault();
         }
 
 
+        internal SoaRowsRepo1 GetSoaRepo()
+            => AppArgs.GetPassbookDB(AccountId).GetSoaRepo();
+
 
         protected override void OnRefreshClicked()
         {
-            var repo = AppArgs.GetPassbookDB(AccountId).GetSoaRepo();
-            TransactionLog = new TransactionLogVM(repo, AppArgs, StartDate);
-            FundRequests.ReloadFromDB();
+            TransactionLog = new TransactionLogVM(GetSoaRepo(), AppArgs, StartDate);
+            FundRequests   .ReloadFromDB();
             PreparedCheques.ReloadFromDB();
+            IssuedCheques  .ReloadFromDB();
         }
     }
 }

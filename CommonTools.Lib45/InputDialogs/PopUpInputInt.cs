@@ -2,7 +2,7 @@
 {
     internal class PopUpInputInt : PopUpInput<int, PopUpInputIntWindow>
     {
-        public PopUpInputInt(string caption, string message, int? defaultVal) : base(caption, message)
+        internal PopUpInputInt(string caption, string message, int? defaultVal) : base(caption, message)
         {
             Draft = defaultVal;
         }

@@ -25,7 +25,7 @@ namespace PassbookTally.CrudApp.FundRequests
 
         public UIList<string>  Payees  { get; } = new UIList<string>();
 
-        private PassbookDB         DB   => AppArgs.PassbookDB;
+        private PassbookDB         DB   => AppArgs.DCDR;
         private ActiveFundReqsRepo Repo => DB.ActiveRequests;
 
 

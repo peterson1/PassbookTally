@@ -16,8 +16,8 @@
             <ColumnDefinition Width="08*" />
             <ColumnDefinition Width="15*" />
             <ColumnDefinition Width="20*" />
-            <ColumnDefinition Width="37*" />
-            <ColumnDefinition Width="20*" />
+            <ColumnDefinition Width="39*" />
+            <ColumnDefinition Width="18*" />
         </Grid.ColumnDefinitions>
         <TextBox Grid.Column="0" mat:HintAssist.Hint="req #"     Text="{Binding FilterSerialNum  , UpdateSourceTrigger=PropertyChanged}" />
         <TextBox Grid.Column="1" mat:HintAssist.Hint="requested" Text="{Binding FilterRequestDate, UpdateSourceTrigger=PropertyChanged}" />

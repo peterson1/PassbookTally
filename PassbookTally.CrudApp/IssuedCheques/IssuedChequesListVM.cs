@@ -11,38 +11,37 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace PassbookTally.CrudApp.PreparedCheques
+namespace PassbookTally.CrudApp.IssuedCheques
 {
     [AddINotifyPropertyChangedInterface]
-    public class PreparedChequesListVM : FilteredSavedListVMBase<RequestedChequeDTO, PreparedChequesFilterVM, AppArguments>
+    public class IssuedChequesListVM : FilteredSavedListVMBase<RequestedChequeDTO, IssuedChequesFilterVM, AppArguments>
     {
         private MainWindowVM _mainWin;
 
-        public PreparedChequesListVM(MainWindowVM mainWindow) : base(mainWindow.AppArgs.DCDR.ActiveCheques, mainWindow.AppArgs, false)
+        public IssuedChequesListVM(MainWindowVM mainWindow) : base(mainWindow.AppArgs.DCDR.ActiveCheques, mainWindow.AppArgs, false)
         {
             _mainWin       = mainWindow;
-            IssueChequeCmd = R2Command.Relay(IssueChequeToPayee, null, "Issue Cheque to Payee");
+            ClearChequeCmd = R2Command.Relay(MarkAsCleared, null, "Mark Cheque as “Cleared”");
         }
 
 
-        public IR2Command IssueChequeCmd { get; }
+        public IR2Command ClearChequeCmd { get; }
 
 
-        private void IssueChequeToPayee()
+        private void MarkAsCleared()
         {
             var chq = ItemsList.CurrentItem;
             if (chq == null) return;
 
-            if (!PopUpInput.TryGetString("Issued To", out string issuedTo, chq.Request.Payee)) return;
-            if (!PopUpInput.TryGetDate("Date Issued", out DateTime issuedDate)) return;
-            AppArgs.DCDR.ToIssuedCheque(chq, issuedTo, issuedDate);
+            if (!PopUpInput.TryGetDate("Date Cleared", out DateTime clearedDate)) return;
+            AppArgs.DCDR.ToBankTransaction(chq, clearedDate, _mainWin.GetSoaRepo());
             _mainWin.ClickRefresh();
         }
 
 
         protected override List<RequestedChequeDTO> QueryItems(SharedCollectionBase<RequestedChequeDTO> db)
-            => db.GetAll().Where(_ => !_.IssuedDate.HasValue
-                                    && _.BankAccountId == _mainWin.AccountId).ToList();
+            => db.GetAll().Where(_ => _.IssuedDate.HasValue
+                                   && _.BankAccountId == _mainWin.AccountId).ToList();
 
 
         protected override Func<RequestedChequeDTO, decimal> SummedAmount => _ => _.Request.Amount.Value;

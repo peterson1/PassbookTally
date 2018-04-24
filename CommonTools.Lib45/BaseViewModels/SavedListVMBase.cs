@@ -94,10 +94,10 @@ namespace CommonTools.Lib45.BaseViewModels
         private void UpdateTotalSum()
         {
             if (SummedAmount == null) return;
-            if (!ItemsList.Any()) return;
 
             var oldSum = TotalSum;
-            TotalSum = ItemsList.Sum(_ => SummedAmount(_));
+            TotalSum = ItemsList.Any() 
+                ? ItemsList.Sum(_ => SummedAmount(_)) : 0;
 
             if (TotalSum != oldSum)
                 TotalSumChanged?.Invoke(this, TotalSum);

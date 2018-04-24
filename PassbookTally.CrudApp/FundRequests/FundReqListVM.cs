@@ -18,9 +18,9 @@ namespace PassbookTally.CrudApp.FundRequests
     [AddINotifyPropertyChangedInterface]
     public class FundReqListVM : FilteredSavedListVMBase<FundRequestDTO, FundReqListFilterVM, AppArguments>
     {
-        private MainWindowVMBase<AppArguments> _mainWin;
+        private MainWindowVM _mainWin;
 
-        public FundReqListVM(MainWindowVMBase<AppArguments> mainWindow) : base(mainWindow.AppArgs.PassbookDB.ActiveRequests, mainWindow.AppArgs, false)
+        public FundReqListVM(MainWindowVM mainWindow) : base(mainWindow.AppArgs.DCDR.ActiveRequests, mainWindow.AppArgs, false)
         {
             _mainWin       = mainWindow;
             Crud           = new FundReqCrudVM(AppArgs);
@@ -38,15 +38,17 @@ namespace PassbookTally.CrudApp.FundRequests
         private void InputChequeDetails()
         {
             var req = ItemsList.CurrentItem;
+            if (req == null) return;
             if (!req.Amount.HasValue)
             {
                 Alert.Show("Amount requested should not be blank.");
                 return;
             }
-            if (req == null) return;
-            if (!PopUpInput.TryGetInt("Cheque Number", out int num)) return;
-            if (!PopUpInput.TryGetDate("Cheque Date", out DateTime date)) return;
-            AppArgs.PassbookDB.ToActiveCheque(req, num, date);
+            var pbk = AppArgs.DCDR;
+            if (!PopUpInput.TryGetIndex("Bank Account" , out int idx, pbk.AccountNames, 0)) return;
+            if (!PopUpInput.TryGetInt  ("Cheque Number", out int num)) return;
+            if (!PopUpInput.TryGetDate ("Cheque Date"  , out DateTime date)) return;
+            pbk.ToPreparedCheque(req, idx + 1, num, date);
             _mainWin.ClickRefresh();
         }
 

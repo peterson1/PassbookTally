@@ -1,5 +1,4 @@
-﻿using System;
-using CommonTools.Lib11.GoogleTools;
+﻿using CommonTools.Lib11.GoogleTools;
 using CommonTools.Lib45.LicenseTools;
 using PassbookTally.DatabaseLib;
 using PassbookTally.DatabaseLib.MonthlyShardedSoA;
@@ -8,7 +7,7 @@ namespace PassbookTally.DomainLib45.Configuration
 {
     public class AppArguments : ICredentialsProvider
     {
-        public PassbookDB           PassbookDB   { get; private set; }
+        public PassbookDB           DCDR         { get; private set; }
         public string               DbFilePath   { get; internal set; }
         public bool                 IsValidUser  { get; private set; }
         public FirebaseCredentials  Credentials  { get; private set; }
@@ -23,9 +22,9 @@ namespace PassbookTally.DomainLib45.Configuration
         }
 
 
-        internal void InitializeDatabases(int bankAcctId = 1)
+        internal void InitializeDatabases()
         {
-            PassbookDB = GetPassbookDB(bankAcctId);
+            DCDR = GetPassbookDB(1);
         }
 
 

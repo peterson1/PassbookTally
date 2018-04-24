@@ -89,9 +89,17 @@
     <Compile Include="InputDialogs\PopUpInputDateWindow.xaml.cs">
       <DependentUpon>PopUpInputDateWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="InputDialogs\PopUpInputIndex.cs" />
+    <Compile Include="InputDialogs\PopUpInputIndexWindow.xaml.cs">
+      <DependentUpon>PopUpInputIndexWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="InputDialogs\PopUpInputInt.cs" />
     <Compile Include="InputDialogs\PopUpInputIntWindow.xaml.cs">
       <DependentUpon>PopUpInputIntWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="InputDialogs\PopUpInputString.cs" />
+    <Compile Include="InputDialogs\PopUpInputStringWindow.xaml.cs">
+      <DependentUpon>PopUpInputStringWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="StyledButtons\EncodeNewDraftBtn1.xaml.cs">
       <DependentUpon>EncodeNewDraftBtn1.xaml</DependentUpon>
@@ -119,7 +127,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="InputDialogs\PopUpInputIndexWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="InputDialogs\PopUpInputIntWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="InputDialogs\PopUpInputStringWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

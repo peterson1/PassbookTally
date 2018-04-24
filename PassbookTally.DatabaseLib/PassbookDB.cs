@@ -31,6 +31,8 @@ namespace PassbookTally.DatabaseLib
         public ActiveFundReqsRepo    ActiveRequests    { get; private set; }
         public InactiveFundReqsRepo  InactiveRequests  { get; private set; }
         public ActiveChequesRepo     ActiveCheques     { get; private set; }
+
+
         public InactiveChequesRepo   InactiveCheques   { get; private set; }
 
 

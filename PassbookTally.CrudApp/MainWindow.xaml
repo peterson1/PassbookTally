@@ -13,6 +13,7 @@
         xmlns:txns="clr-namespace:PassbookTally.CrudApp.TransactionLog"
         xmlns:reqs="clr-namespace:PassbookTally.CrudApp.FundRequests"
         xmlns:chq1="clr-namespace:PassbookTally.CrudApp.PreparedCheques"
+        xmlns:chq2="clr-namespace:PassbookTally.CrudApp.IssuedCheques"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
         TextElement.FontSize="13"
@@ -42,9 +43,11 @@
 
             <Grid Grid.Column="2">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="5*" />
+                    <RowDefinition Height="3*" />
                     <RowDefinition Height="5" />
-                    <RowDefinition Height="5*" />
+                    <RowDefinition Height="2*" />
+                    <RowDefinition Height="5" />
+                    <RowDefinition Height="3*" />
                 </Grid.RowDefinitions>
                 <reqs:FundRequestsUI Grid.Row="0" 
                                      DataContext="{Binding FundRequests}" />
@@ -52,6 +55,10 @@
                               Style="{StaticResource hSplit}" />
                 <chq1:PreparedChequesUI Grid.Row="2"
                                         DataContext="{Binding PreparedCheques}" />
+                <GridSplitter Grid.Row="3"
+                              Style="{StaticResource hSplit}" />
+                <chq2:IssuedChequesUI Grid.Row="4"
+                                      DataContext="{Binding IssuedCheques}" />
             </Grid>
         </Grid>
             

@@ -13,6 +13,7 @@ namespace PassbookTally.DomainLib.DTOs
 
 
         public FundRequestDTO  Request       { get; set; }
+        public int             BankAccountId { get; set; }
         public DateTime        ChequeDate    { get; set; }
         public int             ChequeNumber  { get; set; }
         public string          IssuedTo      { get; set; }
