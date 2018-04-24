@@ -21,8 +21,12 @@ namespace CommonTools.Lib45.UIExtensions
         private static void RaiseItemOpened<T>(DataGrid dg)
         {
             if (dg.SelectedIndex == -1) return;
-            var item = (T)dg.SelectedItem;
-            var vm   = dg.DataContext as UIList<T>;
+            T item;
+            try   { item = (T)dg.SelectedItem; }
+            catch (InvalidCastException) { return; }
+            if (item == null) return;
+
+            var vm = dg.DataContext as UIList<T>;
             vm?.RaiseItemOpened(item);
         }
     }

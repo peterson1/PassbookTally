@@ -1,7 +1,7 @@
 ﻿using CommonTools.Lib11.DataStructures;
 using PassbookTally.CrudApp.FundRequests;
+using PassbookTally.CrudApp.PreparedCheques;
 using PassbookTally.CrudApp.TransactionLog;
-using PassbookTally.DatabaseLib;
 using PassbookTally.DomainLib45.BaseViewModels;
 using PassbookTally.DomainLib45.Configuration;
 using PropertyChanged;
@@ -18,16 +18,18 @@ namespace PassbookTally.CrudApp
         public MainWindowVM(AppArguments appArguments) : base(appArguments)
         {
             FillAccountNames();
-            FundRequests = new FundReqListVM(AppArgs);
+            FundRequests    = new FundReqListVM(this);
+            PreparedCheques = new PreparedChequesListVM(this);
             ClickRefresh();
         }
 
 
-        public UIList<string>    AccountNames    { get; } = new UIList<string>();
-        public string            AccountName     { get; set; }
-        public TransactionLogVM  TransactionLog  { get; private set; }
-        public FundReqListVM     FundRequests    { get; }
-        public DateTime          StartDate       { get; set; } = DateTime.Now.AddDays(-10);
+        public UIList<string>         AccountNames     { get; } = new UIList<string>();
+        public string                 AccountName      { get; set; }
+        public TransactionLogVM       TransactionLog   { get; private set; }
+        public FundReqListVM          FundRequests     { get; }
+        public PreparedChequesListVM  PreparedCheques  { get; }
+        public DateTime               StartDate        { get; set; } = DateTime.Now.AddDays(-10);
 
         public int AccountId => AccountNames.IndexOf(AccountName) + 1;
 
@@ -45,6 +47,7 @@ namespace PassbookTally.CrudApp
             var repo = AppArgs.GetPassbookDB(AccountId).GetSoaRepo();
             TransactionLog = new TransactionLogVM(repo, AppArgs, StartDate);
             FundRequests.ReloadFromDB();
+            PreparedCheques.ReloadFromDB();
         }
     }
 }

@@ -12,6 +12,7 @@
         xmlns:mat="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:txns="clr-namespace:PassbookTally.CrudApp.TransactionLog"
         xmlns:reqs="clr-namespace:PassbookTally.CrudApp.FundRequests"
+        xmlns:chq1="clr-namespace:PassbookTally.CrudApp.PreparedCheques"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
         TextElement.FontSize="13"
@@ -39,8 +40,19 @@
 
             <GridSplitter Grid.Column="1" Style="{StaticResource vSplit}" />
 
-            <reqs:FundRequestsUI Grid.Column="2"
-                                    DataContext="{Binding FundRequests}" />
+            <Grid Grid.Column="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="5*" />
+                    <RowDefinition Height="5" />
+                    <RowDefinition Height="5*" />
+                </Grid.RowDefinitions>
+                <reqs:FundRequestsUI Grid.Row="0" 
+                                     DataContext="{Binding FundRequests}" />
+                <GridSplitter Grid.Row="1"
+                              Style="{StaticResource hSplit}" />
+                <chq1:PreparedChequesUI Grid.Row="2"
+                                        DataContext="{Binding PreparedCheques}" />
+            </Grid>
         </Grid>
             
             

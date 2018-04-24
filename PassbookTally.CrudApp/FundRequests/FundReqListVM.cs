@@ -4,6 +4,7 @@ using CommonTools.Lib45.InputCommands;
 using CommonTools.Lib45.InputDialogs;
 using CommonTools.Lib45.LiteDbTools;
 using CommonTools.Lib45.ThreadTools;
+using PassbookTally.DatabaseLib.StateTransitions;
 using PassbookTally.DomainLib.Authorization;
 using PassbookTally.DomainLib.DTOs;
 using PassbookTally.DomainLib45.Configuration;
@@ -17,8 +18,11 @@ namespace PassbookTally.CrudApp.FundRequests
     [AddINotifyPropertyChangedInterface]
     public class FundReqListVM : FilteredSavedListVMBase<FundRequestDTO, FundReqListFilterVM, AppArguments>
     {
-        public FundReqListVM(AppArguments appArguments) : base(appArguments.PassbookDB.ActiveRequests, appArguments, false)
+        private MainWindowVMBase<AppArguments> _mainWin;
+
+        public FundReqListVM(MainWindowVMBase<AppArguments> mainWindow) : base(mainWindow.AppArgs.PassbookDB.ActiveRequests, mainWindow.AppArgs, false)
         {
+            _mainWin       = mainWindow;
             Crud           = new FundReqCrudVM(AppArgs);
             InputChequeCmd = R2Command.Relay(InputChequeDetails, null, "Input Cheque Details");
         }
@@ -33,8 +37,17 @@ namespace PassbookTally.CrudApp.FundRequests
 
         private void InputChequeDetails()
         {
+            var req = ItemsList.CurrentItem;
+            if (!req.Amount.HasValue)
+            {
+                Alert.Show("Amount requested should not be blank.");
+                return;
+            }
+            if (req == null) return;
             if (!PopUpInput.TryGetInt("Cheque Number", out int num)) return;
-            Alert.Show(num.ToString());
+            if (!PopUpInput.TryGetDate("Cheque Date", out DateTime date)) return;
+            AppArgs.PassbookDB.ToActiveCheque(req, num, date);
+            _mainWin.ClickRefresh();
         }
 
 

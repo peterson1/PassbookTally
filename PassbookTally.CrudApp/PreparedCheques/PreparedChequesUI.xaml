@@ -1,9 +1,9 @@
-﻿<UserControl x:Class="PassbookTally.CrudApp.FundRequests.FundRequestsUI"
+﻿<UserControl x:Class="PassbookTally.CrudApp.PreparedCheques.PreparedChequesUI"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:PassbookTally.CrudApp.FundRequests"
+             xmlns:local="clr-namespace:PassbookTally.CrudApp.PreparedCheques"
              xmlns:mat="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:btns="clr-namespace:CommonTools.Lib45.StyledButtons;assembly=CommonTools.Lib45"
              mc:Ignorable="d" 
@@ -16,7 +16,7 @@
                 <StackPanel Orientation="Horizontal" 
                             Margin="0 0 0 0">
 
-                    <TextBlock Text="For Cheque Preparation"
+                    <TextBlock Text="Prepared Cheques"
                                Style="{StaticResource MaterialDesignSubheadingTextBlock}"
                                VerticalAlignment="Center" />
                 </StackPanel>
@@ -25,7 +25,7 @@
                             HorizontalAlignment="Right">
 
                     <TextBlock Text="total :" VerticalAlignment="Center" />
-                    
+
                     <TextBlock Text="{Binding TotalSum, StringFormat=N2}"
                                Style="{StaticResource MaterialDesignBody2TextBlock}"
                                VerticalAlignment="Center"
@@ -46,13 +46,7 @@
             </Grid>
         </mat:ColorZone>
 
-        <Grid>
-            <local:FundReqsTable />
-
-            <btns:EncodeNewDraftBtn1 DataContext="{Binding Crud}"
-                                     Margin="30 0 0 30"
-                                     HorizontalAlignment="Left"
-                                     VerticalAlignment="Bottom" />
-        </Grid>
+        <local:PreparedChequesTable />
+        
     </DockPanel>
 </UserControl>

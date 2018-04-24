@@ -92,6 +92,17 @@
     <Compile Include="FundRequests\FundRequestsUI.xaml.cs">
       <DependentUpon>FundRequestsUI.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PreparedCheques\PreparedChequesFilter.xaml.cs">
+      <DependentUpon>PreparedChequesFilter.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PreparedCheques\PreparedChequesFilterVM.cs" />
+    <Compile Include="PreparedCheques\PreparedChequesListVM.cs" />
+    <Compile Include="PreparedCheques\PreparedChequesTable.xaml.cs">
+      <DependentUpon>PreparedChequesTable.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PreparedCheques\PreparedChequesUI.xaml.cs">
+      <DependentUpon>PreparedChequesUI.xaml</DependentUpon>
+    </Compile>
     <Compile Include="TransactionLog\TransactionCrudVM.cs" />
     <Compile Include="TransactionLog\TransactionCrudWindow.xaml.cs">
       <DependentUpon>TransactionCrudWindow.xaml</DependentUpon>
@@ -135,6 +146,18 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="PreparedCheques\PreparedChequesFilter.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PreparedCheques\PreparedChequesTable.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PreparedCheques\PreparedChequesUI.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="TransactionLog\TransactionCrudWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

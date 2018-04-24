@@ -31,10 +31,6 @@ namespace PassbookTally.DatabaseLib.MonthlyShardedSoA
                 var repo = _moDB.GetMonthRepo(grp.Key);
                 repo.BulkUpdate(grp);
             }
-
-            //todo: group by month
-            //foreach (var row in rows)
-            //    _moDB.GetMonthRepo(row.GetDate()).Update(row);
         }
 
 

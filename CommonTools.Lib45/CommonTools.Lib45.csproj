@@ -85,6 +85,10 @@
       <DependentUpon>BusyDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="InputDialogs\PopUpInput.cs" />
+    <Compile Include="InputDialogs\PopUpInputDate.cs" />
+    <Compile Include="InputDialogs\PopUpInputDateWindow.xaml.cs">
+      <DependentUpon>PopUpInputDateWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="InputDialogs\PopUpInputInt.cs" />
     <Compile Include="InputDialogs\PopUpInputIntWindow.xaml.cs">
       <DependentUpon>PopUpInputIntWindow.xaml</DependentUpon>
@@ -108,6 +112,10 @@
     <Compile Include="ValueConverters\VisibleIfNotZeroConverter.cs" />
     <Compile Include="ValueConverters\VisibleIfTrueConverter.cs" />
     <Page Include="BusyIndicators\BusyDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="InputDialogs\PopUpInputDateWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

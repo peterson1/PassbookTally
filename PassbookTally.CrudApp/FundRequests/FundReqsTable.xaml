@@ -28,6 +28,7 @@
         <DataGrid x:Name="dg" Style="{StaticResource dgReadOnly}"
                   DataContext="{Binding ItemsList}"
                   ItemsSource="{Binding }"
+                  SelectedItem="{Binding CurrentItem}"
                   HeadersVisibility="None">
             <DataGrid.Columns>
                 <DataGridTextColumn Width="08*" Header="req #"     Binding="{Binding SerialNum, StringFormat=000#}" ElementStyle="{StaticResource colCenter}" />

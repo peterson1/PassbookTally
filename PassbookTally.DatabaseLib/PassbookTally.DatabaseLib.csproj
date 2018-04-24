@@ -57,10 +57,13 @@
     <Compile Include="Repositories\FundReqsRepo_Active.cs" />
     <Compile Include="Repositories\FundReqsRepo_Inactive.cs" />
     <Compile Include="Repositories\FundReqsRepo_Reads.cs" />
+    <Compile Include="Repositories\RequestedChequesRepo_Active.cs" />
+    <Compile Include="Repositories\RequestedChequesRepo_Inactive.cs" />
     <Compile Include="Repositories\SoaRowsRepo1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\SoaRowsRepo1_Read.cs" />
     <Compile Include="Repositories\SoaRowsRepo1_Write.cs" />
+    <Compile Include="StateTransitions\ChequeStateTransitioner.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CommonTools.Lib11\CommonTools.Lib11.csproj">

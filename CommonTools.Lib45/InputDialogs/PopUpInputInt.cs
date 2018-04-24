@@ -13,16 +13,18 @@
 
         public override bool TryParseValue(out int parsed)
         {
-            if (Draft.HasValue)
+            if (!Draft.HasValue)
             {
-                parsed = Draft.Value;
-                return true;
-            }
-            else
-            {
-                parsed = 0;
+                parsed     = 0;
+                WhyInvalid = "Value should not be blank.";
                 return false;
             }
+            parsed = Draft.Value;
+            return true;
         }
+
+
+        protected override void OnWindowLoad(PopUpInputIntWindow win)
+            => win.txtVal.SelectAll();
     }
 }
