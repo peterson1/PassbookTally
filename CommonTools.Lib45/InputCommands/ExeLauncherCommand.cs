@@ -1,5 +1,6 @@
 ﻿using CommonTools.Lib11.StringTools;
 using CommonTools.Lib45.FileSystemTools;
+using CommonTools.Lib45.ThreadTools;
 using PropertyChanged;
 using System;
 using System.Diagnostics;

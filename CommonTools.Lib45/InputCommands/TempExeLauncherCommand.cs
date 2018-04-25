@@ -2,6 +2,7 @@
 using PropertyChanged;
 using System;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace CommonTools.Lib45.InputCommands
 {
@@ -19,30 +20,40 @@ namespace CommonTools.Lib45.InputCommands
         public string TempExePath { get; }
 
 
-        private string GetTempExePath()
+        private string GetTempExePath() 
+            => Path.Combine(GetTempExeDir(), ExeName);
+
+
+        private string GetTempExeDir()
         {
             var dir = Path.Combine(Path.GetTempPath(), TMP_DIR);
-            return Path.Combine(dir, ExeName);
+            if (!Directory.Exists(dir)) Directory.CreateDirectory(dir);
+            return dir;
         }
 
 
-        public override void Execute(object parameter)
+
+        public override async void Execute(object parameter)
         {
             KillProcess.ByName(ExeName, true);
 
-            if (CopyOrigToTemp())
+            if (await CopyOrigToTemp())
                 StartExeProcess(TempExePath);
 
             UpdateVersionInfo();
         }
 
 
-        private bool CopyOrigToTemp()
+        private async Task<bool> CopyOrigToTemp()
         {
             try
             {
-                File.Delete(TempExePath);
+                if (File.Exists(TempExePath))
+                    File.Delete(TempExePath);
+
                 File.Copy(ExePath, TempExePath, true);
+                await Task.Delay(200);
+
                 return true;
             }
             catch (Exception ex)
@@ -51,5 +62,30 @@ namespace CommonTools.Lib45.InputCommands
                 return false;
             }
         }
+
+
+        //private bool IsFileLocked(FileInfo file)
+        //{
+        //    FileStream stream = null;
+        //    try
+        //    {
+        //        stream = file.Open(FileMode.Open, FileAccess.ReadWrite, FileShare.None);
+        //    }
+        //    catch (IOException)
+        //    {
+        //        //the file is unavailable because it is:
+        //        //still being written to
+        //        //or being processed by another thread
+        //        //or does not exist (has already been processed)
+        //        return true;
+        //    }
+        //    finally
+        //    {
+        //        if (stream != null)
+        //            stream.Close();
+        //    }
+        //    //file is not locked
+        //    return false;
+        //}
     }
 }
