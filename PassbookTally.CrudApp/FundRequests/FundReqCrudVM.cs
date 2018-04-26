@@ -20,10 +20,13 @@ namespace PassbookTally.CrudApp.FundRequests
 
         public FundReqCrudVM(AppArguments appArguments) : base(appArguments)
         {
+            Allocations = new AllocationsListVM(this);
         }
 
 
-        public UIList<string>  Payees  { get; } = new UIList<string>();
+        public UIList<string>     Payees       { get; } = new UIList<string>();
+        public AllocationsListVM  Allocations  { get; }
+
 
         private PassbookDB         DB   => AppArgs.DCDR;
         private ActiveFundReqsRepo Repo => DB.ActiveRequests;

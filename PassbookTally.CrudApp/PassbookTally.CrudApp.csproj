@@ -103,6 +103,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="FundRequests\AllocationsListVM.cs" />
+    <Compile Include="FundRequests\AllocationsTable.xaml.cs">
+      <DependentUpon>AllocationsTable.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="FundRequests\AllocationVM.cs" />
     <Compile Include="FundRequests\FundReqCrudVM.cs" />
     <Compile Include="FundRequests\FundReqCrudWindow.xaml.cs">
       <DependentUpon>FundReqCrudWindow.xaml</DependentUpon>
@@ -155,6 +160,10 @@
     <Compile Include="TransactionLog\TxnLogToolbar.xaml.cs">
       <DependentUpon>TxnLogToolbar.xaml</DependentUpon>
     </Compile>
+    <Page Include="FundRequests\AllocationsTable.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="FundRequests\FundReqCrudWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

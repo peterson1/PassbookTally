@@ -1,6 +1,7 @@
 ﻿using CommonTools.Lib11.DataStructures;
 using CommonTools.Lib11.ReflectionTools;
 using System;
+using System.Collections.Generic;
 
 namespace PassbookTally.DomainLib.DTOs
 {
@@ -16,6 +17,15 @@ namespace PassbookTally.DomainLib.DTOs
         public string     Purpose      { get; set; }
         public DateTime   RequestDate  { get; set; }
         public decimal?   Amount       { get; set; }
+
+        public List<AccountAllocation>  Allocations  { get; set; }
+
+
+        public class AccountAllocation
+        {
+            public GLAccountDTO  Account    { get; set; }
+            public decimal       SubAmount  { get; set; }
+        }
 
 
         public T DeepClone   <T>() => throw new NotImplementedException();

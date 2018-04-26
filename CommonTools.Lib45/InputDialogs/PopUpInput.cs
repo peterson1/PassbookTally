@@ -90,6 +90,11 @@ namespace CommonTools.Lib45.InputDialogs
                 .TryGetValidInput(out input);
 
 
+        public static bool TryGetDecimal(string message, out decimal input, decimal? defaultVal = null, string caption = "Please enter a number")
+            => new PopUpInputDecimal(caption, message, defaultVal)
+                .TryGetValidInput(out input);
+
+
         public static bool TryGetString(string message, out string input, string defaultVal = null, string caption = "Please enter a value")
             => new PopUpInputString(caption, message, defaultVal)
                 .TryGetValidInput(out input);

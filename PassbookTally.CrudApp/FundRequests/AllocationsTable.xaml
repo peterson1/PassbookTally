@@ -1,0 +1,64 @@
+﻿<UserControl x:Class="PassbookTally.CrudApp.FundRequests.AllocationsTable"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PassbookTally.CrudApp.FundRequests"
+             xmlns:mat="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <Style x:Key="btnAdd" TargetType="Button"
+               BasedOn="{StaticResource MaterialDesignFloatingActionMiniButton}">
+            <Setter Property="HorizontalAlignment" Value="Right" />
+            <Setter Property="VerticalAlignment" Value="Bottom" />
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+        <DataGrid ItemsSource="{Binding }"
+                  DataContext="{Binding Items}"
+                  Style="{StaticResource dgReadOnly}"
+                  mat:DataGridAssist.ColumnHeaderPadding="0 5 0 5"
+                  Width="500">
+            <DataGrid.Columns>
+                <DataGridTextColumn Width="50*" Header="GL account"
+                                    Binding="{Binding Account}"
+                                    ElementStyle="{StaticResource colLabel}" />
+                <DataGridTextColumn Width="25*" Header="debit"
+                                    Binding="{Binding Debit, StringFormat=N2}"
+                                    ElementStyle="{StaticResource colRightEnd}" />
+                <DataGridTextColumn Width="25*" Header="credit"
+                                    Binding="{Binding Credit, StringFormat=N2}"
+                                    ElementStyle="{StaticResource colRightEnd}" />
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <mat:PopupBox Style="{StaticResource MaterialDesignMultiFloatingActionPopupBox}"
+                      HorizontalAlignment="Right" VerticalAlignment="Bottom"
+                      Width="45" Height="45"
+                      Margin="32">
+            <!--<mat:PopupBox.ToggleContentTemplate>
+                <DataTemplate>
+                    <Button Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
+                            Content="{mat:PackIcon Plus, Size=20}" />
+                </DataTemplate>
+            </mat:PopupBox.ToggleContentTemplate>-->
+            <StackPanel>
+                
+                <Button Style="{StaticResource btnAdd}"
+                        Content="{mat:PackIcon Plus, Size=20}"
+                        Command="{Binding AddDebitCmd}"
+                        ToolTip="{Binding AddDebitCmd.CurrentLabel}"
+                        Margin="0 0 0 0" />
+
+                <Button Style="{StaticResource btnAdd}"
+                        Content="{mat:PackIcon Plus, Size=24}"
+                        Command="{Binding AddCreditCmd}"
+                        ToolTip="{Binding AddCreditCmd.CurrentLabel}"
+                        Margin="0 20 0 0" />
+                
+            </StackPanel>
+        </mat:PopupBox>
+
+    </Grid>
+</UserControl>
