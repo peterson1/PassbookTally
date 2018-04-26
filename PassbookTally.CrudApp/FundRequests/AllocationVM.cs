@@ -1,9 +1,11 @@
 ﻿using PassbookTally.DomainLib.DTOs;
+using PropertyChanged;
 using System;
 using static PassbookTally.DomainLib.DTOs.FundRequestDTO;
 
 namespace PassbookTally.CrudApp.FundRequests
 {
+    [AddINotifyPropertyChangedInterface]
     public class AllocationVM
     {
         public AllocationVM(GLAccountDTO glAccount, decimal amount)
@@ -29,7 +31,16 @@ namespace PassbookTally.CrudApp.FundRequests
             var val = DTO?.SubAmount;
             if (!val.HasValue) return null;
             return predicate(val) 
-                ? val.Value : (decimal?)null;
+                ? Math.Abs(val.Value) : (decimal?)null;
         }
+
+
+        internal static AllocationVM CashInBank(string accountName, decimal? amount = null)
+            => new AllocationVM(new GLAccountDTO
+            {
+                AccountType = GLAcctType.Asset,
+                Name        = $"Cash in Bank - {accountName}"
+            }, 
+            amount ?? 0);
     }
 }

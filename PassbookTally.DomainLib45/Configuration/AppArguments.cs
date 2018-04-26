@@ -11,6 +11,8 @@ namespace PassbookTally.DomainLib45.Configuration
         public string               DbFilePath   { get; internal set; }
         public bool                 IsValidUser  { get; private set; }
         public FirebaseCredentials  Credentials  { get; private set; }
+        public string               AccountName  { get; set; }
+        public int                  AccountId    { get; set; }
 
 
         public void SetCredentials(string key)

@@ -36,6 +36,13 @@ namespace PassbookTally.CrudApp
         public int AccountId => AccountNames.IndexOf(AccountName) + 1;
 
 
+        public void OnAccountNameChanged()
+        {
+            AppArgs.AccountId   = AccountId;
+            AppArgs.AccountName = AccountName;
+        }
+
+
         private void FillAccountNames()
         {
             AccountNames.SetItems(AppArgs.DCDR.AccountNames);

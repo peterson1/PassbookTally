@@ -6,10 +6,12 @@ using PassbookTally.DatabaseLib.Repositories;
 using PassbookTally.DomainLib.Authorization;
 using PassbookTally.DomainLib.DTOs;
 using PassbookTally.DomainLib45.Configuration;
+using PropertyChanged;
 using System;
 
 namespace PassbookTally.CrudApp.FundRequests
 {
+    [AddINotifyPropertyChangedInterface]
     public class FundReqCrudVM : CrudWindowVMBase<FundRequestDTO, FundReqCrudWindow, AppArguments>
     {
         public    override string TypeDescription => "Voucher Request";
@@ -54,6 +56,7 @@ namespace PassbookTally.CrudApp.FundRequests
 
         protected override bool IsValidDraft(FundRequestDTO draft, out string whyInvalid)
         {
+            Allocations.UpdateBaseAmount(draft.Amount);
             if (IsDuplicateSerial(draft))
             {
                 whyInvalid = "Serial number is used in another request.";

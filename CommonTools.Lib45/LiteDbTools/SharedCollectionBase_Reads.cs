@@ -39,7 +39,7 @@ namespace CommonTools.Lib45.LiteDbTools
         }
 
 
-        public List<T> GetAll()
+        public virtual List<T> GetAll()
         {
             using (var db = _db.OpenRead())
                 return GetCollection(db).FindAll().ToList();
