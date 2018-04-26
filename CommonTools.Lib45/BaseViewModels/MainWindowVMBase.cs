@@ -18,19 +18,14 @@ namespace CommonTools.Lib45.BaseViewModels
         protected string RefreshingText = "Refreshing list of records...";
         protected abstract string CaptionPrefix { get; }
 
-        private Window _win;
+        private Window       _win;
 
 
         public MainWindowVMBase(TArg appArguments)
         {
-            AppArgs = appArguments;
-
-            //PropertyChanged += (s, e) 
-            //    => HandleChangesByName(e.PropertyName);
-
+            AppArgs        = appArguments;
             RefreshCmd     = R2Command.Async(DoRefresh, _ => !IsBusy, "Refresh");
             CloseWindowCmd = R2Command.Relay(CloseWindow, null, "Close Window");
-
             SetCaption($"as {AppArgs?.Credentials?.NameAndRole ?? "Anonymous"}");
         }
 

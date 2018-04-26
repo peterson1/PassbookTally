@@ -2,7 +2,9 @@
 using PropertyChanged;
 using System;
 using System.IO;
+using System.Reflection;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace CommonTools.Lib45.InputCommands
 {
@@ -11,13 +13,15 @@ namespace CommonTools.Lib45.InputCommands
     {
         private const string TMP_DIR = "Temp_Exe_Copies";
 
-        public TempExeLauncherCommand(string label, string origExeFilepath, string arguments = null) : base(label, origExeFilepath, arguments)
+        public TempExeLauncherCommand(string label, string origExeFilepath, string arguments = null, int afterCopyDelayMS = 200) : base(label, origExeFilepath, arguments)
         {
-            TempExePath = GetTempExePath();
+            AfterCopyDelayMS = afterCopyDelayMS;
+            TempExePath      = GetTempExePath();
         }
 
 
-        public string TempExePath { get; }
+        public int     AfterCopyDelayMS  { get; }
+        public string  TempExePath       { get; }
 
 
         private string GetTempExePath() 
@@ -35,12 +39,16 @@ namespace CommonTools.Lib45.InputCommands
 
         public override async void Execute(object parameter)
         {
+            var splash = new SplashScreen(Assembly.GetAssembly(typeof(TempExeLauncherCommand)), "loading.png");
+            splash.Show(false, true);
+
             KillProcess.ByName(ExeName, true);
 
             if (await CopyOrigToTemp())
                 StartExeProcess(TempExePath);
 
             UpdateVersionInfo();
+            splash.Close(TimeSpan.FromSeconds(2));
         }
 
 
@@ -52,7 +60,7 @@ namespace CommonTools.Lib45.InputCommands
                     File.Delete(TempExePath);
 
                 File.Copy(ExePath, TempExePath, true);
-                await Task.Delay(200);
+                await Task.Delay(AfterCopyDelayMS);
 
                 return true;
             }
