@@ -27,6 +27,6 @@ namespace PassbookTally.DomainLib.DTOs
 
         public T DeepClone   <T>() => throw new NotImplementedException();
         public T ShallowClone<T>() => (T)this.MemberwiseClone();
-        public override string ToString() => Name;
+        public override string ToString() => $"{Name}  [{AccountType}]";
     }
 }

@@ -8,24 +8,44 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <DataGrid ItemsSource="{Binding }"
-                  DataContext="{Binding Items}"
-                  Style="{StaticResource dgReadOnly}"
-                  mat:DataGridAssist.ColumnHeaderPadding="0 5 0 5"
-                  Width="500">
-            <DataGrid.Columns>
-                <DataGridTextColumn Width="50*" Header="GL account"
-                                    Binding="{Binding Account}"
-                                    ElementStyle="{StaticResource colLabel}" />
-                <DataGridTextColumn Width="25*" Header="debit"
-                                    Binding="{Binding Debit, StringFormat=N2}"
-                                    ElementStyle="{StaticResource colRightEnd}" />
-                <DataGridTextColumn Width="25*" Header="credit"
-                                    Binding="{Binding Credit, StringFormat=N2}"
-                                    ElementStyle="{StaticResource colRightEnd}" />
-            </DataGrid.Columns>
-        </DataGrid>
+        <StackPanel Width="500">
+            <DataGrid x:Name="dg" KeyUp="dg_KeyUp"
+                      ItemsSource="{Binding }"
+                      DataContext="{Binding Items}"
+                      Style="{StaticResource dgReadOnly}"
+                      mat:DataGridAssist.ColumnHeaderPadding="0 7 0 5"
+                      mat:DataGridAssist.CellPadding="6 4 6 4">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Width="50*" Header="GL account"
+                                        Binding="{Binding Account}"
+                                        ElementStyle="{StaticResource colLabel}" />
+                    <DataGridTextColumn Width="25*" Header="debit"
+                                        Binding="{Binding Debit, StringFormat=N2}"
+                                        ElementStyle="{StaticResource colRight}" />
+                    <DataGridTextColumn Width="25*" Header="credit"
+                                        Binding="{Binding Credit, StringFormat=N2}"
+                                        ElementStyle="{StaticResource colRightEnd}" />
+                </DataGrid.Columns>
+            </DataGrid>
 
+            <DataGrid ItemsSource="{Binding Items.SummaryRows}"
+                      Style="{StaticResource dgTotals}"
+                      DockPanel.Dock="Bottom">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Width="50*" 
+                                        Binding="{Binding Account}"
+                                        ElementStyle="{StaticResource totalsRowLabel}" />
+                    <DataGridTextColumn Width="25*" 
+                                        Binding="{Binding Debit, StringFormat=N2}"
+                                        ElementStyle="{StaticResource totalsRow}" />
+                    <DataGridTextColumn Width="25*" 
+                                        Binding="{Binding Credit, StringFormat=N2}"
+                                        ElementStyle="{StaticResource totalsRowEnd}" />
+                </DataGrid.Columns>
+            </DataGrid>
+
+        </StackPanel>
+        
         <mat:PopupBox Style="{StaticResource MaterialDesignMultiFloatingActionPopupBox}"
                       HorizontalAlignment="Right" VerticalAlignment="Bottom"
                       Width="40" Height="40"
@@ -45,6 +65,6 @@
                 
             </StackPanel>
         </mat:PopupBox>
-
+        
     </Grid>
 </UserControl>

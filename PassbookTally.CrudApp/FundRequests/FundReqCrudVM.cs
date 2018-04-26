@@ -8,6 +8,7 @@ using PassbookTally.DomainLib.DTOs;
 using PassbookTally.DomainLib45.Configuration;
 using PropertyChanged;
 using System;
+using System.Linq;
 
 namespace PassbookTally.CrudApp.FundRequests
 {
@@ -39,6 +40,7 @@ namespace PassbookTally.CrudApp.FundRequests
             draft.RequestDate = DateTime.Now;
             draft.SerialNum   = DB.NextRequestSerial();
             Payees.SetItems(DB.GetPayees());
+            Allocations.DisplayItems(draft);
         }
 
 
@@ -46,17 +48,34 @@ namespace PassbookTally.CrudApp.FundRequests
             => AppArgs.CanAddVoucherRequest(false);
 
 
-        protected override void SaveNewRecord(FundRequestDTO draft) 
-            => Repo.Insert(draft);
+        protected override void SaveNewRecord(FundRequestDTO draft)
+        {
+            draft.Allocations = Allocations.ToDTOs();
+            Repo.Insert(draft);
+        }
 
 
         protected override void UpdateRecord(FundRequestDTO record)
-            => Repo.Update(record);
+        {
+            record.Allocations = Allocations.ToDTOs();
+            Repo.Update(record);
+        }
 
 
         protected override bool IsValidDraft(FundRequestDTO draft, out string whyInvalid)
         {
             Allocations.UpdateBaseAmount(draft.Amount);
+
+            if (draft.Amount.HasValue)
+            {
+                if (Allocations.TotalDebit  != draft.Amount
+                || Allocations .TotalCredit != draft.Amount)
+                {
+                    whyInvalid = "Total Debits and Credits must match voucher amount.";
+                    return false;
+                }
+            }
+
             if (IsDuplicateSerial(draft))
             {
                 whyInvalid = "Serial number is used in another request.";
@@ -80,6 +99,7 @@ namespace PassbookTally.CrudApp.FundRequests
         protected override FundRequestDTO CreateDraftFromRecord(FundRequestDTO record)
         {
             _savedSerial = record.SerialNum;
+            Allocations.DisplayItems(record);
             return base.CreateDraftFromRecord(record);
         }
 

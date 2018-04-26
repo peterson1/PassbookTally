@@ -8,6 +8,7 @@ using PropertyChanged;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using static PassbookTally.DomainLib.DTOs.FundRequestDTO;
 
 namespace PassbookTally.CrudApp.FundRequests
 {
@@ -26,7 +27,7 @@ namespace PassbookTally.CrudApp.FundRequests
             _accts       = _arg.DCDR.GLAccounts.GetAll();
             AddDebitCmd  = R2Command.Relay(_ => AddNewItem("Debit" , -1), null, "Add Debit entry");
             AddCreditCmd = R2Command.Relay(_ => AddNewItem("Credit", +1), null, "Add Credit entry");
-            Items.Add(AllocationVM.CashInBank(_arg.AccountName));
+            Items.CollectionChanged += (s, e) => Items.SetSummary(new AllocationVMTotal(Items));
         }
 
 
@@ -39,8 +40,18 @@ namespace PassbookTally.CrudApp.FundRequests
         public decimal TotalCredit => Items.Sum(_ => _.Credit ?? 0);
 
 
+        public void DisplayItems(FundRequestDTO req)
+        {
+            Items.Clear();
+            Items.Add(AllocationVM.CashInBank(_arg.AccountName));
+            req.Allocations?.ForEach(_
+                => Items.Add(new AllocationVM(_)));
+        }
+
+
         internal void UpdateBaseAmount(decimal? amount)
         {
+            if (amount == Items[0].Credit) return;
             Items.RemoveAt(0);
             Items.Insert(0, AllocationVM.CashInBank(_arg.AccountName, amount));
             CanAddItem = amount.HasValue && amount > 0;
@@ -55,12 +66,15 @@ namespace PassbookTally.CrudApp.FundRequests
         }
 
 
-        //todo: correct this
         private decimal? GetSuggestedAmount()
         {
             var total = _crud.Draft.Amount;
             if (!Items.Any()) return total;
             return Math.Abs(TotalCredit - TotalDebit);
         }
+
+
+        public List<AccountAllocation> ToDTOs()
+            => Items.Skip(1).Select(_ => _.DTO).ToList();
     }
 }

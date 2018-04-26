@@ -30,26 +30,30 @@
                 <Setter Property="Background" Value="LightGray" />
             </Style>
 
-            <Style x:Key="colCenter" TargetType="TextBlock">
-                <Setter Property="TextAlignment" Value="Center" />
+
+            <Style x:Key="colLeft" TargetType="TextBlock">
                 <Setter Property="VerticalAlignment" Value="Center" />
             </Style>
-            <Style x:Key="colRight" TargetType="TextBlock">
+            <Style x:Key="colCenter" TargetType="TextBlock"
+                   BasedOn="{StaticResource colLeft}">
+                <Setter Property="TextAlignment" Value="Center" />
+            </Style>
+            <Style x:Key="colRight" TargetType="TextBlock"
+                   BasedOn="{StaticResource colLeft}">
                 <Setter Property="TextAlignment" Value="Right" />
-                <Setter Property="VerticalAlignment" Value="Center" />
             </Style>
             <Style x:Key="colRightEnd" TargetType="TextBlock"
                    BasedOn="{StaticResource colRight}">
                 <Setter Property="Padding" Value="0 0 10 0" />
             </Style>
-            <Style x:Key="colLabel" TargetType="TextBlock">
+            <Style x:Key="colLabel" TargetType="TextBlock"
+                   BasedOn="{StaticResource colLeft}">
                 <Setter Property="FontWeight" Value="Medium" />
-                <Setter Property="VerticalAlignment" Value="Center" />
             </Style>
-            <Style x:Key="colSmallWrapLeft" TargetType="TextBlock">
+            <Style x:Key="colSmallWrapLeft" TargetType="TextBlock"
+                   BasedOn="{StaticResource colLeft}">
                 <Setter Property="TextWrapping" Value="Wrap" />
                 <Setter Property="FontSize" Value="11" />
-                <Setter Property="VerticalAlignment" Value="Center" />
             </Style>
             <Style x:Key="colSmallWrapCenter" TargetType="TextBlock"
                    BasedOn="{StaticResource colSmallWrapLeft}">
@@ -60,16 +64,25 @@
                 <Setter Property="FontWeight" Value="Medium" />
                 <Setter Property="TextAlignment" Value="Right" />
             </Style>
-            <Style x:Key="totalsRow" TargetType="TextBlock">
+            <Style x:Key="totalsRow" TargetType="TextBlock"
+                   BasedOn="{StaticResource colRight}">
                 <Setter Property="FontWeight" Value="Medium" />
+            </Style>
+            <Style x:Key="totalsRowEnd" TargetType="TextBlock"
+                   BasedOn="{StaticResource colRightEnd}">
+                <Setter Property="FontWeight" Value="Medium" />
+            </Style>
+            <Style x:Key="totalsRowLabel" TargetType="TextBlock"
+                   BasedOn="{StaticResource colLabel}">
                 <Setter Property="TextAlignment" Value="Right" />
-                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="FontStyle" Value="Italic" />
             </Style>
             <Style x:Key="colHdrCentered" TargetType="DataGridColumnHeader"
                    BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}">
                 <Setter Property="HorizontalAlignment" Value="Center"/>
             </Style>
-            <Style x:Key="dgReadOnly" TargetType="DataGrid" BasedOn="{StaticResource MaterialDesignDataGrid}">
+            <Style x:Key="dgReadOnly" TargetType="DataGrid" 
+                   BasedOn="{StaticResource MaterialDesignDataGrid}">
                 <Style.Resources>
                     <Style TargetType="DataGridColumnHeader"
                            BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}">
@@ -85,6 +98,11 @@
                 <Setter Property="IsReadOnly" Value="True" />
                 <Setter Property="SelectionMode" Value="Single" />
                 <Setter Property="mat:DataGridAssist.CellPadding" Value="6 3 6 3" />
+            </Style>
+            <Style x:Key="dgTotals" TargetType="DataGrid"
+                   BasedOn="{StaticResource dgReadOnly}">
+                <Setter Property="HeadersVisibility" Value="None" />
+                <Setter Property="mat:DataGridAssist.CellPadding" Value="6 6 6 6" />
             </Style>
 
             <Style x:Key="filterTxtbox" TargetType="TextBox" 
