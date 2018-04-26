@@ -31,6 +31,7 @@ namespace PassbookTally.DatabaseLib
         public ActiveFundReqsRepo    ActiveRequests    { get; private set; }
         public InactiveFundReqsRepo  InactiveRequests  { get; private set; }
         public ActiveChequesRepo     ActiveCheques     { get; private set; }
+        public GLAccountsRepo        GLAccounts        { get; private set; }
 
 
         public InactiveChequesRepo   InactiveCheques   { get; private set; }
@@ -82,6 +83,7 @@ namespace PassbookTally.DatabaseLib
             InactiveRequests = new InactiveFundReqsRepo(this);
             ActiveCheques    = new ActiveChequesRepo(this);
             InactiveCheques  = new InactiveChequesRepo(this);
+            GLAccounts       = new GLAccountsRepo(this);
 
             AccountNames.Clear();
             AccountNames.AddRange(GetAccountNames());

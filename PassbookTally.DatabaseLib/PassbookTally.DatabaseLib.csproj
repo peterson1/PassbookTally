@@ -57,6 +57,7 @@
     <Compile Include="Repositories\FundReqsRepo_Active.cs" />
     <Compile Include="Repositories\FundReqsRepo_Inactive.cs" />
     <Compile Include="Repositories\FundReqsRepo_Reads.cs" />
+    <Compile Include="Repositories\GLAccountsRepo.cs" />
     <Compile Include="Repositories\RequestedChequesRepo_Active.cs" />
     <Compile Include="Repositories\RequestedChequesRepo_Inactive.cs" />
     <Compile Include="Repositories\SoaRowsRepo1.cs" />
