@@ -55,7 +55,7 @@ namespace CommonTools.Lib45.InputDialogs
 
             win.Loaded += async (s, e) =>
             {
-                await Task.Delay(500);
+                await Task.Delay(200);
                 OnWindowLoad(Window);
             };
 

@@ -27,7 +27,7 @@ namespace PassbookTally.CrudApp.FundRequests
             _accts       = GetGLAccounts();
             AddDebitCmd  = R2Command.Relay(_ => AddNewItem("Debit" , -1), null, "Add Debit entry");
             AddCreditCmd = R2Command.Relay(_ => AddNewItem("Credit", +1), null, "Add Credit entry");
-            Items.CollectionChanged += (s, e) => Items.SetSummary(new AllocationVMTotal(Items));
+            Items.CollectionChanged += Items_CollectionChanged;
         }
 
 
@@ -35,6 +35,7 @@ namespace PassbookTally.CrudApp.FundRequests
         public IR2Command            AddCreditCmd  { get; }
         public UIList<AllocationVM>  Items         { get; } = new UIList<AllocationVM>();
         public bool                  CanAddItem    { get; private set; }
+        public bool                  CanAddCredit  { get; private set; }
 
         public decimal TotalDebit  => Items.Sum(_ => _.Debit  ?? 0);
         public decimal TotalCredit => Items.Sum(_ => _.Credit ?? 0);
@@ -47,6 +48,13 @@ namespace PassbookTally.CrudApp.FundRequests
             req.Allocations?.ForEach(_
                 => Items.Add(new AllocationVM(_)));
             CanAddItem = false;
+        }
+
+
+        private void Items_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            Items.SetSummary(new AllocationVMTotal(Items));
+            CanAddCredit = Items.Count > 1;
         }
 
 

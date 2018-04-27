@@ -45,8 +45,19 @@
             </DataGrid>
 
         </StackPanel>
-        
+
+        <Button Content="{mat:PackIcon Plus, Size=24}"
+                Visibility="{Binding CanAddCredit, Converter={StaticResource visIfFalse}}"
+                IsEnabled="{Binding CanAddItem}"
+                Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
+                Command="{Binding AddDebitCmd}"
+                ToolTip="{Binding AddDebitCmd.CurrentLabel}"
+                HorizontalAlignment="Right" VerticalAlignment="Bottom"
+                TabIndex="3"
+                Margin="0 0 25 25" />
+
         <mat:PopupBox Style="{StaticResource MaterialDesignMultiFloatingActionPopupBox}"
+                      Visibility="{Binding CanAddCredit, Converter={StaticResource visIfTrue}}"
                       HorizontalAlignment="Right" VerticalAlignment="Bottom"
                       Width="40" Height="40"
                       Margin="0 0 25 25"

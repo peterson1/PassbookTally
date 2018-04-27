@@ -55,16 +55,19 @@
 
                 <StackPanel Margin="50 0 0 0">
                     <ComboBox x:Name="txtFirstFocus"
+                              TabIndex="0"
                               ItemsSource="{Binding Payees}"
                               Text="{Binding Draft.Payee}"
                               IsEditable="True"
                               mat:HintAssist.Hint="payee" />
 
                     <TextBox Text="{Binding Draft.Purpose, UpdateSourceTrigger=PropertyChanged}"
+                             TabIndex="1"
                              AcceptsReturn="True"
                              mat:HintAssist.Hint="purpose" />
 
                     <TextBox Text="{Binding Draft.Amount, StringFormat=N2, UpdateSourceTrigger=PropertyChanged}"
+                             TabIndex="2"
                              mat:HintAssist.Hint="amount">
                         <int:Interaction.Behaviors>
                             <txbhv:SelectAllOnFocusBehavior />
@@ -87,7 +90,8 @@
 
         <mat:Card Margin="40 0 0 0"
                   VerticalAlignment="Stretch">
-            <local:AllocationsTable DataContext="{Binding Allocations}" />
+            <local:AllocationsTable DataContext="{Binding Allocations}"
+                                    IsTabStop="False" />
         </mat:Card>
 
     </StackPanel>
