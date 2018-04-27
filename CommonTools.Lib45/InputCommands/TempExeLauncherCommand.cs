@@ -48,25 +48,61 @@ namespace CommonTools.Lib45.InputCommands
                 StartExeProcess(TempExePath);
 
             UpdateVersionInfo();
-            splash.Close(TimeSpan.FromSeconds(2));
+            splash.Close(TimeSpan.FromSeconds(3));
         }
 
 
         private async Task<bool> CopyOrigToTemp()
         {
+            if (File.Exists(TempExePath))
+            {
+                if (!RemoveReadOnly(TempExePath)) return false;
+                if (!MoveToTemp(TempExePath)) return false;
+            }
             try
             {
-                if (File.Exists(TempExePath))
-                    File.Delete(TempExePath);
-
+                await Task.Delay(AfterCopyDelayMS);
                 File.Copy(ExePath, TempExePath, true);
                 await Task.Delay(AfterCopyDelayMS);
-
                 return true;
             }
             catch (Exception ex)
             {
                 Alert.Show(ex, "Copying orig exe to temp");
+                return false;
+            }
+        }
+
+
+        private bool MoveToTemp(string filePath)
+        {
+            var tmp = Path.GetTempFileName();
+            File.Delete(tmp);
+            try
+            {
+                File.Move(filePath, tmp);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Alert.Show(ex, "Moving file to temp");
+                return false;
+            }
+        }
+
+
+        private bool RemoveReadOnly(string filePath)
+        {
+            try
+            {
+                var inf = new FileInfo(filePath);
+                inf.IsReadOnly = false;
+                return true;
+
+            }
+            catch (Exception ex)
+            {
+                Alert.Show(ex, "Removing Read-only attribute");
                 return false;
             }
         }
