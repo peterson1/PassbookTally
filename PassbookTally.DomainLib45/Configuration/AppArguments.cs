@@ -9,6 +9,7 @@ namespace PassbookTally.DomainLib45.Configuration
     {
         public PassbookDB           DCDR         { get; private set; }
         public string               DbFilePath   { get; internal set; }
+        public string               OrigCrudExe  { get; internal set; }
         public bool                 IsValidUser  { get; private set; }
         public FirebaseCredentials  Credentials  { get; private set; }
         public string               AccountName  { get; set; }

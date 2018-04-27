@@ -84,6 +84,8 @@
     <Compile Include="BusyIndicators\BusyDialog.xaml.cs">
       <DependentUpon>BusyDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="FileSystemTools\UpdatedExeNotifier.cs" />
+    <Compile Include="FileSystemTools\UpdatedFileNotifier.cs" />
     <Compile Include="InputCommands\TempExeLauncherCommand.cs" />
     <Compile Include="InputCommands\ExeLauncherCommand.cs" />
     <Compile Include="InputDialogs\PopUpInput.cs" />
@@ -112,6 +114,9 @@
     </Compile>
     <Compile Include="StyledButtons\SimpleRefreshButton.xaml.cs">
       <DependentUpon>SimpleRefreshButton.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="StyledButtons\UpdatedExeNotifierBar.xaml.cs">
+      <DependentUpon>UpdatedExeNotifierBar.xaml</DependentUpon>
     </Compile>
     <Compile Include="UIBehaviors\TextBoxBehaviors\SelectAllOnFocusBehavior.cs" />
     <Compile Include="UIExtensions\ConfirmToDeleteExtensions.cs" />
@@ -186,6 +191,10 @@
     <Compile Include="ThreadTools\UIThreadInvoker.cs" />
     <Compile Include="UIExtensions\UIValidationExtensions.cs" />
     <Compile Include="UIExtensions\WindowExtensions.cs" />
+    <Page Include="StyledButtons\UpdatedExeNotifierBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">

@@ -1,4 +1,5 @@
 ﻿using CommonTools.Lib11.DataStructures;
+using CommonTools.Lib45.FileSystemTools;
 using PassbookTally.CrudApp.FundRequests;
 using PassbookTally.CrudApp.IssuedCheques;
 using PassbookTally.CrudApp.PreparedCheques;
@@ -18,6 +19,7 @@ namespace PassbookTally.CrudApp
         public MainWindowVM(AppArguments appArguments) : base(appArguments)
         {
             FillAccountNames();
+            UpdateNotifier  = new UpdatedExeNotifier(AppArgs.OrigCrudExe);
             FundRequests    = new FundReqListVM(this);
             PreparedCheques = new PreparedChequesListVM(this);
             IssuedCheques   = new IssuedChequesListVM(this);
@@ -25,6 +27,7 @@ namespace PassbookTally.CrudApp
         }
 
 
+        public UpdatedExeNotifier     UpdateNotifier   { get; }
         public UIList<string>         AccountNames     { get; } = new UIList<string>();
         public string                 AccountName      { get; set; }
         public TransactionLogVM       TransactionLog   { get; private set; }

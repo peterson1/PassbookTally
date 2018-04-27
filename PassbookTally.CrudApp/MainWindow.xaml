@@ -21,48 +21,43 @@
         TextOptions.TextRenderingMode="Auto"
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}">
-    <Grid>
-            <!--<StackPanel DockPanel.Dock="Top"
-                        Orientation="Horizontal">
-                <ComboBox ItemsSource="{Binding AccountNames}"
-                          SelectedItem="{Binding AccountName}" />
-
-                <butns:SimpleRefreshButton />
-            </StackPanel>-->
-
+    <DockPanel>
+        <butns:UpdatedExeNotifierBar DataContext="{Binding UpdateNotifier}"
+                                     DockPanel.Dock="Top" />
         <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="5*" />
-                <ColumnDefinition Width="5" />
-                <ColumnDefinition Width="5*" />
-            </Grid.ColumnDefinitions>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="5*" />
+                    <ColumnDefinition Width="5" />
+                    <ColumnDefinition Width="5*" />
+                </Grid.ColumnDefinitions>
                 
-            <txns:TransactionLogUI Grid.Column="0" />
+                <txns:TransactionLogUI Grid.Column="0" />
 
-            <GridSplitter Grid.Column="1" Style="{StaticResource vSplit}" />
+                <GridSplitter Grid.Column="1" Style="{StaticResource vSplit}" />
 
-            <Grid Grid.Column="2">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="3*" />
-                    <RowDefinition Height="5" />
-                    <RowDefinition Height="2*" />
-                    <RowDefinition Height="5" />
-                    <RowDefinition Height="3*" />
-                </Grid.RowDefinitions>
-                <reqs:FundRequestsUI Grid.Row="0" 
-                                     DataContext="{Binding FundRequests}" />
-                <GridSplitter Grid.Row="1"
-                              Style="{StaticResource hSplit}" />
-                <chq1:PreparedChequesUI Grid.Row="2"
-                                        DataContext="{Binding PreparedCheques}" />
-                <GridSplitter Grid.Row="3"
-                              Style="{StaticResource hSplit}" />
-                <chq2:IssuedChequesUI Grid.Row="4"
-                                      DataContext="{Binding IssuedCheques}" />
+                <Grid Grid.Column="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="3*" />
+                        <RowDefinition Height="5" />
+                        <RowDefinition Height="2*" />
+                        <RowDefinition Height="5" />
+                        <RowDefinition Height="3*" />
+                    </Grid.RowDefinitions>
+                    <reqs:FundRequestsUI Grid.Row="0" 
+                                         DataContext="{Binding FundRequests}" />
+                    <GridSplitter Grid.Row="1"
+                                  Style="{StaticResource hSplit}" />
+                    <chq1:PreparedChequesUI Grid.Row="2"
+                                            DataContext="{Binding PreparedCheques}" />
+                    <GridSplitter Grid.Row="3"
+                                  Style="{StaticResource hSplit}" />
+                    <chq2:IssuedChequesUI Grid.Row="4"
+                                          DataContext="{Binding IssuedCheques}" />
+                </Grid>
             </Grid>
+            
+            <busy:BusyDialog />
         </Grid>
-            
-            
-        <busy:BusyDialog />
-    </Grid>
+    </DockPanel>
 </Window>

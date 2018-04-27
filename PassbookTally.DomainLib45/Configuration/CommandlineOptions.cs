@@ -11,8 +11,9 @@ namespace PassbookTally.DomainLib45.Configuration
             var args    = new AppArguments();
             var options = new OptionSet
             {
-                {   "db|database="  , "Database file path", db   => args.DbFilePath = db    },
-                {  "key|publickey=" , "Public key"        , key  => args.SetCredentials(key)}
+                {   "db|database=" , "Database file path", db   => args.DbFilePath  = db   },
+                {  "exe|origexe="  , "Original CRUD exe" , exe  => args.OrigCrudExe = exe  },
+                {  "key|publickey=", "Public key"        , key  => args.SetCredentials(key)}
             };
             try
             {
