@@ -46,6 +46,7 @@ namespace PassbookTally.CrudApp.FundRequests
             Items.Add(AllocationVM.CashInBank(_arg.AccountName));
             req.Allocations?.ForEach(_
                 => Items.Add(new AllocationVM(_)));
+            CanAddItem = false;
         }
 
 

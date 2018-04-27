@@ -6,6 +6,14 @@ namespace PassbookTally.DatabaseLib.Repositories
 {
     public static class FundReqsRepo_Reads
     {
+        public static DateTime NextRequestDate(this PassbookDB db)
+        {
+            var repo = db.ActiveRequests;
+            if (!repo.Any()) return DateTime.Now;
+            return repo.GetAll().Max(_ => _.RequestDate);
+        }
+
+
         public static int NextRequestSerial(this PassbookDB db)
         {
             var activesMax  = db.ActiveRequests.GetMaxSerial();
