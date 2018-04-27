@@ -42,7 +42,7 @@ namespace PassbookTally.CrudApp.PreparedCheques
 
         protected override List<RequestedChequeDTO> QueryItems(SharedCollectionBase<RequestedChequeDTO> db)
             => db.GetAll().Where(_ => !_.IssuedDate.HasValue
-                                    && _.BankAccountId == _mainWin.AccountId).ToList();
+                                    && _.Request.BankAccountId == _mainWin.AccountId).ToList();
 
 
         protected override Func<RequestedChequeDTO, decimal> SummedAmount => _ => _.Request.Amount.Value;

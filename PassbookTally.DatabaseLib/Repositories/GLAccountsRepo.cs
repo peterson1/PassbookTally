@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using CommonTools.Lib45.LiteDbTools;
+﻿using CommonTools.Lib45.LiteDbTools;
 using PassbookTally.DomainLib.DTOs;
 
 namespace PassbookTally.DatabaseLib.Repositories
@@ -15,9 +13,5 @@ namespace PassbookTally.DatabaseLib.Repositories
         public override void Validate(GLAccountDTO model, SharedLiteDB db)
         {
         }
-
-
-        public override List<GLAccountDTO> GetAll()
-            => base.GetAll().OrderBy(_ => _.Name).ToList();
     }
 }

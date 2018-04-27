@@ -24,7 +24,7 @@ namespace PassbookTally.CrudApp.FundRequests
         {
             _crud        = fundReqCrudVM;
             _arg         = _crud.AppArgs;
-            _accts       = _arg.DCDR.GLAccounts.GetAll();
+            _accts       = GetGLAccounts();
             AddDebitCmd  = R2Command.Relay(_ => AddNewItem("Debit" , -1), null, "Add Debit entry");
             AddCreditCmd = R2Command.Relay(_ => AddNewItem("Credit", +1), null, "Add Credit entry");
             Items.CollectionChanged += (s, e) => Items.SetSummary(new AllocationVMTotal(Items));
@@ -76,5 +76,10 @@ namespace PassbookTally.CrudApp.FundRequests
 
         public List<AccountAllocation> ToDTOs()
             => Items.Skip(1).Select(_ => _.DTO).ToList();
+
+
+        private List<GLAccountDTO> GetGLAccounts()
+            => _arg.DCDR.GLAccounts.GetAll()
+                .OrderBy(_ => _.Name).ToList();
     }
 }

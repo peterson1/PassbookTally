@@ -37,8 +37,9 @@ namespace PassbookTally.CrudApp.FundRequests
 
         protected override void SetNewDraftDefaults(FundRequestDTO draft)
         {
-            draft.RequestDate = DateTime.Now;
-            draft.SerialNum   = DB.NextRequestSerial();
+            draft.BankAccountId = AppArgs.AccountId;
+            draft.RequestDate   = DateTime.Now;
+            draft.SerialNum     = DB.NextRequestSerial();
             Payees.SetItems(DB.GetPayees());
             Allocations.DisplayItems(draft);
         }

@@ -6,12 +6,11 @@ namespace PassbookTally.DatabaseLib.StateTransitions
 {
     public static class ChequeStateTransitioner
     {
-        public static void ToPreparedCheque(this PassbookDB pbk, FundRequestDTO req, int bankAcctId, int chequeNumber, DateTime chequeDate)
+        public static void ToPreparedCheque(this PassbookDB pbk, FundRequestDTO req, int chequeNumber, DateTime chequeDate)
         {
             pbk.ActiveCheques.Insert(new RequestedChequeDTO
             {
                 Request       = req,
-                BankAccountId = bankAcctId,
                 ChequeNumber  = chequeNumber,
                 ChequeDate    = chequeDate,
             });
