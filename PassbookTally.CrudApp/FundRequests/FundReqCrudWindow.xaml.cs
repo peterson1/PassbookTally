@@ -22,6 +22,10 @@ namespace PassbookTally.CrudApp.FundRequests
         public FundReqCrudWindow()
         {
             InitializeComponent();
+            //Loaded += (a, b) =>
+            //{
+            //    System.Windows.FrameworkCompatibilityPreferences.KeepTextBoxDisplaySynchronizedWithTextProperty = false;
+            //};
         }
     }
 }

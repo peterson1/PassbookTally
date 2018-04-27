@@ -125,6 +125,8 @@
             <cnv:VisibleIfNotZeroConverter  x:Key="visIfNotZero"  />
             <cnv:SpanDaysConverter          x:Key="spanDays"      />
             <cnv:UnderscoreToSpaceConverter x:Key="uscoreToSpace" />
+            <cnv:DecimalProxyConverter      x:Key="decimalProxy" />
+            
 
         </ResourceDictionary>
     </Application.Resources>
