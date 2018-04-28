@@ -20,11 +20,11 @@
             <ColumnDefinition Width="31*" />
             <ColumnDefinition Width="18*" />
         </Grid.ColumnDefinitions>
-        <TextBox Grid.Column="0" mat:HintAssist.Hint="chq #"    Text="{Binding FilterChequeNumber, UpdateSourceTrigger=PropertyChanged}" />
-        <TextBox Grid.Column="1" mat:HintAssist.Hint="chq date" Text="{Binding FilterChequeDate  , UpdateSourceTrigger=PropertyChanged}" />
-        <TextBox Grid.Column="2" mat:HintAssist.Hint="issued"   Text="{Binding FilterIssuedDate  , UpdateSourceTrigger=PropertyChanged}" />
-        <TextBox Grid.Column="3" mat:HintAssist.Hint="payee"    Text="{Binding FilterPayee       , UpdateSourceTrigger=PropertyChanged}" />
-        <TextBox Grid.Column="4" mat:HintAssist.Hint="purpose"  Text="{Binding FilterPurpose     , UpdateSourceTrigger=PropertyChanged}" />
-        <TextBox Grid.Column="5" mat:HintAssist.Hint="amount"   Text="{Binding FilterAmount      , UpdateSourceTrigger=PropertyChanged}" />
+        <TextBox Grid.Column="0" mat:HintAssist.Hint="chq #"     Text="{Binding FilterChequeNumber, UpdateSourceTrigger=PropertyChanged}" />
+        <TextBox Grid.Column="1" mat:HintAssist.Hint="chq date"  Text="{Binding FilterChequeDate  , UpdateSourceTrigger=PropertyChanged}" />
+        <TextBox Grid.Column="2" mat:HintAssist.Hint="issued"    Text="{Binding FilterIssuedDate  , UpdateSourceTrigger=PropertyChanged}" />
+        <TextBox Grid.Column="3" mat:HintAssist.Hint="issued to" Text="{Binding FilterPayee       , UpdateSourceTrigger=PropertyChanged}" />
+        <TextBox Grid.Column="4" mat:HintAssist.Hint="purpose"   Text="{Binding FilterPurpose     , UpdateSourceTrigger=PropertyChanged}" />
+        <TextBox Grid.Column="5" mat:HintAssist.Hint="amount"    Text="{Binding FilterAmount      , UpdateSourceTrigger=PropertyChanged}" />
     </Grid>
 </UserControl>
