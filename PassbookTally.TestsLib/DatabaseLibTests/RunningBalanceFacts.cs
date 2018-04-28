@@ -109,6 +109,48 @@ namespace PassbookTally.TestsLib.DatabaseLibTests
         }
 
 
+        [Fact(DisplayName = "edit txn")]
+        public void edittxn()
+        {
+            var sut = CreateSUT(31.March(2018), 1000);
+            sut.Deposit(1.April(2018), "", "Interest", 500, "");
+            sut.ClosingBalanceFor(1.April(2018)).Should().Be(1500);
+
+            var rows = sut.GetFrom(31.March(2018));
+            rows.Should().HaveCount(1);
+
+            rows[0].Amount = 200;
+            sut.UpsertAndUpdateBalances(rows[0]);
+            sut.ClosingBalanceFor(1.April(2018)).Should().Be(1200);
+        }
+
+
+        [Fact(DisplayName = "delete sole txn")]
+        public void deletetxn()
+        {
+            var sut = CreateSUT(31.March(2018), 1000);
+            sut.Deposit(1.April(2018), "", "Interest", 500, "");
+            var rows = sut.GetFrom(31.March(2018));
+
+            sut.DeleteAndUpdateBalances(rows[0]);
+
+            sut.ClosingBalanceFor(1.April(2018)).Should().Be(1000);
+        }
+
+
+        [Fact(DisplayName = "delete 2nd txn")]
+        public void delete2ndtxn()
+        {
+            var sut = CreateSUT(31.March(2018), 1000);
+            sut.Deposit(1.April(2018), "", "", 500, "");
+            sut.Deposit(2.April(2018), "", "", 200, "");
+            var rows = sut.GetFrom(31.March(2018));
+
+            sut.DeleteAndUpdateBalances(rows[1]);
+
+            sut.ClosingBalanceFor(3.April(2018)).Should().Be(1500);
+        }
+
 
         private SoaRowsRepo1 CreateSUT(DateTime baseDate, decimal baseBalance)
         {

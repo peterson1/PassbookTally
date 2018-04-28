@@ -1,6 +1,7 @@
 ﻿using PassbookTally.DomainLib.DTOs;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace PassbookTally.DatabaseLib.Repositories
 {
@@ -20,9 +21,22 @@ namespace PassbookTally.DatabaseLib.Repositories
 
         public void UpsertAndUpdateBalances(SoaRowDTO dto)
         {
-            //Upsert(dto);
             InsertOrUpdate(dto);
+            UpdateAllBalances();
+        }
+
+
+        public void DeleteAndUpdateBalances(SoaRowDTO dto)
+        {
+            Remove(dto);
+            UpdateAllBalances();
+        }
+
+
+        private void UpdateAllBalances()
+        {
             var rows = GetFrom(BaseDate);
+            if (!rows.Any()) return;
             rows[0].RunningBalance = BaseBalance + rows[0].Amount;
 
             for (int i = 1; i < rows.Count; i++)
@@ -31,6 +45,11 @@ namespace PassbookTally.DatabaseLib.Repositories
 
             BulkUpdate(rows);
         }
+
+
+        protected virtual void Remove(SoaRowDTO dto)
+            => Delete(dto);
+
 
         protected virtual void InsertOrUpdate(SoaRowDTO dto)
             => Upsert(dto);

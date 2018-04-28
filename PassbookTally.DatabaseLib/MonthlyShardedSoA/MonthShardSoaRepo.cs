@@ -34,6 +34,10 @@ namespace PassbookTally.DatabaseLib.MonthlyShardedSoA
         }
 
 
+        protected override void Remove(SoaRowDTO dto)
+            => _moDB.GetMonthRepo(dto.GetDate()).Delete(dto);
+
+
         public override List<SoaRowDTO> GetUpTo(DateTime maxDate) 
             => _moDB.GetMonthsUpTo(maxDate)
                     .Select       (_ => _.GetUpTo(maxDate))

@@ -1,5 +1,7 @@
 ﻿using CommonTools.Lib11.DataStructures;
 using CommonTools.Lib45.BaseViewModels;
+using CommonTools.Lib45.InputDialogs;
+using CommonTools.Lib45.ThreadTools;
 using PassbookTally.CrudApp.TransactionCRUD;
 using PassbookTally.DatabaseLib.Repositories;
 using PassbookTally.DomainLib.Authorization;
@@ -43,18 +45,38 @@ namespace PassbookTally.CrudApp.TransactionLog
 
         private void Rows_ItemOpened(object sender, SoaRowVM e)
         {
-            if (IsEditable(e.DTO) &&
-                AppArgs.CanEditBankTransaction(true))
-                    Crud.EditCurrentRecord(e.DTO);
+            if (!AppArgs.CanEditBankTransaction(true)) return;
+
+            var typ = e.DTO.DocRefType;
+
+            if (typ == typeof(TransactionCrudVM).Namespace)
+                Crud.EditCurrentRecord(e.DTO);
+            else if (typ == typeof(RequestedChequeDTO).Namespace)
+                EditClearedDate(e.DTO);
+        }
+
+
+        private void EditClearedDate(SoaRowDTO dto)
+        {
+            if (!PopUpInput.TryGetDate("Cleared Date", out DateTime date, dto.GetDate())) return;
+            dto.DateOffset = date.SoaRowOffset();
+            _repo1.UpsertAndUpdateBalances(dto);
+            ReloadFromDB();
         }
 
 
         private void Rows_ItemDeleted(object sender, SoaRowVM e)
         {
-            if (IsEditable(e.DTO) &&
-                AppArgs.CanDeleteBankTransaction(true))
-                    _repo1.Delete(e.DTO);
+            if (!AppArgs.CanDeleteBankTransaction(true)) goto Reload;
+            if (e.DTO.DocRefType != typeof(TransactionCrudVM).Namespace) goto Reload;
 
+            //if (IsEditable(e.DTO) &&
+            //    AppArgs.CanDeleteBankTransaction(true))
+            //        _repo1.Delete(e.DTO);
+            //todo: test this
+            _repo1.DeleteAndUpdateBalances(e.DTO);
+
+            Reload:
             ReloadFromDB();
         }
 
@@ -83,8 +105,8 @@ namespace PassbookTally.CrudApp.TransactionLog
         }
 
 
-        private bool IsEditable(SoaRowDTO dto)
-            => dto.DocRefType == typeof(TransactionCrudVM).Namespace;
+        //private bool IsEditable(SoaRowDTO dto)
+        //    => dto.DocRefType == typeof(TransactionCrudVM).Namespace;
 
 
         protected override Func<SoaRowDTO, decimal> SummedAmount => _ => _.Amount;

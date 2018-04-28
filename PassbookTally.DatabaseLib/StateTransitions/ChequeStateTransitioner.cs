@@ -29,10 +29,23 @@ namespace PassbookTally.DatabaseLib.StateTransitions
 
         public static void ToBankTransaction(this PassbookDB pbk, RequestedChequeDTO chq, DateTime clearedDate, SoaRowsRepo1 txnsRepo)
         {
-            var req = chq.Request;
-            txnsRepo.Withdraw(clearedDate, req.Payee, req.Purpose, req.Amount.Value, chq.ChequeNumber.ToString());
+            //txnsRepo.Withdraw(clearedDate, req.Payee, req.Purpose, req.Amount.Value, chq.ChequeNumber.ToString());
+            var dto = ToClearedTransaction(chq, clearedDate);
+            txnsRepo.UpsertAndUpdateBalances(dto);
             pbk.InactiveCheques.Insert(chq);
             pbk.ActiveCheques.Delete(chq);
+        }
+
+
+        private static SoaRowDTO ToClearedTransaction(RequestedChequeDTO chq, DateTime clearedDate)
+        {
+            var req = chq.Request;
+            var dto = SoaRowDTO.Withdrawal(clearedDate,
+                        req.Payee, req.Purpose, req.Amount.Value,
+                        chq.ChequeNumber.ToString());
+            dto.DocRefId   = chq.Id;
+            dto.DocRefType = chq.GetType().Namespace;
+            return dto;
         }
     }
 }
