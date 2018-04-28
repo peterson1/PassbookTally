@@ -15,7 +15,7 @@ namespace PassbookTally.CrudApp.FundRequests
                     _ => $"Are you sure you want to delete the entry for “{_.Purpose}”?");
 
                 dg.EnableOpenCurrent<FundRequestDTO>();
-                dg.ScrollToEndOnChange();
+                //dg.ScrollToEndOnChange();
             };
         }
     }

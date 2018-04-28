@@ -3,6 +3,7 @@ using CommonTools.Lib45.BaseViewModels;
 using CommonTools.Lib45.InputCommands;
 using CommonTools.Lib45.InputDialogs;
 using CommonTools.Lib45.LiteDbTools;
+using PassbookTally.DatabaseLib.Repositories;
 using PassbookTally.DatabaseLib.StateTransitions;
 using PassbookTally.DomainLib.DTOs;
 using PassbookTally.DomainLib45.Configuration;
@@ -28,6 +29,16 @@ namespace PassbookTally.CrudApp.PreparedCheques
         public IR2Command IssueChequeCmd { get; }
 
 
+        protected override void LoadRecordForEditing(RequestedChequeDTO rec)
+        {
+            if (!PopUpInput.TryGetInt("Cheque Number", out int num, rec.ChequeNumber)) return;
+            if (!PopUpInput.TryGetDate("Cheque Date", out DateTime date, rec.ChequeDate)) return;
+            rec.ChequeNumber = num;
+            rec.ChequeDate   = date;
+            Repo.Update(rec);
+        }
+
+
         private void IssueChequeToPayee()
         {
             var chq = ItemsList.CurrentItem;
@@ -42,9 +53,14 @@ namespace PassbookTally.CrudApp.PreparedCheques
 
         protected override List<RequestedChequeDTO> QueryItems(SharedCollectionBase<RequestedChequeDTO> db)
             => db.GetAll().Where(_ => !_.IssuedDate.HasValue
-                                    && _.Request.BankAccountId == _mainWin.AccountId).ToList();
+                                    && _.Request.BankAccountId == _mainWin.AccountId)
+                          .OrderBy(_ => _.Request.SerialNum)
+                          .ToList();
 
 
         protected override Func<RequestedChequeDTO, decimal> SummedAmount => _ => _.Request.Amount.Value;
+
+
+        private ActiveChequesRepo Repo => _mainWin.AppArgs.DCDR.ActiveCheques;
     }
 }

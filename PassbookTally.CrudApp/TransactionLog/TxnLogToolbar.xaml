@@ -30,8 +30,12 @@
                 <Label Content="starting from" Margin="0 0 10 0"
                        VerticalAlignment="Center"
                        Foreground="{DynamicResource PrimaryHueLightBrush}"/>
-                <DatePicker SelectedDate="{Binding StartDate}"
-                            VerticalAlignment="Center" />
+
+                <mat:ColorZone Mode="Standard" Padding="8 1 8 2" 
+                               CornerRadius="2" Panel.ZIndex="1"
+                               VerticalAlignment="Center">
+                    <DatePicker SelectedDate="{Binding StartDate}" FontSize="12" />
+                </mat:ColorZone>
 
                 <Button Content="{mat:PackIcon Refresh, Size=21}"
                         Foreground="White"

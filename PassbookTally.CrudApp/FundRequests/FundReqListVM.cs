@@ -45,7 +45,6 @@ namespace PassbookTally.CrudApp.FundRequests
                 return;
             }
             var pbk = AppArgs.DCDR;
-            //if (!PopUpInput.TryGetIndex("Bank Account" , out int idx, pbk.AccountNames, 0)) return;
             if (!PopUpInput.TryGetInt ("Cheque Number", out int num)) return;
             if (!PopUpInput.TryGetDate("Cheque Date"  , out DateTime date)) return;
             pbk.ToPreparedCheque(req, num, date);
