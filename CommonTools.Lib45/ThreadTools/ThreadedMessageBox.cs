@@ -1,9 +1,9 @@
-﻿using System;
+﻿using CommonTools.Lib11.ExceptionTools;
+using CommonTools.Lib45.FileSystemTools;
+using System;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Windows;
-using CommonTools.Lib11.ExceptionTools;
-using CommonTools.Lib45.FileSystemTools;
 
 namespace CommonTools.Lib45.ThreadTools
 {
@@ -33,10 +33,17 @@ namespace CommonTools.Lib45.ThreadTools
                                 MessageBoxButton messageBoxButton = MessageBoxButton.OK)
             => new Thread(new ThreadStart(delegate
             {
-                var longCap = $"   {caption}  [{DateTime.Now.ToShortTimeString()}]  -  {CurrentExe.GetShortName()} v.{CurrentExe.GetVersion()}";
+                var longCap = $"   {caption}  [{DateTime.Now.ToShortTimeString()}]  -  {GetExeInfo()}";
                 MessageBox.Show(message, longCap, messageBoxButton, messageBoxImage);
             }
             )).Start();
+
+
+        private static string GetExeInfo()
+        {
+            try   { return $"{CurrentExe.GetShortName()} v.{CurrentExe.GetVersion()}"; }
+            catch { return ""; }
+        }
 
 
         public static void Confirm(string caption, string message,
