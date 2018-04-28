@@ -42,6 +42,7 @@
                         Padding="3 0 3 0" />
 
                 <Button Content="{mat:PackIcon Printer, Size=21}"
+                        x:Name="btnPrint"
                         Foreground="White"
                         Style="{StaticResource MaterialDesignFlatButton}"
                         Margin="10 0 0 0"

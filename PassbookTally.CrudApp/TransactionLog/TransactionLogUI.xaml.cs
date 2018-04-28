@@ -1,28 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CommonTools.Lib45.PrintTools;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace PassbookTally.CrudApp.TransactionLog
 {
-    /// <summary>
-    /// Interaction logic for TransactionLogUI.xaml
-    /// </summary>
     public partial class TransactionLogUI : UserControl
     {
         public TransactionLogUI()
         {
             InitializeComponent();
+            Loaded += (a, b) =>
+            {
+                tBar.btnPrint.Click += BtnPrint_Click;
+            };
         }
+
+        private void BtnPrint_Click(object sender, RoutedEventArgs e)
+        {
+            var headr = $"Statement of Accounts for “{VM.AccountName}”";
+            tblTxns.dg.AskToPrint(headr);
+        }
+
+
+        private MainWindowVM VM => DataContext as MainWindowVM;
     }
 }

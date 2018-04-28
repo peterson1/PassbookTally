@@ -109,6 +109,9 @@
     <Compile Include="InputDialogs\PopUpInputStringWindow.xaml.cs">
       <DependentUpon>PopUpInputStringWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PrintTools\DataGridPrintExtensions.cs" />
+    <Compile Include="PrintTools\MatelichDataGridPaginator.cs" />
+    <Compile Include="PrintTools\PageRangeDocumentPaginator.cs" />
     <Compile Include="StyledButtons\EncodeNewDraftBtn1.xaml.cs">
       <DependentUpon>EncodeNewDraftBtn1.xaml</DependentUpon>
     </Compile>
@@ -122,6 +125,7 @@
     <Compile Include="UIExtensions\ConfirmToDeleteExtensions.cs" />
     <Compile Include="UIExtensions\CurrentItemDataGridExtensions.cs" />
     <Compile Include="UIExtensions\ListScrollerExtensions.cs" />
+    <Compile Include="UIExtensions\StylePropertySetters.cs" />
     <Compile Include="ValueConverters\FirstLetterConverter.cs" />
     <Compile Include="ValueConverters\DecimalProxyConverter.cs" />
     <Compile Include="ValueConverters\SpanDaysConverter.cs" />
@@ -152,6 +156,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="InputDialogs\PopUpInputStringWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PrintTools\DataGridPaginatorResourceDictionary1.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
