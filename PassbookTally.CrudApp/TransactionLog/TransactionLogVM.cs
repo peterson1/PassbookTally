@@ -49,9 +49,9 @@ namespace PassbookTally.CrudApp.TransactionLog
 
             var typ = e.DTO.DocRefType;
 
-            if (typ == typeof(TransactionCrudVM).Namespace)
+            if (typ == typeof(TransactionCrudVM).FullName)
                 Crud.EditCurrentRecord(e.DTO);
-            else if (typ == typeof(RequestedChequeDTO).Namespace)
+            else if (typ == typeof(RequestedChequeDTO).FullName)
                 EditClearedDate(e.DTO);
         }
 
@@ -68,12 +68,8 @@ namespace PassbookTally.CrudApp.TransactionLog
         private void Rows_ItemDeleted(object sender, SoaRowVM e)
         {
             if (!AppArgs.CanDeleteBankTransaction(true)) goto Reload;
-            if (e.DTO.DocRefType != typeof(TransactionCrudVM).Namespace) goto Reload;
+            if (e.DTO.DocRefType != typeof(TransactionCrudVM).FullName) goto Reload;
 
-            //if (IsEditable(e.DTO) &&
-            //    AppArgs.CanDeleteBankTransaction(true))
-            //        _repo1.Delete(e.DTO);
-            //todo: test this
             _repo1.DeleteAndUpdateBalances(e.DTO);
 
             Reload:
@@ -103,10 +99,6 @@ namespace PassbookTally.CrudApp.TransactionLog
             Filter.RemoveNonMatches(ref list);
             Rows.SetItems(list);
         }
-
-
-        //private bool IsEditable(SoaRowDTO dto)
-        //    => dto.DocRefType == typeof(TransactionCrudVM).Namespace;
 
 
         protected override Func<SoaRowDTO, decimal> SummedAmount => _ => _.Amount;

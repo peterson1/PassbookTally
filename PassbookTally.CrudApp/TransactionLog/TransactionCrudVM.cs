@@ -41,7 +41,7 @@ namespace PassbookTally.CrudApp.TransactionCRUD
 
         private void TweakThenSave(SoaRowDTO dto)
         {
-            dto.DocRefType = this.GetType().Namespace;
+            dto.DocRefType = this.GetType().FullName;
             dto.DateOffset = TransactionDate.SoaRowOffset();
             dto.Amount     = Math.Abs(dto.Amount) 
                             * (IsDeposit ? 1.0M : -1.0M);

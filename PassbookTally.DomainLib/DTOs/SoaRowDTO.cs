@@ -21,6 +21,7 @@ namespace PassbookTally.DomainLib.DTOs
         public decimal   RunningBalance   { get; set; }//??
         public string    DocRefType       { get; set; }
         public int       DocRefId         { get; set; }
+        public string    DocRefJson       { get; set; }
 
 
         public static SoaRowDTO Deposit(DateTime transactionDate, 

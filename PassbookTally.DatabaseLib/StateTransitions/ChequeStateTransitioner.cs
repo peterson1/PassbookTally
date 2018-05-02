@@ -1,5 +1,6 @@
 ﻿using PassbookTally.DatabaseLib.Repositories;
 using PassbookTally.DomainLib.DTOs;
+using CommonTools.Lib11.JsonTools;
 using System;
 
 namespace PassbookTally.DatabaseLib.StateTransitions
@@ -8,6 +9,7 @@ namespace PassbookTally.DatabaseLib.StateTransitions
     {
         public static void ToPreparedCheque(this PassbookDB pbk, FundRequestDTO req, int chequeNumber, DateTime chequeDate)
         {
+            //if (ChequeExists(chequeNumber, pbk)) return;
             pbk.ActiveCheques.Insert(new RequestedChequeDTO
             {
                 Request       = req,
@@ -17,6 +19,14 @@ namespace PassbookTally.DatabaseLib.StateTransitions
             pbk.InactiveRequests.Insert(req);
             pbk.ActiveRequests.Delete(req);
         }
+
+
+        //todo: implem this
+        //private static bool ChequeExists(int chequeNumber, PassbookDB pbk)
+        //{
+        //    //var exists = pbk.InactiveCheques
+        //    throw new NotImplementedException();
+        //}
 
 
         public static void ToIssuedCheque(this PassbookDB pbk, RequestedChequeDTO cheque, string issuedTo, DateTime issuedDate)
@@ -32,7 +42,7 @@ namespace PassbookTally.DatabaseLib.StateTransitions
             //txnsRepo.Withdraw(clearedDate, req.Payee, req.Purpose, req.Amount.Value, chq.ChequeNumber.ToString());
             var dto = ToClearedTransaction(chq, clearedDate);
             txnsRepo.UpsertAndUpdateBalances(dto);
-            pbk.InactiveCheques.Insert(chq);
+            //pbk.InactiveCheques.Insert(chq);
             pbk.ActiveCheques.Delete(chq);
         }
 
@@ -44,7 +54,8 @@ namespace PassbookTally.DatabaseLib.StateTransitions
                         req.Payee, req.Purpose, req.Amount.Value,
                         chq.ChequeNumber.ToString());
             dto.DocRefId   = chq.Id;
-            dto.DocRefType = chq.GetType().Namespace;
+            dto.DocRefType = chq.GetType().FullName;
+            dto.DocRefJson = chq.ToJson(true);
             return dto;
         }
     }

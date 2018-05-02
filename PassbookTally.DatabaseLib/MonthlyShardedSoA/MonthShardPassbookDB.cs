@@ -33,7 +33,7 @@ namespace PassbookTally.DatabaseLib.MonthlyShardedSoA
             => new MonthShardSoaRepo(baseBalance, baseDate, this);
 
 
-        internal SoaRowsRepo1 GetMonthRepo(DateTime date)
+        public SoaRowsRepo1 GetMonthRepo(DateTime date)
         {
             var day1 = date.MonthFirstDay();
             if (_idx.TryGetValue(day1, out SoaRowsRepo1 repo))
