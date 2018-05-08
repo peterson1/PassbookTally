@@ -34,7 +34,7 @@ namespace PassbookTally.CrudApp.IssuedCheques
             var chq = ItemsList.CurrentItem;
             if (chq == null) return;
 
-            if (!PopUpInput.TryGetDate("Date Cleared", out DateTime clearedDate)) return;
+            if (!PopUpInput.TryGetDate("Date Cleared", out DateTime clearedDate, chq.ChequeDate)) return;
             AppArgs.DCDR.ToBankTransaction(chq, clearedDate, _mainWin.GetSoaRepo());
             _mainWin.ClickRefresh();
         }
